@@ -1,0 +1,65 @@
+import { shallowRef } from 'vue';
+import * as Cesium from 'cesium';
+
+// Instance Cesium Viewer disimpan di shallowRef agar tidak terkena deep proxy Vue
+export const viewer = shallowRef(null);
+
+export function useCesium() {
+  const initViewer = async (containerId) => {
+    // Pusat Kelurahan Bontang Kuala
+    const defaultLng = 117.5169;
+    const defaultLat = 0.1415;
+    const defaultAlt = 1500;
+
+    const v = new Cesium.Viewer(containerId, {
+      animation: false,
+      timeline: false,
+      navigationHelpButton: false,
+      sceneModePicker: false,
+      homeButton: false,
+      geocoder: false,
+      baseLayerPicker: false,
+      fullscreenButton: false,
+      infoBox: false,
+      selectionIndicator: false,
+      baseLayer: false
+    });
+
+    // Rendering optimization
+    v.resolutionScale = Math.min(window.devicePixelRatio, 1.5);
+    v.scene.globe.depthTestAgainstTerrain = true;
+    v.scene.globe.enableLighting = false;
+
+    // Set Initial Camera
+    v.camera.setView({
+      destination: Cesium.Cartesian3.fromDegrees(defaultLng, defaultLat, defaultAlt),
+      orientation: {
+        heading: Cesium.Math.toRadians(0),
+        pitch: Cesium.Math.toRadians(-45),
+        roll: 0.0
+      }
+    });
+
+    viewer.value = v;
+    return v;
+  };
+
+  const flyToBontang = () => {
+    if (!viewer.value) return;
+    viewer.value.camera.flyTo({
+      destination: Cesium.Cartesian3.fromDegrees(117.5169, 0.1415, 1500),
+      orientation: {
+        heading: Cesium.Math.toRadians(15),
+        pitch: Cesium.Math.toRadians(-45),
+        roll: 0
+      },
+      duration: 2.0
+    });
+  };
+
+  return {
+    viewer,
+    initViewer,
+    flyToBontang
+  };
+}

@@ -1,0 +1,79 @@
+# =====================================================================
+# .gitignore — Digital Twin Kota Bontang (spectra)
+# Catatan: jangan pakai prefix "./" (tidak dikenali Git).
+# =====================================================================
+
+# --- Dependensi & build (frontend) ---
+node_modules/
+dist/
+dist-ssr/
+.vite/
+*.local
+
+# --- Data pipeline: data besar, JANGAN di-commit ---
+# Hanya scripts/ (dan docker/) yang dilacak. Folder dipertahankan lewat .gitkeep.
+data-pipeline/raw/*
+!data-pipeline/raw/.gitkeep
+data-pipeline/processed/*
+!data-pipeline/processed/.gitkeep
+
+# --- Aset 3D salinan untuk dev (sumber kebenaran: data-pipeline/processed/) ---
+frontend/public/tiles/*
+!frontend/public/tiles/.gitkeep
+
+# --- Format data geospasial & 3D berukuran besar (di mana pun) ---
+*.city.json
+*.tif
+*.tiff
+*.tfw
+*.terrain
+*.glb
+*.b3dm
+*.las
+*.laz
+*.gpkg
+*.shp
+*.dbf
+*.shx
+*.prj
+*.mbtiles
+
+# --- Rahasia & konfigurasi lokal ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+
+# --- Backend (Python / PHP) — antisipasi, framework belum diputuskan ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+vendor/
+storage/logs/
+bootstrap/cache/
+
+# --- Docker volume lokal (PostGIS / GeoServer / MinIO) ---
+docker-data/
+pgdata/
+minio-data/
+geoserver-data/
+
+# --- Log & temporary ---
+*.log
+npm-debug.log*
+tmp/
+.tmp/
+.cache/
+
+# --- Editor & OS ---
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

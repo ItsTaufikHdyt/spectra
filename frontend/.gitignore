@@ -1,0 +1,4 @@
+# Aturan utama ada di .gitignore root. File ini hanya pelengkap lokal frontend.
+node_modules/
+dist/
+*.local
