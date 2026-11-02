@@ -23,6 +23,18 @@ Catatan teknis:
   * geometricError root master sengaja besar (default 4x error terbesar kelurahan).
     Root master tidak punya konten; Cesium hanya menelusuri anaknya bila SSE root
     melebihi batas. Error kecil membuat seluruh kota "hilang" saat kamera menjauh.
+  * TODO(ETL) — bangunan hilang saat kamera jauh. Root tileset 14 dari 15 kelurahan
+    (semua kecuali bontang_lestari) TIDAK punya konten, refine REPLACE, geometricError
+    28–247 m. Cesium baru memuat anaknya bila SSE root > maximumScreenSpaceError,
+    jadi dari jauh tidak ada yang dirender. Frontend sementara menampilkan kotak
+    ikhtisar per kelurahan (use3DTiles.js: buildKelurahanOverview). Perbaikan permanen
+    di tahap konversi (03_run_tyler, belum ada di repo), bukan di skrip ini:
+      1. Per kelurahan, buat mesh kasar: ekstrusi footprint LOD1 (atau LOD2 yang
+         didesimasi) seluruh bangunan, digabung jadi satu root.glb kecil (< 1–2 MB).
+      2. Pasang sebagai root.content di <slug>/tileset.json, pertahankan refine
+         REPLACE dan geometricError root (anak menggantikan root saat mendekat).
+      3. Jalankan ulang skrip ini (+ --sync); inspect_kelurahan sudah memvalidasi
+         keberadaan konten root. Setelah itu ikhtisar sisi klien boleh dihapus.
   * Tile yang kontennya tileset eksternal SELALU ditelusuri Cesium, jadi refine pada
     root master ("ADD") tidak mengubah tampilan (root tanpa konten); disediakan
     sesuai spesifikasi dan dapat diganti lewat --refine.

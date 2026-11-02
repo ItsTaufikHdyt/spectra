@@ -28,6 +28,12 @@ export const TILESET_OPTIONS = Object.freeze({
   skipLevelOfDetail: true
 });
 
+// Ikhtisar kelurahan (LOD kasar sisi klien) — lihat buildKelurahanOverview().
+const OVERVIEW_ID_PREFIX = 'ikhtisar-kelurahan:';
+const OVERVIEW_COLOR = Cesium.Color.fromCssColorString('#38bdf8'); // bontang.accent
+// Nominal tinggi layar untuk memperkirakan jarak hilangnya bangunan (piksel).
+const NOMINAL_SCREEN_HEIGHT = 1080;
+
 // Kandidat nama properti metadata (jika suatu saat tile membawa EXT_structural_metadata).
 const ID_KEYS = ['id', 'gml_id', 'gmlId', 'identifier', 'objectid'];
 const NAME_KEYS = ['name', 'nama'];
@@ -44,6 +50,7 @@ const loadError = shallowRef(null);
 
 let pickHandler = null; // ScreenSpaceEventHandler — WAJIB di-destroy
 let selectionMarker = null; // entity penanda titik klik
+let overviewSource = null; // CustomDataSource ikhtisar kelurahan (bukan ref)
 let removeTileFailedListener = null;
 let visibilityScope = null; // effectScope terpisah dari siklus hidup komponen
 let loadingPromise = null;
@@ -148,9 +155,76 @@ const fetchKelurahanIndex = async (url) => {
     .map((child) => {
       const slug = (child.content?.uri ?? '').split('/')[0];
       const region = child.boundingVolume?.region;
-      return slug && region?.length === 6 ? { slug, name: slugToName(slug), region } : null;
+      return slug && region?.length === 6
+        ? { slug, name: slugToName(slug), region, geometricError: child.geometricError ?? 0 }
+        : null;
     })
     .filter(Boolean);
+};
+
+/**
+ * Jarak kamera (m) di mana root kelurahan mulai ditelusuri Cesium, yaitu saat
+ * SSE root = geometricError * tinggiLayar / (jarak * 2 * tan(fovy/2)) melampaui batas.
+ * Perkiraan nominal (layar 1080 px); dynamicScreenSpaceError bisa menggesernya.
+ */
+const buildingsVisibleWithin = (geometricError, fovy) =>
+  (geometricError * NOMINAL_SCREEN_HEIGHT) /
+  (TILESET_OPTIONS.maximumScreenSpaceError * 2 * Math.tan(fovy / 2));
+
+/**
+ * LOD kasar sisi klien: kotak region tiap kelurahan + label, hanya tampil saat kamera
+ * cukup jauh sehingga bangunan belum dirender (root kelurahan tanpa konten).
+ * Sumbernya region di master-tileset.json (hasil ETL), bukan GeoJSON/CityJSON mentah.
+ *
+ * shortcut: kotak bounding region, bukan footprint nyata; ganti bila ETL sudah
+ * membuat konten root kasar (lihat TODO(ETL) di data-pipeline/scripts/04_build_master.py).
+ */
+const buildKelurahanOverview = (v, list) => {
+  const source = new Cesium.CustomDataSource('ikhtisar-kelurahan');
+  const fovy = v.camera.frustum.fovy ?? Cesium.Math.toRadians(60);
+
+  for (const k of list) {
+    // geometricError 0 = root sudah berkonten (mis. bontang_lestari): bangunan selalu tampil.
+    if (!(k.geometricError > 0)) continue;
+    // Muncul sedikit sebelum bangunan hilang (faktor 0,8) agar tidak ada jeda kosong.
+    const near = buildingsVisibleWithin(k.geometricError, fovy) * 0.8;
+    const showFar = new Cesium.DistanceDisplayCondition(near, Number.POSITIVE_INFINITY);
+    const [w, s, e, n] = k.region;
+    const rect = Cesium.Rectangle.fromRadians(w, s, e, n);
+
+    source.entities.add({
+      id: `${OVERVIEW_ID_PREFIX}${k.slug}`,
+      name: k.name,
+      rectangle: {
+        coordinates: rect,
+        height: 0, // tinggi eksplisit: outline tidak didukung pada geometri clamp-to-ground
+        material: OVERVIEW_COLOR.withAlpha(0.18),
+        outline: true,
+        outlineColor: OVERVIEW_COLOR.withAlpha(0.9),
+        distanceDisplayCondition: showFar
+      },
+      position: Cesium.Cartesian3.fromRadians((w + e) / 2, (s + n) / 2, 0),
+      label: {
+        text: k.name,
+        font: '600 13px Inter, system-ui, sans-serif',
+        fillColor: Cesium.Color.WHITE,
+        outlineColor: Cesium.Color.fromCssColorString('#020617'),
+        outlineWidth: 3,
+        style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+        disableDepthTestDistance: Number.POSITIVE_INFINITY,
+        distanceDisplayCondition: showFar
+      }
+    });
+  }
+  return source;
+};
+
+/** Slug kelurahan bila objek pick adalah entity ikhtisar; selain itu null. */
+const overviewSlugOf = (picked) => {
+  const id = picked?.id?.id;
+  return typeof id === 'string' && id.startsWith(OVERVIEW_ID_PREFIX)
+    ? id.slice(OVERVIEW_ID_PREFIX.length)
+    : null;
 };
 
 const round = (n, digits) => Number(n.toFixed(digits));
@@ -174,6 +248,9 @@ const releaseResources = () => {
 
   removeTileFailedListener?.();
   removeTileFailedListener = null;
+
+  if (overviewSource && isViewerAlive()) viewer.value.dataSources.remove(overviewSource, true);
+  overviewSource = null;
 
   const tileset = tilesetRef.value;
   tilesetRef.value = null;
@@ -210,6 +287,7 @@ export function use3DTiles() {
           if (tilesetRef.value && !tilesetRef.value.isDestroyed()) {
             tilesetRef.value.show = isActive; // show=false menghentikan traversal & request tile
           }
+          if (overviewSource) overviewSource.show = isActive;
           if (!isActive) {
             clearSelectionVisuals();
             objectStore.clearSelection();
@@ -259,6 +337,11 @@ export function use3DTiles() {
         if (generation !== loadGeneration) return null; // dibatalkan saat fetch indeks
         kelurahanList.value = list;
 
+        overviewSource = buildKelurahanOverview(v, list);
+        overviewSource.show = mapStore.is3DTilesActive;
+        await v.dataSources.add(overviewSource);
+        if (generation !== loadGeneration) return null; // release sudah melepas overviewSource
+
         console.log(`[use3DTiles] Master tileset dimuat (${list.length} kelurahan)`);
         return tileset;
       } catch (err) {
@@ -282,7 +365,17 @@ export function use3DTiles() {
 
     clearSelectionVisuals();
 
-    const hit = resolvePick(scene.pick(movement.position));
+    const picked = scene.pick(movement.position);
+
+    // Klik kotak ikhtisar kelurahan (kamera jauh) -> terbang ke kelurahan tersebut.
+    const overviewSlug = overviewSlugOf(picked);
+    if (overviewSlug) {
+      objectStore.clearSelection();
+      flyToKelurahan(overviewSlug);
+      return;
+    }
+
+    const hit = resolvePick(picked);
     if (!hit) {
       objectStore.clearSelection();
       return;
