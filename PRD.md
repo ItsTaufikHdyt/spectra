@@ -1,8 +1,8 @@
 # MASTER HANDOFF & PRD: DIGITAL TWIN KOTA BONTANG (3D WEB GIS)
 
 > **Nama Proyek / Repositori:** `spectra` (Digital Twin Kota Bontang)
-> **Versi Dokumen:** 1.1
-> **Terakhir Diperbarui:** 2026-10-09
+> **Versi Dokumen:** 1.2
+> **Terakhir Diperbarui:** 2026-11-02
 > **Status Global:** Transisi POC → Scale-Up Skala Kota (15 Kelurahan)
 
 ---
@@ -21,26 +21,29 @@ Tahap selanjutnya adalah **Scale-Up Skala Kota (15 Kelurahan)** dengan data bang
 
 ## 2. Status Proyek Saat Ini (Snapshot Implementasi)
 
-Bagian ini merefleksikan kondisi repositori secara aktual agar tidak terjadi kesalahpahaman antara rencana PRD dan apa yang sudah dibangun.
+Ringkasan kondisi repositori per **2026-11-02**. Rincian verifikasi dan hutang teknis lengkap
+ada di `STATUS.md` (sumber kebenaran status). Catatan: §4 (struktur), §5.2 (data mentah) dan
+§7–§8 masih ditulis dari sudut pandang awal proyek; bila bertentangan, ikuti §2 ini dan `STATUS.md`.
 
 ### 2.1. Status per Modul
 
 | Modul | Status | Keterangan |
 |-------|--------|------------|
-| `frontend/` | 🟡 **Scaffolding berjalan** | Vue 3 + Vite + Cesium 1.119 + Pinia + Tailwind. Viewer, basemap, panel UI, picking sudah ada. Terrain & orthophoto belum tersambung. |
-| `data-pipeline/` | 🔴 **Belum dieksekusi** | Hanya tersedia 1 data mentah (Kelurahan Bontang Kuala). Folder `scripts/` & `processed/` masih kosong. |
-| `backend/` | ⚪ **Kosong / belum dimulai** | Framework (Laravel vs FastAPI) belum diputuskan final. |
-| Git / Versioning | 🔴 **Belum diinisialisasi** | Direktori belum menjadi git repository. |
+| `frontend/` | 🟡 **Berjalan, render belum diuji penuh** | Vue 3 + Vite 5 + Cesium **1.146.0** (di-pin) + Pinia + Tailwind. Memuat satu `master-tileset.json` (15 kelurahan), picking `LEFT_CLICK`, ikhtisar kelurahan untuk kamera jauh, penanganan error init viewer, state atribut bangunan. Terrain & orthophoto belum ada (UI menampilkan "Segera hadir"). |
+| `data-pipeline/` | 🟡 **Sebagian** | Data mentah CityJSON **15 kelurahan** ada di `raw/3d/` (±281 MB, sebagian masih berupa beberapa part). 3D Tiles v1.1 sudah jadi untuk 15 kelurahan (`processed/3dtiles/`, 125 `.glb`, ±131 MB) + `master-tileset.json`. Di repo hanya ada `scripts/04_build_master.py`; langkah merge/clean (`cjio`) dan konversi (`tyler`) dijalankan di luar repo — belum reproducible. |
+| `backend/` | ⚪ **Belum dimulai** | Framework (Laravel vs FastAPI) belum diputuskan. Frontend sudah menyiapkan klien lookup atribut (`services/buildingAttributes.js`, aktif bila `VITE_API_BASE_URL` diisi). |
+| Git / Versioning | 🟡 **Lokal** | Repositori git aktif (branch `master` + branch kerja), belum ada remote. `.gitignore` sudah benar: hanya `raw/*`, `processed/*`, `frontend/public/tiles/*` yang di-ignore; `scripts/` dilacak. |
 | Docker / Orkestrasi | 🔴 **Belum ada** | `docker-compose.yml` belum dibuat. |
 
 ### 2.2. Hutang Teknis & Catatan Prioritas (Known Gaps)
 
-1. **Terrain belum tersambung.** `useLayers.js` masih memakai `EllipsoidTerrainProvider()` (bola kosong) pada kedua cabang toggle ON/OFF. Belum ada quantized-mesh terrain 1m lokal maupun Cesium World Terrain yang di-wire.
-2. **Orthophoto & opacity belum diimplementasi.** State `isOrthophotoActive` dan `orthoOpacity` ada di `mapStore`, tetapi belum ada imagery layer orthophoto yang dibuat di `useLayers.js` (state tidak terpakai).
-3. **`master-tileset.json` belum tersedia.** `load3DTiles()` saat ini selalu gagal secara graceful (`console.warn`) karena data 3D Tiles belum di-generate.
-4. **`.gitignore` perlu diperbaiki.** Format saat ini (`./data-pipeline/`, `./node_modules/`) tidak dikenali Git dengan benar; prefix `./` harus dihapus. Selain itu, meng-ignore seluruh `data-pipeline/` juga akan menyembunyikan `scripts/` yang semestinya di-commit — hanya `raw/` dan `processed/` yang perlu di-ignore.
-5. **Komponen PRD belum lengkap.** Direktori terencana yang belum ada: `components/simulation/`, `components/common/`, `composables/useObjectSelect.js`, `services/`, `stores/layerStore.js`.
-6. **Keputusan backend tertunda.** Pilih Laravel atau FastAPI sebelum merancang skema PostGIS (Milestone 4).
+1. **Atribut bangunan tidak ada di tile.** Seluruh `.glb` hanya membawa `EXT_mesh_features` (tanpa `EXT_structural_metadata`); CityJSON mentah yang diperiksa juga tanpa `attributes`. Panel info hanya bisa menampilkan kelurahan, tile, dan koordinat. Butuh sumber atribut + ID bangunan permanen di tile.
+2. **Root tile kelurahan tanpa konten** (14 dari 15, kecuali `bontang_lestari`). Dari jauh tidak ada bangunan dirender; frontend sementara menampilkan kotak ikhtisar per kelurahan. Perbaikan permanen di ETL — lihat `TODO(ETL)` di `04_build_master.py`.
+3. **Terrain DTM 1m belum tersedia** di proyek (tidak ada quantized-mesh/`layer.json`). Toggle disembunyikan sampai data ada.
+4. **Orthophoto belum ada.** State orthophoto sudah dihapus dari `mapStore`; tambahkan kembali bersama layer-nya.
+5. **Skrip ETL `01`–`03` belum di repo** (merge, clean, tyler).
+6. **Aset dev ikut ke `dist/`.** `frontend/public/tiles/` (±126 MB) tersalin saat `npm run build`; produksi seharusnya dari MinIO/storage.
+7. **Keputusan backend tertunda.** Pilih Laravel atau FastAPI sebelum merancang skema PostGIS (Milestone 4).
 
 ---
 
