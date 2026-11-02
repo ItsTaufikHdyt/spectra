@@ -7,16 +7,38 @@ import { getSimulation } from '@/simulations';
 /**
  * Bagian legenda (data biasa, dipakai bersama oleh layer dan simulasi):
  *  - Kategorikal: { id, title, type: 'categorical', items: [{ label, color, shape }] }
- *      shape: 'fill' | 'outline' | 'dot'
+ *      shape: 'fill' | 'outline' | 'dot' | 'line' | 'line-thin'
  *  - Skala warna: { id, title, type: 'gradient', unit, stops: [{ value, color }] }
  *      stops urut naik; label min/maks diformat id-ID.
  */
 export function useLegend() {
   const mapStore = useMapStore();
 
+  const vectorSections = computed(() => {
+    const out = [];
+    const boundaries = [
+      mapStore.isKelurahanActive && { label: 'Batas kelurahan', color: MAP_COLORS.kelurahan, shape: 'line' },
+      mapStore.isRtActive && { label: 'Batas RT', color: MAP_COLORS.rt, shape: 'line-thin' }
+    ].filter(Boolean);
+    if (boundaries.length) out.push({ id: 'batas-wilayah', title: 'Batas wilayah', type: 'categorical', items: boundaries });
+    if (mapStore.isSungaiActive) {
+      out.push({
+        id: 'hidrologi',
+        title: 'Hidrologi',
+        type: 'categorical',
+        items: [
+          { label: 'Sungai', color: MAP_COLORS.sungai, shape: 'line' },
+          { label: 'Drainase', color: MAP_COLORS.drainase, shape: 'line' }
+        ]
+      });
+    }
+    return out;
+  });
+
   const layerSections = computed(() => {
-    if (!mapStore.is3DTilesActive) return [];
+    if (!mapStore.is3DTilesActive) return vectorSections.value;
     return [
+      ...vectorSections.value,
       {
         id: 'bangunan',
         title: 'Bangunan',

@@ -35,6 +35,7 @@ import { useCesium } from '@/composables/useCesium';
 import { useLayers } from '@/composables/useLayers';
 import { use3DTiles } from '@/composables/use3DTiles';
 import { releaseSimulation } from '@/composables/useSimulation';
+import { useVectorLayers } from '@/composables/useVectorLayers';
 import { useSimulationStore } from '@/stores/simulationStore';
 
 const status = ref('loading'); // 'loading' | 'ready' | 'error'
@@ -45,6 +46,7 @@ const { initViewer, destroyViewer } = useCesium();
 const { initBasemaps } = useLayers();
 const { load3DTiles, unload3DTiles, setupTilePicking, zoomToBontangKuala } = use3DTiles();
 const simulationStore = useSimulationStore();
+const { startVectorLayers, releaseVectorLayers } = useVectorLayers();
 
 let disposed = false;
 
@@ -52,6 +54,7 @@ let disposed = false;
 const teardown = () => {
   releaseSimulation();
   simulationStore.reset();
+  releaseVectorLayers();
   unload3DTiles();
   destroyViewer();
 };
@@ -80,6 +83,9 @@ const start = async () => {
     console.warn('[CesiumCanvas] Basemap gagal dimuat:', err.message);
   }
   if (disposed) return;
+
+  // Layer vektor dimuat paralel dengan tileset (tidak saling bergantung); gagal tidak fatal.
+  startVectorLayers();
 
   // Kegagalan tileset tidak fatal: load3DTiles mengembalikan null dan mengisi loadError.
   const tileset = await load3DTiles();

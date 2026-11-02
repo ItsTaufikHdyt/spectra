@@ -19,7 +19,7 @@
 
         <ul v-if="s.type === 'categorical'" class="space-y-1">
           <li v-for="item in s.items" :key="item.label" class="flex items-center gap-2">
-            <span class="w-3.5 h-3.5 shrink-0" :class="swatchClass(item.shape)" :style="swatchStyle(item)" aria-hidden="true"></span>
+            <span class="w-3.5 shrink-0" :class="swatchClass(item.shape)" :style="swatchStyle(item)" aria-hidden="true"></span>
             <span>{{ item.label }}</span>
           </li>
         </ul>
@@ -45,7 +45,13 @@ const open = ref(true);
 const { sections } = useLegend();
 
 const swatchClass = (shape) =>
-  ({ dot: 'rounded-full scale-75', outline: 'rounded-sm border-2', fill: 'rounded-sm' })[shape] ?? 'rounded-sm';
+  ({
+    dot: 'h-3.5 rounded-full scale-75',
+    outline: 'h-3.5 rounded-sm border-2',
+    fill: 'h-3.5 rounded-sm',
+    line: 'h-[3px] rounded-full',
+    'line-thin': 'h-px'
+  })[shape] ?? 'h-3.5 rounded-sm';
 
 const swatchStyle = (item) =>
   item.shape === 'outline' ? { borderColor: item.color } : { backgroundColor: item.color };

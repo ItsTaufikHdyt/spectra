@@ -50,7 +50,7 @@ Satu simulasi aktif pada satu waktu. Mengaktifkan simulasi lain otomatis melepas
 ```js
 // Kategorikal
 { id: 'kelas-genangan', title: 'Kelas genangan', type: 'categorical',
-  items: [{ label: 'Rendah', color: '#9ecae1', shape: 'fill' }] }   // shape: fill | outline | dot
+  items: [{ label: 'Rendah', color: '#9ecae1', shape: 'fill' }] }   // shape: fill | outline | dot | line | line-thin
 
 // Skala warna — stops urut naik, label min/maks diformat id-ID otomatis
 { id: 'kedalaman', title: 'Kedalaman genangan', type: 'gradient', unit: 'm',

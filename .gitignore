@@ -20,6 +20,8 @@ data-pipeline/processed/*
 # --- Aset 3D salinan untuk dev (sumber kebenaran: data-pipeline/processed/) ---
 frontend/public/tiles/*
 !frontend/public/tiles/.gitkeep
+# GeoJSON salinan untuk dev (sumber kebenaran: data-pipeline/processed/geojson/, lihat sync_geojson.py)
+frontend/public/geojson/
 
 # --- Format data geospasial & 3D berukuran besar (di mana pun) ---
 *.city.json

@@ -26,24 +26,24 @@
     <section aria-labelledby="judul-lapisan" class="space-y-2">
       <h2 id="judul-lapisan" class="text-small font-semibold text-bontang-muted">Lapisan</h2>
       <ul class="rounded-lg border border-bontang-line divide-y divide-bontang-line">
-        <li class="flex items-start justify-between gap-3 p-3">
+        <li v-for="row in LAYER_ROWS" :key="row.id" class="flex items-start justify-between gap-3 p-3">
           <div>
-            <p id="label-bangunan" class="font-medium">Bangunan 3D</p>
-            <p class="text-small text-bontang-muted">LOD2, 15 kelurahan. Dari jauh tampil sebagai kotak kelurahan.</p>
-            <p v-if="loadError" class="mt-1 text-small text-bontang-danger">Gagal dimuat: {{ loadError }}</p>
+            <p :id="`label-${row.id}`" class="font-medium">{{ row.label }}</p>
+            <p class="text-small text-bontang-muted">{{ row.note }}</p>
+            <p v-if="rowError(row.id)" class="mt-1 text-small text-bontang-danger">Gagal dimuat: {{ rowError(row.id) }}</p>
           </div>
           <button
             type="button"
             role="switch"
-            :aria-checked="mapStore.is3DTilesActive"
-            aria-labelledby="label-bangunan"
+            :aria-checked="mapStore[row.flag]"
+            :aria-labelledby="`label-${row.id}`"
             class="relative mt-0.5 w-9 h-5 shrink-0 rounded-full border motion-safe:transition-colors"
-            :class="mapStore.is3DTilesActive ? 'bg-bontang-accent border-bontang-accent' : 'bg-bontang-ink border-bontang-edge'"
-            @click="mapStore.is3DTilesActive = !mapStore.is3DTilesActive"
+            :class="mapStore[row.flag] ? 'bg-bontang-accent border-bontang-accent' : 'bg-bontang-ink border-bontang-edge'"
+            @click="mapStore[row.flag] = !mapStore[row.flag]"
           >
             <span
               class="absolute top-0.5 left-0.5 w-3.5 h-3.5 rounded-full motion-safe:transition-transform"
-              :class="mapStore.is3DTilesActive ? 'translate-x-4 bg-bontang-accent-ink' : 'bg-bontang-muted'"
+              :class="mapStore[row.flag] ? 'translate-x-4 bg-bontang-accent-ink' : 'bg-bontang-muted'"
               aria-hidden="true"
             ></span>
           </button>
@@ -100,12 +100,21 @@
 import { ref } from 'vue';
 import { useMapStore } from '@/stores/mapStore';
 import { use3DTiles } from '@/composables/use3DTiles';
+import { useVectorLayers } from '@/composables/useVectorLayers';
 import { formatNumber } from '@/utils/format';
 import SimulationPanel from '@/components/simulation/SimulationPanel.vue';
 
 const BASEMAPS = [
   { id: 'arcgis', label: 'Citra satelit' },
   { id: 'osm', label: 'OpenStreetMap' }
+];
+
+// Toggle layer; `flag` = nama state di mapStore.
+const LAYER_ROWS = [
+  { id: 'bangunan', flag: 'is3DTilesActive', label: 'Bangunan 3D', note: 'LOD2, 15 kelurahan. Dari jauh tampil sebagai kotak kelurahan.' },
+  { id: 'kelurahan', flag: 'isKelurahanActive', label: 'Batas kelurahan', note: 'Garis putih tebal.' },
+  { id: 'rt', flag: 'isRtActive', label: 'Batas RT', note: 'Termasuk RT di pulau. Dimuat saat dinyalakan.' },
+  { id: 'sungai', flag: 'isSungaiActive', label: 'Sungai dan drainase', note: 'Sungai biru; drainase hijau toska.' }
 ];
 
 const UPCOMING_LAYERS = [
@@ -115,6 +124,9 @@ const UPCOMING_LAYERS = [
 
 const mapStore = useMapStore();
 const { tilesetRef, kelurahanList, loadError, zoomToKota, flyToKelurahan } = use3DTiles();
+const { layerErrors } = useVectorLayers();
+
+const rowError = (id) => (id === 'bangunan' ? loadError.value : layerErrors.value[id]);
 
 // Penanda tujuan navigasi terakhir (bukan lokasi kamera sebenarnya).
 const activeSlug = ref('bontang_kuala');
