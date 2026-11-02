@@ -168,6 +168,12 @@ const fetchKelurahanIndex = async (url) => {
  * SSE root = geometricError * tinggiLayar / (jarak * 2 * tan(fovy/2)) melampaui batas.
  * Perkiraan nominal (layar 1080 px); dynamicScreenSpaceError bisa menggesernya.
  */
+/** fovy kamera; fallback 60° bila frustum belum valid (kanvas belum berukuran -> NaN). */
+const cameraFovy = (v) => {
+  const f = v?.camera?.frustum?.fovy;
+  return Number.isFinite(f) && f > 0 ? f : Cesium.Math.toRadians(60);
+};
+
 const buildingsVisibleWithin = (geometricError, fovy) =>
   (geometricError * NOMINAL_SCREEN_HEIGHT) /
   (TILESET_OPTIONS.maximumScreenSpaceError * 2 * Math.tan(fovy / 2));
@@ -182,7 +188,7 @@ const buildingsVisibleWithin = (geometricError, fovy) =>
  */
 const buildKelurahanOverview = (v, list) => {
   const source = new Cesium.CustomDataSource('ikhtisar-kelurahan');
-  const fovy = v.camera.frustum.fovy ?? Cesium.Math.toRadians(60);
+  const fovy = cameraFovy(v);
 
   for (const k of list) {
     // geometricError 0 = root sudah berkonten (mis. bontang_lestari): bangunan selalu tampil.
@@ -475,9 +481,10 @@ export function use3DTiles() {
     // konten), sehingga yang tampil hanya kotak ikhtisar. Batasi agar bangunan ikut dimuat.
     let range = 0;
     if (item.geometricError > 0) {
-      const fovy = viewer.value?.camera.frustum.fovy ?? Cesium.Math.toRadians(60);
+      const fovy = cameraFovy(viewer.value);
       const fitRange = sphere.radius / Math.sin(fovy / 2);
       range = Math.min(fitRange, buildingsVisibleWithin(item.geometricError, fovy) * 0.75);
+      if (!Number.isFinite(range) || range <= 0) range = 0; // 0 = jarak otomatis Cesium
     }
     flyToSphere(sphere, { range, ...options });
   };
