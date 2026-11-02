@@ -59,6 +59,9 @@
       </ul>
     </section>
 
+    <!-- Layer dari geoportal (WFS/CSW lewat backend) -->
+    <GeoportalPanel />
+
     <!-- Navigasi -->
     <section aria-labelledby="judul-navigasi" class="space-y-2">
       <div class="flex items-baseline justify-between">
@@ -103,6 +106,7 @@ import { use3DTiles } from '@/composables/use3DTiles';
 import { useVectorLayers } from '@/composables/useVectorLayers';
 import { formatNumber } from '@/utils/format';
 import SimulationPanel from '@/components/simulation/SimulationPanel.vue';
+import GeoportalPanel from '@/components/panels/GeoportalPanel.vue';
 
 const BASEMAPS = [
   { id: 'arcgis', label: 'Citra satelit' },

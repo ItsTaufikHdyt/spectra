@@ -56,6 +56,11 @@ Legenda: 🟢 selesai & terverifikasi · 🟡 sebagian · 🔴 belum ada · ⚪ 
 - Geoportal anonim (tanpa autentikasi): WFS 2.0.0 dengan 23 FeatureType, CSW pycsw dengan 25 record ISO 19139. Kelurahan, RT, dan sungai di WFS **identik** dengan `raw/geojson/` (koordinat persis sama; hanya tipe `objectid` string vs angka). 20 FeatureType belum punya padanan lokal (banjir 2019–2026, rawan bencana, kecamatan, jalan, fasilitas kesehatan, dll.).
 - GeoJSON lokal tetap jalur utama (prioritas 1); output adapter lokal identik dengan `processed/geojson/` lama. Output baru: `processed/sources/*.geojson`, `processed/catalog/records.json`; respons mentah di `raw/remote/<id>/<timestamp>/`. Deterministik (diuji 3× run).
 
+### Layer geoportal dari website (2026-11-02, belum di-commit)
+- `backend/` (FastAPI): `/api/sources/inspect` (WFS/CSW), `/api/layers` (tambah, daftar, ubah, refresh, hapus, data). Memakai ulang adapter `data-pipeline/scripts/sources/` (mode **generik** baru di `base.py`; tiga layer bawaan dan `fetch_sources.py` tidak berubah, hash output identik). Registry JSON + cache di `processed/user_layers/`. Allowlist host di `backend/config/allowed_hosts`. Batas 20.000 fitur / 50 MB; di atasnya hanya WMS. Tes: `backend/.venv/bin/pytest backend` (20 lulus).
+- Frontend: panel "Data geoportal" (`GeoportalPanel.vue`, `RemoteLayerItem.vue`), `stores/remoteLayerStore.js`, `composables/useRemoteLayers.js`, proxy Vite `/api` → `127.0.0.1:8100`. Klik fitur → atribut di panel info. Diuji end-to-end di Chromium headless (CDP, waktu nyata): banjir 2024 tambah/tampil/klik/nonaktif/aktif/warna/refresh/reload/hapus, CSW → posyandu, layer besar → WMS, 3× tambah-hapus tanpa DataSource/ImageryLayer tertinggal, tanpa error konsol.
+- **WMS belum bisa tampil**: GeoServer geoportal hanya mengizinkan CORS dari domainnya sendiri (request dengan `Origin` lain → 403). UI menampilkan pesan; perlu keputusan (CORS di GeoServer atau proxy GetMap lewat backend).
+
 ### Verifikasi (2026-10-12)
 - `04_build_master.py`: 15 kelurahan, 125 konten, tidak ada file hilang; semua region anak berada di dalam region master; `--sync` kedua menyalin 0 file.
 - HTTP dev server: 141 file (125 `.glb` + 16 tileset JSON) **identik byte-per-byte** dengan disk (magic bytes `glTF`/`{` cocok).
@@ -90,6 +95,7 @@ Legenda: 🟢 selesai & terverifikasi · 🟡 sebagian · 🔴 belum ada · ⚪ 
 | 14 | Kotak ikhtisar kelurahan (bounding box) bertumpuk dengan batas kelurahan asli saat kamera jauh. Usulan: sembunyikan kotak bila layer batas kelurahan aktif (label tetap). | Rendah | `use3DTiles.js` |
 | 15 | Keputusan data GeoJSON tertunda: tampil/tidaknya 29 RT pulau, ejaan & kategori "Drainase Dahllia", 2 grup RT duplikat Loktuan (003, 004), `luaswh` Guntung (−2,21%), 144 RT dengan atribut `luas` beda > 1%. Lihat `data-pipeline/reports/`. | Sedang | data |
 | 16 | Prioritas sumber WFS vs GeoJSON lokal belum diputuskan (saat ini lokal = 1). Server WFS/CSW juga mengiklankan Transaction/Harvest; pipeline menolak operasi tulis di `remote_http.py`, tetapi pembatasan di sisi server di luar kendali repo. | Rendah | `config/sources.yaml` |
+| 17 | Backend layer geoportal tanpa autentikasi: siapa pun yang bisa membuka spectra bisa menambah/menghapus layer. Registry JSON hanya aman untuk satu worker. WMS terblokir CORS GeoServer. | Sedang | `backend/` |
 
 ---
 

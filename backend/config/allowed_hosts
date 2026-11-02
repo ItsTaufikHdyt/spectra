@@ -1,0 +1,4 @@
+# Host geoportal yang boleh diakses backend spectra (satu host per baris, tanpa skema/port).
+# Hanya https:443 yang diizinkan; host yang me-resolve ke IP privat/lokal tetap ditolak.
+# File ini dibaca ulang di setiap request; tidak perlu restart backend.
+geoportal.bontangkota.go.id

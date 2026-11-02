@@ -18,7 +18,7 @@
       <div class="min-w-0">
         <p class="text-small text-bontang-muted">{{ selected.identity.category }}</p>
         <h2 id="judul-objek" class="text-display font-semibold leading-tight break-words">{{ displayName }}</h2>
-        <p class="text-body text-bontang-muted">Kelurahan {{ selected.identity.kelurahan }}</p>
+        <p v-if="selected.identity.kelurahan" class="text-body text-bontang-muted">Kelurahan {{ selected.identity.kelurahan }}</p>
       </div>
       <button
         type="button"
@@ -34,7 +34,7 @@
 
     <!-- Atribut bangunan -->
     <section aria-labelledby="judul-atribut" class="space-y-2">
-      <h3 id="judul-atribut" class="text-small font-semibold text-bontang-muted">Atribut bangunan</h3>
+      <h3 id="judul-atribut" class="text-small font-semibold text-bontang-muted">{{ selected.source ? 'Atribut fitur' : 'Atribut bangunan' }}</h3>
 
       <dl v-if="objectStore.attributeStatus === 'ready'" class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5">
         <template v-for="row in attributeRows" :key="row.key">
@@ -79,8 +79,21 @@
       </dl>
     </section>
 
-    <!-- Sumber data -->
-    <section aria-labelledby="judul-sumber" class="space-y-2">
+    <!-- Sumber data: layer geoportal -->
+    <section v-if="selected.source" aria-labelledby="judul-sumber" class="space-y-2">
+      <h3 id="judul-sumber" class="text-small font-semibold text-bontang-muted">Sumber data</h3>
+      <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5">
+        <dt class="text-bontang-muted">Layer</dt>
+        <dd class="text-right break-words">{{ selected.source.judul }}</dd>
+        <dt class="text-bontang-muted">FeatureType</dt>
+        <dd class="text-right break-all">{{ selected.source.typename }}</dd>
+        <dt class="text-bontang-muted">ID fitur</dt>
+        <dd class="text-right tabular-nums">{{ selected.source.fid }}</dd>
+      </dl>
+    </section>
+
+    <!-- Sumber data: bangunan 3D -->
+    <section v-else-if="selected.tile" aria-labelledby="judul-sumber" class="space-y-2">
       <h3 id="judul-sumber" class="text-small font-semibold text-bontang-muted">Sumber data</h3>
       <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5">
         <dt class="text-bontang-muted">Tingkat detail</dt>
@@ -94,7 +107,7 @@
       </dl>
     </section>
 
-    <p class="text-small text-bontang-muted border-t border-bontang-line pt-3">
+    <p v-if="selected.location" class="text-small text-bontang-muted border-t border-bontang-line pt-3">
       Elevasi adalah tinggi titik yang diklik, bukan elevasi lantai dasar (FFL) hasil survei.
     </p>
   </article>

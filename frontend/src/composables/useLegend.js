@@ -3,6 +3,7 @@ import { useMapStore } from '@/stores/mapStore';
 import { MAP_COLORS } from '@/utils/mapColors';
 import { useSimulationStore } from '@/stores/simulationStore';
 import { getSimulation } from '@/simulations';
+import { useRemoteLayerStore } from '@/stores/remoteLayerStore';
 
 /**
  * Bagian legenda (data biasa, dipakai bersama oleh layer dan simulasi):
@@ -65,7 +66,18 @@ export function useLegend() {
     }
   });
 
-  const sections = computed(() => [...simulationSections.value, ...layerSections.value]);
+  // Layer geoportal aktif: warna dari registry; WMS digambar server, jadi hanya tanda kotak.
+  const remoteStore = useRemoteLayerStore();
+  const remoteSections = computed(() => {
+    const items = remoteStore.layers
+      .filter((l) => l.aktif)
+      .map((l) => (l.mode === 'wms'
+        ? { label: `${l.judul} (WMS)`, color: '#9DB2BE', shape: 'outline' }
+        : { label: l.judul, color: l.warna, shape: 'fill' }));
+    return items.length ? [{ id: 'geoportal', title: 'Data geoportal', type: 'categorical', items }] : [];
+  });
+
+  const sections = computed(() => [...simulationSections.value, ...remoteSections.value, ...layerSections.value]);
 
   return { sections };
 }

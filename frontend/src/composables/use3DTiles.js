@@ -3,6 +3,8 @@ import { effectScope, shallowRef, watch } from 'vue';
 import { viewer } from './useCesium';
 import { useMapStore } from '@/stores/mapStore';
 import { useObjectStore } from '@/stores/objectStore';
+import { useRemoteLayerStore } from '@/stores/remoteLayerStore';
+import { describeRemotePick } from './useRemoteLayers';
 import { parseContentUrl, pickFirst, slugToName } from '@/utils/tileMeta';
 import { MAP_COLORS } from '@/utils/mapColors';
 
@@ -130,6 +132,18 @@ const readFeatureProperties = (feature) => {
     // Konten tanpa batch/property table.
   }
   return props;
+};
+
+/** Lokasi titik klik (derajat + tinggi elipsoid), atau null. */
+const clickLocation = (scene, windowPosition) => {
+  const cartesian = getClickPosition(scene, windowPosition);
+  if (!cartesian) return null;
+  const c = Cesium.Cartographic.fromCartesian(cartesian);
+  return {
+    longitude: round(Cesium.Math.toDegrees(c.longitude), 6),
+    latitude: round(Cesium.Math.toDegrees(c.latitude), 6),
+    elevation: round(c.height, 2) // tinggi elipsoid titik klik, bukan FFL
+  };
 };
 
 /**
@@ -281,6 +295,7 @@ if (import.meta.hot) {
 export function use3DTiles() {
   const mapStore = useMapStore();
   const objectStore = useObjectStore();
+  const remoteLayerStore = useRemoteLayerStore();
 
   const startVisibilitySync = () => {
     if (visibilityScope) return;
@@ -382,6 +397,13 @@ export function use3DTiles() {
       return;
     }
 
+    // Fitur layer geoportal (useRemoteLayers) -> atributnya tampil di panel info yang sama.
+    const remote = describeRemotePick(picked, remoteLayerStore);
+    if (remote) {
+      objectStore.selectObject({ ...remote, location: clickLocation(scene, movement.position) });
+      return;
+    }
+
     const hit = resolvePick(picked);
     if (!hit) {
       objectStore.clearSelection();
@@ -393,17 +415,7 @@ export function use3DTiles() {
     const kelurahan = slugToName(slug) || 'Tidak diketahui';
     const metadata = feature ? readFeatureProperties(feature) : {};
     const featureId = feature?.featureId;
-
-    const cartesian = getClickPosition(scene, movement.position);
-    let location = null;
-    if (cartesian) {
-      const c = Cesium.Cartographic.fromCartesian(cartesian);
-      location = {
-        longitude: round(Cesium.Math.toDegrees(c.longitude), 6),
-        latitude: round(Cesium.Math.toDegrees(c.latitude), 6),
-        elevation: round(c.height, 2) // tinggi elipsoid titik klik, bukan FFL
-      };
-    }
+    const location = clickLocation(scene, movement.position);
 
     const baseId = slug ? `${slug}/${tile}` : tile || 'BTG-UNKNOWN';
     const id =

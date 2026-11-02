@@ -123,3 +123,11 @@ def parse_iso_record(md) -> dict:
 def parse_iso_by_id(body: bytes) -> dict | None:
     md = ET.fromstring(body).find("gmd:MD_Metadata", NS)
     return parse_iso_record(md) if md is not None else None
+
+
+def parse_wms_layer_names(body: bytes) -> set[str]:
+    """Nama layer dari WMS GetCapabilities (1.3.0 ber-namespace, 1.1.1 tanpa namespace)."""
+    root = ET.fromstring(body)
+    names = {e.findtext("{http://www.opengis.net/wms}Name") for e in root.iter("{http://www.opengis.net/wms}Layer")}
+    names |= {e.findtext("Name") for e in root.iter("Layer")}
+    return {n for n in names if n}

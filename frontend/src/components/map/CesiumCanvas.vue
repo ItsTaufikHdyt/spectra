@@ -36,6 +36,7 @@ import { useLayers } from '@/composables/useLayers';
 import { use3DTiles } from '@/composables/use3DTiles';
 import { releaseSimulation } from '@/composables/useSimulation';
 import { useVectorLayers } from '@/composables/useVectorLayers';
+import { useRemoteLayers } from '@/composables/useRemoteLayers';
 import { useSimulationStore } from '@/stores/simulationStore';
 
 const status = ref('loading'); // 'loading' | 'ready' | 'error'
@@ -47,6 +48,7 @@ const { initBasemaps } = useLayers();
 const { load3DTiles, unload3DTiles, setupTilePicking, zoomToBontangKuala } = use3DTiles();
 const simulationStore = useSimulationStore();
 const { startVectorLayers, releaseVectorLayers } = useVectorLayers();
+const { startRemoteLayers, releaseRemoteLayers } = useRemoteLayers();
 
 let disposed = false;
 
@@ -55,6 +57,7 @@ const teardown = () => {
   releaseSimulation();
   simulationStore.reset();
   releaseVectorLayers();
+  releaseRemoteLayers();
   unload3DTiles();
   destroyViewer();
 };
@@ -86,6 +89,8 @@ const start = async () => {
 
   // Layer vektor dimuat paralel dengan tileset (tidak saling bergantung); gagal tidak fatal.
   startVectorLayers();
+  // Layer geoportal tersimpan (backend /api); backend mati -> pesan di panel, peta tetap jalan.
+  startRemoteLayers();
 
   // Kegagalan tileset tidak fatal: load3DTiles mengembalikan null dan mengisi loadError.
   const tileset = await load3DTiles();

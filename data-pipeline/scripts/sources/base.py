@@ -17,6 +17,10 @@ Skema standar (sama untuk semua sumber, agar bisa dibandingkan dan saling mengga
   rt          nomor RT (string) atau None
   atribut     dict atribut asli sumber, tidak diubah
 Normalisasi nama memakai config/kelurahan_map.csv (hasil normalize_names.py), tidak menebak.
+
+Mode generik (cfg["generik"] = True): untuk layer apa pun di luar LAYERS (mis. layer geoportal
+yang ditambahkan dari website). `nama` diambil dari cfg["field_nama"], atau ditebak dari
+NAME_FIELDS; kolom kelurahan/kecamatan/slug/rt dibiarkan None. Tiga layer bawaan tidak terpengaruh.
 """
 
 from __future__ import annotations
@@ -33,12 +37,23 @@ STANDARD_COLUMNS = ["layer", "sumber", "fid_sumber", "nama", "kelurahan", "kecam
 LAYERS = ("kelurahan", "rt", "sungai")
 OUTPUT_CRS = "EPSG:4326"
 DECIMALS = 8  # pembulatan koordinat output (~1 mm), sama dengan reproject_sungai.py
+NAME_FIELDS = ("nama", "name", "judul", "keterangan")
 
 log = logging.getLogger("sources")
 
 
 def _key(name) -> str:
     return " ".join(str(name).upper().split())
+
+
+def guess_name_field(keys) -> str | None:
+    """Field nama: cocok persis dengan NAME_FIELDS (urut prioritas, tanpa peduli kapital), lalu
+    berawalan salah satunya (mis. `nama_edt`, `namobj`); None bila tidak ada."""
+    by_lower = {str(k).lower(): k for k in keys}
+    exact = next((by_lower[f] for f in NAME_FIELDS if f in by_lower), None)
+    if exact is not None:
+        return exact
+    return next((by_lower[k] for f in NAME_FIELDS for k in sorted(by_lower) if k.startswith(f[:4])), None)
 
 
 def load_kelurahan_map(path: Path = DP / "config" / "kelurahan_map.csv") -> dict[str, dict]:
@@ -74,8 +89,13 @@ class Source:
     # --- dipakai adapter geometri -------------------------------------------------
     def standardize(self, features: list[dict], crs: str) -> gpd.GeoDataFrame:
         """Fitur GeoJSON (properti asli) -> GeoDataFrame skema standar di EPSG:4326."""
-        if self.layer not in LAYERS:
+        generic = bool(self.cfg.get("generik"))
+        if self.layer not in LAYERS and not generic:
             raise ValueError(f"{self.id}: layer {self.layer!r} tidak dikenal")
+        if generic:
+            keys = {k for f in features for k in (f.get("properties") or {})}
+            self.name_field = self.cfg.get("field_nama") or guess_name_field(sorted(keys))
+            self.info["field_nama"] = self.name_field
         rows = []
         for i, f in enumerate(features):
             p = f.get("properties") or {}
@@ -89,6 +109,9 @@ class Source:
         return gdf[STANDARD_COLUMNS + ["geometry"]]
 
     def _fields(self, p: dict) -> dict:
+        if self.cfg.get("generik"):
+            v = p.get(self.name_field) if self.name_field else None
+            return {"nama": str(v) if v is not None else None}
         if self.layer == "sungai":
             return {"nama": p.get("nama")}
         kel_raw = p.get("wadmkd") if self.layer == "kelurahan" else p.get("kelurahan")

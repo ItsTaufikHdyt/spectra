@@ -15,6 +15,10 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    open: true
+    open: true,
+    // Backend FastAPI (backend/). Browser hanya memanggil /api; backend yang mengakses geoportal.
+    proxy: {
+      '/api': process.env.SPECTRA_API_URL || 'http://127.0.0.1:8100'
+    }
   }
 });

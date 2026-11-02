@@ -34,6 +34,30 @@ try:
 except ValueError:
     pass
 
+# 2b. Extent satu titik (IoU 0): dipakai uji "di dalam extent referensi".
+assert detect_axis_order((117.45, 0.1, 117.45, 0.1), ref) == ("lonlat", 0.0)
+assert detect_axis_order((0.1, 117.45, 0.1, 117.45), ref) == ("latlon", 0.0)
+
+# 2c. Mode generik: field nama ditebak tanpa peduli kapital; bisa diganti lewat field_nama.
+from sources.base import Source, guess_name_field  # noqa: E402
+
+assert guess_name_field(["fid", "NAMA", "luas"]) == "NAMA"
+assert guess_name_field(["fid", "Keterangan", "name"]) == "name"  # urutan prioritas NAME_FIELDS
+assert guess_name_field(["fid", "luas"]) is None
+assert guess_name_field(["fid", "alamat_edt", "nama_edt"]) == "nama_edt"  # awalan, bila tak ada yang persis
+assert guess_name_field(["namobj", "nama"]) == "nama"  # persis menang atas awalan
+_feats = [{"type": "Feature", "properties": {"fid": 7, "Name": "Posyandu A", "kode": "X1"},
+           "geometry": {"type": "Point", "coordinates": [117.45, 0.1]}}]
+_g = Source({"id": "uji", "layer": "posyandu", "generik": True}, kelurahan_map={}).standardize(_feats, "EPSG:4326")
+assert _g.iloc[0]["nama"] == "Posyandu A" and _g.iloc[0]["fid_sumber"] == "7" and _g.iloc[0]["kelurahan"] is None
+_g = Source({"id": "uji", "layer": "posyandu", "generik": True, "field_nama": "kode"}, kelurahan_map={}).standardize(_feats, "EPSG:4326")
+assert _g.iloc[0]["nama"] == "X1"
+try:  # tanpa generik, layer asing tetap ditolak (perilaku lama)
+    Source({"id": "uji", "layer": "posyandu"}, kelurahan_map={}).standardize(_feats, "EPSG:4326")
+    raise AssertionError("layer asing tanpa generik seharusnya ditolak")
+except ValueError:
+    pass
+
 # 3. CSW: halaman terakhir (nextRecord=0) + ISO 19139 minimal.
 XML = b"""<csw:GetRecordsResponse xmlns:csw="http://www.opengis.net/cat/csw/2.0.2"
   xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco">

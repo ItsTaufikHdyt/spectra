@@ -17,7 +17,7 @@ Monorepo modular:
 spectra/
 ├── frontend/        # Vue 3 + Vite + CesiumJS + Pinia + Tailwind (SPA)
 ├── data-pipeline/   # ETL offline: CityJSON → 3D Tiles v1.1 (cjio, 3dgi/tyler)
-├── backend/         # API server (Laravel/FastAPI — belum diputuskan)
+├── backend/         # FastAPI kecil: layer geoportal (WFS/CSW) untuk frontend (docs/remote-layers.md)
 ├── STATUS.md        # Status implementasi (sumber kebenaran)
 ├── AGENTS.md        # Dokumen ini
 └── PRD.md   # PRD & arsitektur
@@ -46,6 +46,13 @@ Hanya `04_build_master.py` yang ada di repo (stdlib Python, tanpa dependensi):
 | `python3 data-pipeline/scripts/04_build_master.py` | Validasi 15 kelurahan + tulis `processed/3dtiles/master-tileset.json`. |
 | `python3 data-pipeline/scripts/04_build_master.py --sync` | Idem + salin inkremental ke `frontend/public/tiles/`. **Jalankan ulang setiap data kelurahan berubah.** |
 | `data-pipeline/.venv/bin/python data-pipeline/scripts/fetch_sources.py` | Jalankan sumber aktif di `config/sources.yaml` (GeoJSON lokal, WFS, CSW geoportal) → `processed/sources/`, `processed/catalog/`, laporan `reports/fetch_sources.md`. Akses geoportal **hanya baca**. |
+
+### Backend (`backend/`, FastAPI)
+| Perintah (dari root repo) | Fungsi |
+|---------------------------|--------|
+| `python3 -m venv backend/.venv && backend/.venv/bin/pip install -r backend/requirements.txt` | Pasang dependensi (ikut memasang `data-pipeline/requirements.txt`). |
+| `backend/.venv/bin/uvicorn app.main:app --app-dir backend --port 8100` | Jalankan API di `http://127.0.0.1:8100/api` (satu worker). Vite mem-proxy `/api` ke sini. |
+| `backend/.venv/bin/pytest backend -q` | Tes backend (tanpa jaringan). |
 
 ---
 
@@ -118,6 +125,14 @@ Hanya `04_build_master.py` yang ada di repo (stdlib Python, tanpa dependensi):
   `normalize_names.py` / `reproject_sungai.py`, sudah WGS84). Salinan dev di `frontend/public/geojson/`
   diisi lewat `python3 data-pipeline/scripts/sync_geojson.py`, bukan disalin manual. Memuatnya di browser
   adalah pengecualian sementara §3.2 (data kecil); jangan menambah GeoJSON besar dengan pola ini.
+- **Browser tidak memanggil WFS/CSW geoportal secara langsung.** Semua akses data geoportal lewat
+  `backend/` (proxy Vite `/api`): backend memvalidasi URL (https, host di `backend/config/allowed_hosts`,
+  tolak IP privat/localhost/redirect keluar allowlist), hanya memakai operasi baca (GetCapabilities,
+  DescribeFeatureType, GetFeature, GetRecords, GetRecordById), lalu menyajikan GeoJSON hasil normalisasi.
+  Satu-satunya pengecualian: layer mode **WMS** dimuat browser sebagai gambar (GetMap) langsung dari
+  geoportal dan butuh CORS di GeoServer (lihat `docs/remote-layers.md`).
+- Layer yang ditambahkan dari website: registry + cache di `data-pipeline/processed/user_layers/` (di-ignore).
+  Adapter WFS/CSW **diimpor** dari `data-pipeline/scripts/sources/`, jangan disalin ke backend.
 - `geometricError` root master sengaja besar (4× error terbesar kelurahan): root master tanpa konten,
   jika errornya kecil seluruh kota menghilang saat kamera menjauh. Jangan diperkecil tanpa menguji.
 
