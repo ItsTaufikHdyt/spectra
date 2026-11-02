@@ -1,46 +1,37 @@
 <template>
-  <div v-if="objectStore.selectedObject" class="bg-slate-900/95 border border-slate-700/80 backdrop-blur-md rounded-xl p-4 w-80 shadow-2xl text-xs space-y-3">
-    <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+  <div v-if="selected" class="bg-slate-900/95 border border-slate-700/80 backdrop-blur-md rounded-xl p-4 w-80 shadow-2xl text-xs space-y-3">
+    <div class="flex items-start justify-between border-b border-slate-700 pb-2">
       <div>
-        <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-sky-500/20 text-sky-400 border border-sky-400/30">
-          {{ objectStore.selectedObject.identity.id }}
-        </span>
-        <h4 class="font-bold text-slate-100 text-sm mt-1">
-          {{ objectStore.selectedObject.identity.name }}
-        </h4>
+        <h4 class="font-bold text-slate-100 text-sm">{{ displayName }}</h4>
+        <p class="text-slate-400 mt-0.5">Kel. {{ selected.identity.kelurahan }} · {{ selected.identity.category }}</p>
       </div>
-      <button @click="objectStore.clearSelection" class="text-slate-400 hover:text-slate-200 text-lg">✕</button>
+      <button type="button" aria-label="Tutup informasi objek" @click="objectStore.clearSelection()" class="text-slate-400 hover:text-slate-200 text-lg">✕</button>
     </div>
 
-    <div class="space-y-1.5 text-slate-300">
-      <div v-if="objectStore.selectedObject.identity.kelurahan" class="flex justify-between py-1 border-b border-slate-800">
-        <span class="text-slate-400">Kelurahan:</span>
-        <span class="font-medium text-slate-200">{{ objectStore.selectedObject.identity.kelurahan }}</span>
-      </div>
-      <div class="flex justify-between py-1 border-b border-slate-800">
-        <span class="text-slate-400">Tingkat Detail:</span>
-        <span class="font-medium text-slate-200">LOD {{ objectStore.selectedObject.source.lod }}</span>
-      </div>
-      <div class="flex justify-between py-1 border-b border-slate-800">
-        <span class="text-slate-400">Tinggi Estimasi:</span>
-        <span class="font-medium text-slate-200">{{ heightLabel }}</span>
-      </div>
-      <div class="flex justify-between py-1 border-b border-slate-800">
-        <span class="text-slate-400">Kategori:</span>
-        <span class="font-medium text-slate-200">{{ objectStore.selectedObject.identity.category }}</span>
+    <!-- Atribut bangunan: tampilkan state, bukan baris "Tidak tersedia" berulang. -->
+    <div v-if="objectStore.attributeStatus === 'ready'" class="space-y-1">
+      <div v-for="row in attributeRows" :key="row.key" class="flex justify-between gap-3">
+        <span class="text-slate-400">{{ row.key }}</span>
+        <span class="text-slate-200 text-right break-all">{{ row.value }}</span>
       </div>
     </div>
-
-    <!-- Properti dinamis dari hasil picking -->
-    <div v-if="propertyEntries.length" class="max-h-40 overflow-y-auto rounded bg-slate-950/50 border border-slate-800 p-2 space-y-1">
-      <div v-for="[key, value] in propertyEntries" :key="key" class="flex justify-between gap-3 text-[11px]">
-        <span class="text-slate-500 shrink-0">{{ key }}</span>
-        <span class="text-slate-300 text-right break-all">{{ value }}</span>
-      </div>
+    <p v-else-if="objectStore.attributeStatus === 'loading'" class="text-slate-400">Memuat atribut bangunan...</p>
+    <div v-else-if="objectStore.attributeStatus === 'error'" class="p-2 rounded bg-red-500/10 border border-red-500/30 text-red-200 space-y-1">
+      <p>Atribut gagal dimuat: {{ objectStore.attributeError }}</p>
+      <button type="button" class="underline" @click="objectStore.retryAttributes()">Coba lagi</button>
+    </div>
+    <div v-else class="p-3 rounded-lg bg-slate-800/60 border border-slate-700 space-y-1">
+      <p class="font-semibold text-slate-200">Data atribut belum tersedia</p>
+      <p class="text-slate-400 leading-snug">
+        Model 3D belum membawa nama, tinggi, dan fungsi bangunan. Informasi ini akan tampil di sini
+        setelah data atribut tersambung.
+      </p>
     </div>
 
-    <div class="p-2 rounded bg-amber-500/10 border border-amber-500/20 text-[10px] text-amber-300/90 leading-tight">
-      Elevasi lantai dasar (FFL) masih mengacu pada estimasi DTM lokal, belum diverifikasi survei FFL definitif.
+    <div v-if="selected.location" class="space-y-1 text-slate-300">
+      <div class="flex justify-between"><span class="text-slate-400">Bujur</span><span>{{ formatDegrees(selected.location.longitude) }}</span></div>
+      <div class="flex justify-between"><span class="text-slate-400">Lintang</span><span>{{ formatDegrees(selected.location.latitude) }}</span></div>
+      <div class="flex justify-between"><span class="text-slate-400">Elevasi titik klik</span><span>{{ formatWithUnit(selected.location.elevation, 'm') }}</span></div>
     </div>
   </div>
 </template>
@@ -48,15 +39,22 @@
 <script setup>
 import { computed } from 'vue';
 import { useObjectStore } from '@/stores/objectStore';
+import { ATTRIBUTE_KEYS } from '@/services/buildingAttributes';
+import { pickFirst } from '@/utils/tileMeta';
+import { formatDegrees, formatNumber, formatWithUnit } from '@/utils/format';
 
 const objectStore = useObjectStore();
+const selected = computed(() => objectStore.selectedObject);
 
-// Tinggi hanya ditampilkan bila berupa angka; '-' / kosong berarti data tidak tersedia.
-const heightLabel = computed(() => {
-  const h = objectStore.selectedObject?.source?.height;
-  const n = typeof h === 'number' ? h : Number.parseFloat(h);
-  return Number.isFinite(n) ? `± ${n} meter` : 'Tidak tersedia';
+const displayName = computed(() => {
+  const name = objectStore.attributes ? pickFirst(objectStore.attributes, ATTRIBUTE_KEYS.name) : undefined;
+  return name ?? selected.value?.identity.name;
 });
 
-const propertyEntries = computed(() => Object.entries(objectStore.selectedObject?.properties ?? {}));
+const attributeRows = computed(() =>
+  Object.entries(objectStore.attributes ?? {}).map(([key, value]) => ({
+    key,
+    value: typeof value === 'number' ? formatNumber(value, { maxDigits: 3 }) : String(value)
+  }))
+);
 </script>

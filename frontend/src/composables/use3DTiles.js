@@ -35,9 +35,8 @@ const OVERVIEW_COLOR = Cesium.Color.fromCssColorString('#38bdf8'); // bontang.ac
 const NOMINAL_SCREEN_HEIGHT = 1080;
 
 // Kandidat nama properti metadata (jika suatu saat tile membawa EXT_structural_metadata).
+// Kandidat nama/tinggi ada di services/buildingAttributes.js (ATTRIBUTE_KEYS).
 const ID_KEYS = ['id', 'gml_id', 'gmlId', 'identifier', 'objectid'];
-const NAME_KEYS = ['name', 'nama'];
-const HEIGHT_KEYS = ['measuredHeight', 'Height', 'height'];
 
 // ---------------------------------------------------------------------------
 // State tingkat modul — instance tunggal yang dipakai bersama antar komponen.
@@ -388,35 +387,31 @@ export function use3DTiles() {
     const featureId = feature?.featureId;
 
     const cartesian = getClickPosition(scene, movement.position);
-    const location = {};
+    let location = null;
     if (cartesian) {
       const c = Cesium.Cartographic.fromCartesian(cartesian);
-      location.longitude = round(Cesium.Math.toDegrees(c.longitude), 6);
-      location.latitude = round(Cesium.Math.toDegrees(c.latitude), 6);
-      location.elevasi = round(c.height, 2);
+      location = {
+        longitude: round(Cesium.Math.toDegrees(c.longitude), 6),
+        latitude: round(Cesium.Math.toDegrees(c.latitude), 6),
+        elevation: round(c.height, 2) // tinggi elipsoid titik klik, bukan FFL
+      };
     }
 
     const baseId = slug ? `${slug}/${tile}` : tile || 'BTG-UNKNOWN';
     const id =
       pickFirst(metadata, ID_KEYS) ?? (featureId !== undefined ? `${baseId}#${featureId}` : baseId);
-    const fallbackName = `${featureId !== undefined ? `Bangunan #${featureId}` : 'Bangunan'} — Kel. ${kelurahan}`;
-    const name = pickFirst(metadata, NAME_KEYS) ?? fallbackName;
-    const height = pickFirst(metadata, HEIGHT_KEYS) ?? '-';
-    const hasMetadata = Object.keys(metadata).length > 0;
 
+    // Nama/tinggi final diturunkan di panel dari atribut (tile atau backend); ini nama cadangan.
     objectStore.selectObject({
-      identity: { id: String(id), name: String(name), kelurahan, category: 'LOD2 Building' },
-      source: { lod: '2', height },
-      properties: {
-        ...metadata,
+      identity: {
+        id: String(id),
+        name: featureId !== undefined ? `Bangunan #${featureId}` : 'Bangunan',
         kelurahan,
-        tile,
-        ...(featureId !== undefined ? { featureId } : {}),
-        ...location,
-        ...(hasMetadata
-          ? {}
-          : { catatan: 'Tile tidak membawa atribut bangunan (tanpa EXT_structural_metadata).' })
-      }
+        category: 'Bangunan LOD2'
+      },
+      attributes: metadata,
+      location,
+      tile: { path: tile, featureId }
     });
 
     if (feature) {
