@@ -83,8 +83,8 @@ Hanya `04_build_master.py` yang ada di repo (stdlib Python, tanpa dependensi):
 - **Pinia:** gaya *setup store* (`defineStore('name', () => { ... })`), bukan options API.
 - **Bahasa:** komentar, label UI, dan pesan ditulis dalam **Bahasa Indonesia**.
 - **Penamaan:** composable `useXxx.js`, store `xxxStore.js`, komponen `PascalCase.vue`.
-- **Dependensi CesiumJS:** cek versi terpasang sebelum memakai API — versi aktual **1.146.x**
-  (meski `package.json` menyebut `^1.119.0`). Beberapa opsi lama sudah usang:
+- **Dependensi CesiumJS:** di-pin **1.146.0** di `package.json` dan `package-lock.json`.
+  Upgrade = ubah keduanya sekaligus, lalu cek ulang API di bawah. Beberapa opsi lama sudah usang:
   - `tileset.readyPromise` → sudah dihapus; `Cesium3DTileset.fromUrl()` resolve setelah ready.
   - `maximumMemoryUsage` → tidak ada di 1.146 (diabaikan diam-diam); pakai `cacheBytes` / `maximumCacheOverflowBytes`.
   - Banyak opsi performa sudah default di 1.146 (`cacheBytes` 512 MB, `cullWithChildrenBounds`,
