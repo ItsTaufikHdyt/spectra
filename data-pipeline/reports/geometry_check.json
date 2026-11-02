@@ -1,0 +1,2573 @@
+{
+  "validitas": {
+    "batas-kelurahan.json": {
+      "jumlah": 15,
+      "tidak_valid": 1,
+      "ring_tidak_tertutup": 0,
+      "per_jenis": {
+        "Ring Self-intersection": 1
+      },
+      "daftar": [
+        {
+          "index": 13,
+          "label": "Berbas Pantai",
+          "alasan": "Ring Self-intersection[117.48411931 0.11269972]",
+          "jenis": "Ring Self-intersection"
+        }
+      ]
+    },
+    "batas-rt.json": {
+      "jumlah": 526,
+      "tidak_valid": 20,
+      "ring_tidak_tertutup": 0,
+      "per_jenis": {
+        "Ring Self-intersection": 11,
+        "Self-intersection": 9
+      },
+      "daftar": [
+        {
+          "index": 2,
+          "label": "API-API RT 042",
+          "alasan": "Ring Self-intersection[117.49777852 0.1237051]",
+          "jenis": "Ring Self-intersection"
+        },
+        {
+          "index": 12,
+          "label": "API-API RT 005",
+          "alasan": "Self-intersection[117.48694619 0.12987039]",
+          "jenis": "Self-intersection"
+        },
+        {
+          "index": 23,
+          "label": "API-API RT 024",
+          "alasan": "Ring Self-intersection[117.49182925 0.13430453]",
+          "jenis": "Ring Self-intersection"
+        },
+        {
+          "index": 26,
+          "label": "API-API RT 009",
+          "alasan": "Self-intersection[117.48694619 0.12987039]",
+          "jenis": "Self-intersection"
+        },
+        {
+          "index": 72,
+          "label": "BELIMBING RT 027",
+          "alasan": "Self-intersection[117.47186883 0.14885565]",
+          "jenis": "Self-intersection"
+        },
+        {
+          "index": 101,
+          "label": "BERBAS PANTAI RT 015",
+          "alasan": "Ring Self-intersection[117.48697138 0.10898215]",
+          "jenis": "Ring Self-intersection"
+        },
+        {
+          "index": 106,
+          "label": "BERBAS PANTAI RT 001",
+          "alasan": "Ring Self-intersection[117.47964883 0.11265499]",
+          "jenis": "Ring Self-intersection"
+        },
+        {
+          "index": 107,
+          "label": "BERBAS PANTAI RT 003",
+          "alasan": "Ring Self-intersection[117.48411788 0.11269939]",
+          "jenis": "Ring Self-intersection"
+        },
+        {
+          "index": 116,
+          "label": "BERBAS PANTAI RT 014",
+          "alasan": "Self-intersection[117.485798837352 0.110277793947728]",
+          "jenis": "Self-intersection"
+        },
+        {
+          "index": 134,
+          "label": "BEREBAS TENGAH RT 062",
+          "alasan": "Self-intersection[117.47964883 0.11265499]",
+          "jenis": "Self-intersection"
+        },
+        {
+          "index": 156,
+          "label": "BEREBAS TENGAH RT 046",
+          "alasan": "Ring Self-intersection[117.47740072 0.11599402]",
+          "jenis": "Ring Self-intersection"
+        },
+        {
+          "index": 178,
+          "label": "BEREBAS TENGAH RT 037",
+          "alasan": "Self-intersection[117.47546864 0.11774691]",
+          "jenis": "Self-intersection"
+        },
+        {
+          "index": 260,
+          "label": "GUNTUNG RT 014",
+          "alasan": "Self-intersection[117.484690040262 0.168800189808901]",
+          "jenis": "Self-intersection"
+        },
+        {
+          "index": 283,
+          "label": "GUNTUNG RT 018",
+          "alasan": "Ring Self-intersection[117.47821675 0.17304223]",
+          "jenis": "Ring Self-intersection"
+        },
+        {
+          "index": 330,
+          "label": "GUNUNG TELIHAN RT 005",
+          "alasan": "Self-intersection[117.46459542 0.13792351]",
+          "jenis": "Self-intersection"
+        },
+        {
+          "index": 403,
+          "label": "LOKTUAN RT 046",
+          "alasan": "Ring Self-intersection[117.47518572 0.17367147]",
+          "jenis": "Ring Self-intersection"
+        },
+        {
+          "index": 414,
+          "label": "LOKTUAN RT 026",
+          "alasan": "Self-intersection[117.48474338 0.16889155]",
+          "jenis": "Self-intersection"
+        },
+        {
+          "index": 439,
+          "label": "SATIMPO RT 025",
+          "alasan": "Ring Self-intersection[117.48062158 0.12855509]",
+          "jenis": "Ring Self-intersection"
+        },
+        {
+          "index": 444,
+          "label": "SATIMPO RT 021",
+          "alasan": "Ring Self-intersection[117.47209533 0.12997893]",
+          "jenis": "Ring Self-intersection"
+        },
+        {
+          "index": 517,
+          "label": "TANJUNG LAUT INDAH RT 023",
+          "alasan": "Ring Self-intersection[117.49167367 0.12280445]",
+          "jenis": "Ring Self-intersection"
+        }
+      ]
+    },
+    "sungai_ln_5k.json": {
+      "jumlah": 5,
+      "tidak_valid": 0,
+      "ring_tidak_tertutup": 0,
+      "per_jenis": {},
+      "daftar": []
+    }
+  },
+  "tumpang_tindih": {
+    "dalam_kelurahan": [
+      {
+        "a": {
+          "index": 42,
+          "kelurahan": "BELIMBING",
+          "rt": "003"
+        },
+        "b": {
+          "index": 78,
+          "kelurahan": "BELIMBING",
+          "rt": "034"
+        },
+        "luas_irisan_m2": 0.4,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 51,
+          "kelurahan": "BELIMBING",
+          "rt": "015"
+        },
+        "b": {
+          "index": 52,
+          "kelurahan": "BELIMBING",
+          "rt": "037"
+        },
+        "luas_irisan_m2": 18.33,
+        "persen_dari_rt_terkecil": 0.15
+      },
+      {
+        "a": {
+          "index": 53,
+          "kelurahan": "BELIMBING",
+          "rt": "039"
+        },
+        "b": {
+          "index": 64,
+          "kelurahan": "BELIMBING",
+          "rt": "030"
+        },
+        "luas_irisan_m2": 0.33,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 72,
+          "kelurahan": "BELIMBING",
+          "rt": "027"
+        },
+        "b": {
+          "index": 76,
+          "kelurahan": "BELIMBING",
+          "rt": "032"
+        },
+        "luas_irisan_m2": 3.12,
+        "persen_dari_rt_terkecil": 0.02
+      },
+      {
+        "a": {
+          "index": 93,
+          "kelurahan": "BERBAS PANTAI",
+          "rt": "008"
+        },
+        "b": {
+          "index": 115,
+          "kelurahan": "BERBAS PANTAI",
+          "rt": "006"
+        },
+        "luas_irisan_m2": 3.55,
+        "persen_dari_rt_terkecil": 0.04
+      },
+      {
+        "a": {
+          "index": 109,
+          "kelurahan": "BERBAS PANTAI",
+          "rt": "012"
+        },
+        "b": {
+          "index": 113,
+          "kelurahan": "BERBAS PANTAI",
+          "rt": "010"
+        },
+        "luas_irisan_m2": 0.12,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 109,
+          "kelurahan": "BERBAS PANTAI",
+          "rt": "012"
+        },
+        "b": {
+          "index": 116,
+          "kelurahan": "BERBAS PANTAI",
+          "rt": "014"
+        },
+        "luas_irisan_m2": 0.12,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 113,
+          "kelurahan": "BERBAS PANTAI",
+          "rt": "010"
+        },
+        "b": {
+          "index": 116,
+          "kelurahan": "BERBAS PANTAI",
+          "rt": "014"
+        },
+        "luas_irisan_m2": 0.12,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 127,
+          "kelurahan": "BEREBAS TENGAH",
+          "rt": "035"
+        },
+        "b": {
+          "index": 138,
+          "kelurahan": "BEREBAS TENGAH",
+          "rt": "032"
+        },
+        "luas_irisan_m2": 2.44,
+        "persen_dari_rt_terkecil": 0.02
+      },
+      {
+        "a": {
+          "index": 129,
+          "kelurahan": "BEREBAS TENGAH",
+          "rt": "003"
+        },
+        "b": {
+          "index": 130,
+          "kelurahan": "BEREBAS TENGAH",
+          "rt": "004"
+        },
+        "luas_irisan_m2": 0.19,
+        "persen_dari_rt_terkecil": 0.01
+      },
+      {
+        "a": {
+          "index": 144,
+          "kelurahan": "BEREBAS TENGAH",
+          "rt": "024"
+        },
+        "b": {
+          "index": 170,
+          "kelurahan": "BEREBAS TENGAH",
+          "rt": "055"
+        },
+        "luas_irisan_m2": 1.6,
+        "persen_dari_rt_terkecil": 0.01
+      },
+      {
+        "a": {
+          "index": 200,
+          "kelurahan": "BONTANG BARU",
+          "rt": "028"
+        },
+        "b": {
+          "index": 202,
+          "kelurahan": "BONTANG BARU",
+          "rt": "007"
+        },
+        "luas_irisan_m2": 10.31,
+        "persen_dari_rt_terkecil": 0.02
+      },
+      {
+        "a": {
+          "index": 276,
+          "kelurahan": "GUNTUNG",
+          "rt": "004"
+        },
+        "b": {
+          "index": 281,
+          "kelurahan": "GUNTUNG",
+          "rt": "002"
+        },
+        "luas_irisan_m2": 0.33,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 285,
+          "kelurahan": "GUNUNG ELAI",
+          "rt": "032"
+        },
+        "b": {
+          "index": 289,
+          "kelurahan": "GUNUNG ELAI",
+          "rt": "036"
+        },
+        "luas_irisan_m2": 15.3,
+        "persen_dari_rt_terkecil": 0.05
+      },
+      {
+        "a": {
+          "index": 317,
+          "kelurahan": "GUNUNG ELAI",
+          "rt": "015"
+        },
+        "b": {
+          "index": 319,
+          "kelurahan": "GUNUNG ELAI",
+          "rt": "017"
+        },
+        "luas_irisan_m2": 1.17,
+        "persen_dari_rt_terkecil": 0.01
+      },
+      {
+        "a": {
+          "index": 403,
+          "kelurahan": "LOKTUAN",
+          "rt": "046"
+        },
+        "b": {
+          "index": 408,
+          "kelurahan": "LOKTUAN",
+          "rt": "045"
+        },
+        "luas_irisan_m2": 0.34,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 422,
+          "kelurahan": "LOKTUAN",
+          "rt": "039"
+        },
+        "b": {
+          "index": 423,
+          "kelurahan": "LOKTUAN",
+          "rt": "037"
+        },
+        "luas_irisan_m2": 0.15,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 422,
+          "kelurahan": "LOKTUAN",
+          "rt": "039"
+        },
+        "b": {
+          "index": 424,
+          "kelurahan": "LOKTUAN",
+          "rt": "038"
+        },
+        "luas_irisan_m2": 0.24,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 501,
+          "kelurahan": "TANJUNG LAUT INDAH",
+          "rt": "033"
+        },
+        "b": {
+          "index": 508,
+          "kelurahan": "TANJUNG LAUT INDAH",
+          "rt": "016"
+        },
+        "luas_irisan_m2": 5.78,
+        "persen_dari_rt_terkecil": 0.02
+      },
+      {
+        "a": {
+          "index": 507,
+          "kelurahan": "TANJUNG LAUT INDAH",
+          "rt": "014"
+        },
+        "b": {
+          "index": 508,
+          "kelurahan": "TANJUNG LAUT INDAH",
+          "rt": "016"
+        },
+        "luas_irisan_m2": 3.77,
+        "persen_dari_rt_terkecil": 0.0
+      }
+    ],
+    "antar_kelurahan": [
+      {
+        "a": {
+          "index": 1,
+          "kelurahan": "API-API",
+          "rt": "032"
+        },
+        "b": {
+          "index": 207,
+          "kelurahan": "BONTANG KUALA",
+          "rt": "016"
+        },
+        "luas_irisan_m2": 0.32,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 4,
+          "kelurahan": "API-API",
+          "rt": "018"
+        },
+        "b": {
+          "index": 454,
+          "kelurahan": "TANJUNG LAUT",
+          "rt": "036"
+        },
+        "luas_irisan_m2": 2.76,
+        "persen_dari_rt_terkecil": 0.02
+      },
+      {
+        "a": {
+          "index": 5,
+          "kelurahan": "API-API",
+          "rt": "017"
+        },
+        "b": {
+          "index": 454,
+          "kelurahan": "TANJUNG LAUT",
+          "rt": "036"
+        },
+        "luas_irisan_m2": 0.25,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 7,
+          "kelurahan": "API-API",
+          "rt": "001"
+        },
+        "b": {
+          "index": 462,
+          "kelurahan": "TANJUNG LAUT",
+          "rt": "003"
+        },
+        "luas_irisan_m2": 0.16,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 17,
+          "kelurahan": "API-API",
+          "rt": "026"
+        },
+        "b": {
+          "index": 204,
+          "kelurahan": "BONTANG BARU",
+          "rt": "002"
+        },
+        "luas_irisan_m2": 0.29,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 72,
+          "kelurahan": "BELIMBING",
+          "rt": "027"
+        },
+        "b": {
+          "index": 285,
+          "kelurahan": "GUNUNG ELAI",
+          "rt": "032"
+        },
+        "luas_irisan_m2": 0.7,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 80,
+          "kelurahan": "BELIMBING",
+          "rt": "006"
+        },
+        "b": {
+          "index": 342,
+          "kelurahan": "GUNUNG TELIHAN",
+          "rt": "006"
+        },
+        "luas_irisan_m2": 0.15,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 89,
+          "kelurahan": "BELIMBING",
+          "rt": "044"
+        },
+        "b": {
+          "index": 326,
+          "kelurahan": "GUNUNG ELAI",
+          "rt": "021"
+        },
+        "luas_irisan_m2": 0.88,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 106,
+          "kelurahan": "BERBAS PANTAI",
+          "rt": "001"
+        },
+        "b": {
+          "index": 126,
+          "kelurahan": "BEREBAS TENGAH",
+          "rt": "036"
+        },
+        "luas_irisan_m2": 0.32,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 107,
+          "kelurahan": "BERBAS PANTAI",
+          "rt": "003"
+        },
+        "b": {
+          "index": 126,
+          "kelurahan": "BEREBAS TENGAH",
+          "rt": "036"
+        },
+        "luas_irisan_m2": 1.02,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 128,
+          "kelurahan": "BEREBAS TENGAH",
+          "rt": "005"
+        },
+        "b": {
+          "index": 451,
+          "kelurahan": "SATIMPO",
+          "rt": "010"
+        },
+        "luas_irisan_m2": 0.13,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 158,
+          "kelurahan": "BEREBAS TENGAH",
+          "rt": "045"
+        },
+        "b": {
+          "index": 451,
+          "kelurahan": "SATIMPO",
+          "rt": "010"
+        },
+        "luas_irisan_m2": 0.33,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 159,
+          "kelurahan": "BEREBAS TENGAH",
+          "rt": "042"
+        },
+        "b": {
+          "index": 451,
+          "kelurahan": "SATIMPO",
+          "rt": "010"
+        },
+        "luas_irisan_m2": 0.1,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 167,
+          "kelurahan": "BEREBAS TENGAH",
+          "rt": "039"
+        },
+        "b": {
+          "index": 451,
+          "kelurahan": "SATIMPO",
+          "rt": "010"
+        },
+        "luas_irisan_m2": 0.31,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 177,
+          "kelurahan": "BEREBAS TENGAH",
+          "rt": "038"
+        },
+        "b": {
+          "index": 451,
+          "kelurahan": "SATIMPO",
+          "rt": "010"
+        },
+        "luas_irisan_m2": 0.53,
+        "persen_dari_rt_terkecil": 0.01
+      },
+      {
+        "a": {
+          "index": 186,
+          "kelurahan": "BONTANG BARU",
+          "rt": "022"
+        },
+        "b": {
+          "index": 303,
+          "kelurahan": "GUNUNG ELAI",
+          "rt": "004"
+        },
+        "luas_irisan_m2": 0.15,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 190,
+          "kelurahan": "BONTANG BARU",
+          "rt": "021"
+        },
+        "b": {
+          "index": 303,
+          "kelurahan": "GUNUNG ELAI",
+          "rt": "004"
+        },
+        "luas_irisan_m2": 0.61,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 260,
+          "kelurahan": "GUNTUNG",
+          "rt": "014"
+        },
+        "b": {
+          "index": 404,
+          "kelurahan": "LOKTUAN",
+          "rt": "048"
+        },
+        "luas_irisan_m2": 6.34,
+        "persen_dari_rt_terkecil": 0.01
+      },
+      {
+        "a": {
+          "index": 321,
+          "kelurahan": "GUNUNG ELAI",
+          "rt": "020"
+        },
+        "b": {
+          "index": 444,
+          "kelurahan": "SATIMPO",
+          "rt": "021"
+        },
+        "luas_irisan_m2": 1.19,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 362,
+          "kelurahan": "KANAAN",
+          "rt": "011"
+        },
+        "b": {
+          "index": 444,
+          "kelurahan": "SATIMPO",
+          "rt": "021"
+        },
+        "luas_irisan_m2": 0.2,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 368,
+          "kelurahan": "KANAAN",
+          "rt": "008"
+        },
+        "b": {
+          "index": 444,
+          "kelurahan": "SATIMPO",
+          "rt": "021"
+        },
+        "luas_irisan_m2": 2.05,
+        "persen_dari_rt_terkecil": 0.0
+      },
+      {
+        "a": {
+          "index": 451,
+          "kelurahan": "SATIMPO",
+          "rt": "010"
+        },
+        "b": {
+          "index": 485,
+          "kelurahan": "TANJUNG LAUT",
+          "rt": "017"
+        },
+        "luas_irisan_m2": 0.5,
+        "persen_dari_rt_terkecil": 0.01
+      },
+      {
+        "a": {
+          "index": 451,
+          "kelurahan": "SATIMPO",
+          "rt": "010"
+        },
+        "b": {
+          "index": 486,
+          "kelurahan": "TANJUNG LAUT",
+          "rt": "016"
+        },
+        "luas_irisan_m2": 1.18,
+        "persen_dari_rt_terkecil": 0.01
+      },
+      {
+        "a": {
+          "index": 455,
+          "kelurahan": "TANJUNG LAUT",
+          "rt": "032"
+        },
+        "b": {
+          "index": 490,
+          "kelurahan": "TANJUNG LAUT INDAH",
+          "rt": "006"
+        },
+        "luas_irisan_m2": 0.18,
+        "persen_dari_rt_terkecil": 0.0
+      }
+    ]
+  },
+  "rt_dalam_induk": {
+    "ambang_persen_di_dalam": 99.0,
+    "jumlah_dicek": 526,
+    "keluar_induk": 0,
+    "proporsi_keluar_persen": 0.0,
+    "tanpa_induk": [],
+    "daftar_keluar": []
+  },
+  "duplikat_grup": [
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "jumlah_poligon": 7,
+      "jumlah_pasangan": 21,
+      "keterangan": "Pulau Badak-Badak Timur / Pulau Badak-Badak Barat / No Name / Pulau Segajah / No Name / No Name / Bontang Kuala",
+      "status": "terpisah 21",
+      "jarak_min_m": 52.4,
+      "jarak_maks_m": 4822.5,
+      "index": [
+        209,
+        210,
+        211,
+        212,
+        216,
+        217,
+        229
+      ]
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "018",
+      "jumlah_poligon": 5,
+      "jumlah_pasangan": 10,
+      "keterangan": "Pulau Agar-Agar / No Name / No Name / No Name / Bontang Kuala",
+      "status": "terpisah 10",
+      "jarak_min_m": 63.7,
+      "jarak_maks_m": 1290.9,
+      "index": [
+        208,
+        213,
+        214,
+        215,
+        236
+      ]
+    },
+    {
+      "kelurahan": "BONTANG LESTARI",
+      "rt": "013",
+      "jumlah_poligon": 2,
+      "jumlah_pasangan": 1,
+      "keterangan": "Pulau Siacca / Bontang Lestari",
+      "status": "terpisah 1",
+      "jarak_min_m": 172.9,
+      "jarak_maks_m": 172.9,
+      "index": [
+        242,
+        254
+      ]
+    },
+    {
+      "kelurahan": "BONTANG LESTARI",
+      "rt": "016",
+      "jumlah_poligon": 2,
+      "jumlah_pasangan": 1,
+      "keterangan": "Pulau Panjang / Selangan",
+      "status": "terpisah 1",
+      "jarak_min_m": 299.0,
+      "jarak_maks_m": 299.0,
+      "index": [
+        240,
+        241
+      ]
+    },
+    {
+      "kelurahan": "BONTANG LESTARI",
+      "rt": "017",
+      "jumlah_poligon": 3,
+      "jumlah_pasangan": 3,
+      "keterangan": "Tihi-Tihi / Pulau Tihi-Tihi / Pulau Beras Basah",
+      "status": "berdampingan 1, terpisah 2",
+      "jarak_min_m": 0.0,
+      "jarak_maks_m": 3315.6,
+      "index": [
+        238,
+        239,
+        243
+      ]
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "jumlah_poligon": 7,
+      "jumlah_pasangan": 21,
+      "keterangan": "Pulau Karangkiampau / Pulau Gusung / Pulau Selokia Dalam / Gusung / No Name / No Name / Pulau Selokia Luar",
+      "status": "terpisah 21",
+      "jarak_min_m": 7.2,
+      "jarak_maks_m": 2625.4,
+      "index": [
+        261,
+        262,
+        263,
+        264,
+        265,
+        266,
+        267
+      ]
+    },
+    {
+      "kelurahan": "LOKTUAN",
+      "rt": "003",
+      "jumlah_poligon": 2,
+      "jumlah_pasangan": 1,
+      "keterangan": "(kosong) / (kosong)",
+      "status": "terpisah 1",
+      "jarak_min_m": 28.7,
+      "jarak_maks_m": 28.7,
+      "index": [
+        376,
+        382
+      ]
+    },
+    {
+      "kelurahan": "LOKTUAN",
+      "rt": "004",
+      "jumlah_poligon": 2,
+      "jumlah_pasangan": 1,
+      "keterangan": "(kosong) / (kosong)",
+      "status": "terpisah 1",
+      "jarak_min_m": 21.4,
+      "jarak_maks_m": 21.4,
+      "index": [
+        372,
+        375
+      ]
+    },
+    {
+      "kelurahan": "SATIMPO",
+      "rt": "004",
+      "jumlah_poligon": 3,
+      "jumlah_pasangan": 3,
+      "keterangan": "Satimpo / Pulau Kedindingan / Pulau Kedindingan",
+      "status": "terpisah 3",
+      "jarak_min_m": 187.4,
+      "jarak_maks_m": 6364.5,
+      "index": [
+        425,
+        426,
+        427
+      ]
+    },
+    {
+      "kelurahan": "TANJUNG LAUT INDAH",
+      "rt": "030",
+      "jumlah_poligon": 4,
+      "jumlah_pasangan": 6,
+      "keterangan": "Pulau Melahing / Pulau Melahing / Melahing / No Name",
+      "status": "terpisah 6",
+      "jarak_min_m": 53.2,
+      "jarak_maks_m": 2880.1,
+      "index": [
+        491,
+        492,
+        493,
+        494
+      ]
+    }
+  ],
+  "duplikat": [
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 209,
+      "index_b": 210,
+      "keterangan_a": "Pulau Badak-Badak Timur",
+      "keterangan_b": "Pulau Badak-Badak Barat",
+      "luas_a_m2": 85319.3,
+      "luas_b_m2": 91626.7,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 275.2,
+      "jarak_centroid_m": 780.4
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 209,
+      "index_b": 211,
+      "keterangan_a": "Pulau Badak-Badak Timur",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 85319.3,
+      "luas_b_m2": 88364.9,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 1969.5,
+      "jarak_centroid_m": 2294.4
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 209,
+      "index_b": 212,
+      "keterangan_a": "Pulau Badak-Badak Timur",
+      "keterangan_b": "Pulau Segajah",
+      "luas_a_m2": 85319.3,
+      "luas_b_m2": 4336.8,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 4817.2,
+      "jarak_centroid_m": 5084.2
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 209,
+      "index_b": 216,
+      "keterangan_a": "Pulau Badak-Badak Timur",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 85319.3,
+      "luas_b_m2": 1276.0,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 911.7,
+      "jarak_centroid_m": 1121.0
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 209,
+      "index_b": 217,
+      "keterangan_a": "Pulau Badak-Badak Timur",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 85319.3,
+      "luas_b_m2": 2254.7,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 868.2,
+      "jarak_centroid_m": 1091.8
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 209,
+      "index_b": 229,
+      "keterangan_a": "Pulau Badak-Badak Timur",
+      "keterangan_b": "Bontang Kuala",
+      "luas_a_m2": 85319.3,
+      "luas_b_m2": 2514090.2,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 52.4,
+      "jarak_centroid_m": 1015.9
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 210,
+      "index_b": 211,
+      "keterangan_a": "Pulau Badak-Badak Barat",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 91626.7,
+      "luas_b_m2": 88364.9,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 1498.6,
+      "jarak_centroid_m": 1933.9
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 210,
+      "index_b": 212,
+      "keterangan_a": "Pulau Badak-Badak Barat",
+      "keterangan_b": "Pulau Segajah",
+      "luas_a_m2": 91626.7,
+      "luas_b_m2": 4336.8,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 3981.8,
+      "jarak_centroid_m": 4305.9
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 210,
+      "index_b": 216,
+      "keterangan_a": "Pulau Badak-Badak Barat",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 91626.7,
+      "luas_b_m2": 1276.0,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 225.6,
+      "jarak_centroid_m": 522.4
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 210,
+      "index_b": 217,
+      "keterangan_a": "Pulau Badak-Badak Barat",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 91626.7,
+      "luas_b_m2": 2254.7,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 84.6,
+      "jarak_centroid_m": 423.5
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 210,
+      "index_b": 229,
+      "keterangan_a": "Pulau Badak-Badak Barat",
+      "keterangan_b": "Bontang Kuala",
+      "luas_a_m2": 91626.7,
+      "luas_b_m2": 2514090.2,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 742.0,
+      "jarak_centroid_m": 1740.1
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 211,
+      "index_b": 212,
+      "keterangan_a": "No Name",
+      "keterangan_b": "Pulau Segajah",
+      "luas_a_m2": 88364.9,
+      "luas_b_m2": 4336.8,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 3687.8,
+      "jarak_centroid_m": 3995.2
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 211,
+      "index_b": 216,
+      "keterangan_a": "No Name",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 88364.9,
+      "luas_b_m2": 1276.0,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 1235.6,
+      "jarak_centroid_m": 1421.8
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 211,
+      "index_b": 217,
+      "keterangan_a": "No Name",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 88364.9,
+      "luas_b_m2": 2254.7,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 1338.5,
+      "jarak_centroid_m": 1542.8
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 211,
+      "index_b": 229,
+      "keterangan_a": "No Name",
+      "keterangan_b": "Bontang Kuala",
+      "luas_a_m2": 88364.9,
+      "luas_b_m2": 2514090.2,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 2036.4,
+      "jarak_centroid_m": 3246.7
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 212,
+      "index_b": 216,
+      "keterangan_a": "Pulau Segajah",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 4336.8,
+      "luas_b_m2": 1276.0,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 3983.3,
+      "jarak_centroid_m": 4053.4
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 212,
+      "index_b": 217,
+      "keterangan_a": "Pulau Segajah",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 4336.8,
+      "luas_b_m2": 2254.7,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 3963.3,
+      "jarak_centroid_m": 4033.1
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 212,
+      "index_b": 229,
+      "keterangan_a": "Pulau Segajah",
+      "keterangan_b": "Bontang Kuala",
+      "luas_a_m2": 4336.8,
+      "luas_b_m2": 2514090.2,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 4822.5,
+      "jarak_centroid_m": 6019.8
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 216,
+      "index_b": 217,
+      "keterangan_a": "No Name",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 1276.0,
+      "luas_b_m2": 2254.7,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 69.6,
+      "jarak_centroid_m": 130.0
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 216,
+      "index_b": 229,
+      "keterangan_a": "No Name",
+      "keterangan_b": "Bontang Kuala",
+      "luas_a_m2": 1276.0,
+      "luas_b_m2": 2514090.2,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 1357.4,
+      "jarak_centroid_m": 2135.2
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "013",
+      "index_a": 217,
+      "index_b": 229,
+      "keterangan_a": "No Name",
+      "keterangan_b": "Bontang Kuala",
+      "luas_a_m2": 2254.7,
+      "luas_b_m2": 2514090.2,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 1323.6,
+      "jarak_centroid_m": 2097.8
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "018",
+      "index_a": 208,
+      "index_b": 213,
+      "keterangan_a": "Pulau Agar-Agar",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 59239.9,
+      "luas_b_m2": 5585.7,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 227.1,
+      "jarak_centroid_m": 569.2
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "018",
+      "index_a": 208,
+      "index_b": 214,
+      "keterangan_a": "Pulau Agar-Agar",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 59239.9,
+      "luas_b_m2": 10499.5,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 63.7,
+      "jarak_centroid_m": 390.9
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "018",
+      "index_a": 208,
+      "index_b": 215,
+      "keterangan_a": "Pulau Agar-Agar",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 59239.9,
+      "luas_b_m2": 4712.8,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 852.8,
+      "jarak_centroid_m": 1079.2
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "018",
+      "index_a": 208,
+      "index_b": 236,
+      "keterangan_a": "Pulau Agar-Agar",
+      "keterangan_b": "Bontang Kuala",
+      "luas_a_m2": 59239.9,
+      "luas_b_m2": 2072047.7,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 688.6,
+      "jarak_centroid_m": 1874.3
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "018",
+      "index_a": 213,
+      "index_b": 214,
+      "keterangan_a": "No Name",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 5585.7,
+      "luas_b_m2": 10499.5,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 794.2,
+      "jarak_centroid_m": 938.6
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "018",
+      "index_a": 213,
+      "index_b": 215,
+      "keterangan_a": "No Name",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 5585.7,
+      "luas_b_m2": 4712.8,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 805.1,
+      "jarak_centroid_m": 873.2
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "018",
+      "index_a": 213,
+      "index_b": 236,
+      "keterangan_a": "No Name",
+      "keterangan_b": "Bontang Kuala",
+      "luas_a_m2": 5585.7,
+      "luas_b_m2": 2072047.7,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 367.3,
+      "jarak_centroid_m": 1318.9
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "018",
+      "index_a": 214,
+      "index_b": 215,
+      "keterangan_a": "No Name",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 10499.5,
+      "luas_b_m2": 4712.8,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 1290.9,
+      "jarak_centroid_m": 1433.6
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "018",
+      "index_a": 214,
+      "index_b": 236,
+      "keterangan_a": "No Name",
+      "keterangan_b": "Bontang Kuala",
+      "luas_a_m2": 10499.5,
+      "luas_b_m2": 2072047.7,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 1270.1,
+      "jarak_centroid_m": 2205.0
+    },
+    {
+      "kelurahan": "BONTANG KUALA",
+      "rt": "018",
+      "index_a": 215,
+      "index_b": 236,
+      "keterangan_a": "No Name",
+      "keterangan_b": "Bontang Kuala",
+      "luas_a_m2": 4712.8,
+      "luas_b_m2": 2072047.7,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 390.8,
+      "jarak_centroid_m": 1710.1
+    },
+    {
+      "kelurahan": "BONTANG LESTARI",
+      "rt": "013",
+      "index_a": 242,
+      "index_b": 254,
+      "keterangan_a": "Pulau Siacca",
+      "keterangan_b": "Bontang Lestari",
+      "luas_a_m2": 540003.9,
+      "luas_b_m2": 3769703.5,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 172.9,
+      "jarak_centroid_m": 2654.3
+    },
+    {
+      "kelurahan": "BONTANG LESTARI",
+      "rt": "016",
+      "index_a": 240,
+      "index_b": 241,
+      "keterangan_a": "Pulau Panjang",
+      "keterangan_b": "Selangan",
+      "luas_a_m2": 642210.0,
+      "luas_b_m2": 23146.8,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 299.0,
+      "jarak_centroid_m": 1076.8
+    },
+    {
+      "kelurahan": "BONTANG LESTARI",
+      "rt": "017",
+      "index_a": 238,
+      "index_b": 239,
+      "keterangan_a": "Tihi-Tihi",
+      "keterangan_b": "Pulau Tihi-Tihi",
+      "luas_a_m2": 29792.8,
+      "luas_b_m2": 16520.3,
+      "status": "berdampingan",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 0.0,
+      "jarak_centroid_m": 206.8
+    },
+    {
+      "kelurahan": "BONTANG LESTARI",
+      "rt": "017",
+      "index_a": 238,
+      "index_b": 243,
+      "keterangan_a": "Tihi-Tihi",
+      "keterangan_b": "Pulau Beras Basah",
+      "luas_a_m2": 29792.8,
+      "luas_b_m2": 19426.4,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 3110.3,
+      "jarak_centroid_m": 3377.3
+    },
+    {
+      "kelurahan": "BONTANG LESTARI",
+      "rt": "017",
+      "index_a": 239,
+      "index_b": 243,
+      "keterangan_a": "Pulau Tihi-Tihi",
+      "keterangan_b": "Pulau Beras Basah",
+      "luas_a_m2": 16520.3,
+      "luas_b_m2": 19426.4,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 3315.6,
+      "jarak_centroid_m": 3519.6
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 261,
+      "index_b": 262,
+      "keterangan_a": "Pulau Karangkiampau",
+      "keterangan_b": "Pulau Gusung",
+      "luas_a_m2": 14629.1,
+      "luas_b_m2": 12857.4,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 1777.9,
+      "jarak_centroid_m": 1911.1
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 261,
+      "index_b": 263,
+      "keterangan_a": "Pulau Karangkiampau",
+      "keterangan_b": "Pulau Selokia Dalam",
+      "luas_a_m2": 14629.1,
+      "luas_b_m2": 24061.7,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 1624.7,
+      "jarak_centroid_m": 1774.2
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 261,
+      "index_b": 264,
+      "keterangan_a": "Pulau Karangkiampau",
+      "keterangan_b": "Gusung",
+      "luas_a_m2": 14629.1,
+      "luas_b_m2": 38799.6,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 1338.2,
+      "jarak_centroid_m": 1553.3
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 261,
+      "index_b": 265,
+      "keterangan_a": "Pulau Karangkiampau",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 14629.1,
+      "luas_b_m2": 7777.0,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 1139.9,
+      "jarak_centroid_m": 1256.3
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 261,
+      "index_b": 266,
+      "keterangan_a": "Pulau Karangkiampau",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 14629.1,
+      "luas_b_m2": 14436.0,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 818.0,
+      "jarak_centroid_m": 1092.4
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 261,
+      "index_b": 267,
+      "keterangan_a": "Pulau Karangkiampau",
+      "keterangan_b": "Pulau Selokia Luar",
+      "luas_a_m2": 14629.1,
+      "luas_b_m2": 12728.6,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 1186.0,
+      "jarak_centroid_m": 1357.6
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 262,
+      "index_b": 263,
+      "keterangan_a": "Pulau Gusung",
+      "keterangan_b": "Pulau Selokia Dalam",
+      "luas_a_m2": 12857.4,
+      "luas_b_m2": 24061.7,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 7.2,
+      "jarak_centroid_m": 161.7
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 262,
+      "index_b": 264,
+      "keterangan_a": "Pulau Gusung",
+      "keterangan_b": "Gusung",
+      "luas_a_m2": 12857.4,
+      "luas_b_m2": 38799.6,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 261.6,
+      "jarak_centroid_m": 508.9
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 262,
+      "index_b": 265,
+      "keterangan_a": "Pulau Gusung",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 12857.4,
+      "luas_b_m2": 7777.0,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 790.6,
+      "jarak_centroid_m": 916.5
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 262,
+      "index_b": 266,
+      "keterangan_a": "Pulau Gusung",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 12857.4,
+      "luas_b_m2": 14436.0,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 2625.4,
+      "jarak_centroid_m": 2887.2
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 262,
+      "index_b": 267,
+      "keterangan_a": "Pulau Gusung",
+      "keterangan_b": "Pulau Selokia Luar",
+      "luas_a_m2": 12857.4,
+      "luas_b_m2": 12728.6,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 535.7,
+      "jarak_centroid_m": 697.4
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 263,
+      "index_b": 264,
+      "keterangan_a": "Pulau Selokia Dalam",
+      "keterangan_b": "Gusung",
+      "luas_a_m2": 24061.7,
+      "luas_b_m2": 38799.6,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 66.6,
+      "jarak_centroid_m": 349.9
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 263,
+      "index_b": 265,
+      "keterangan_a": "Pulau Selokia Dalam",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 24061.7,
+      "luas_b_m2": 7777.0,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 585.9,
+      "jarak_centroid_m": 755.0
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 263,
+      "index_b": 266,
+      "keterangan_a": "Pulau Selokia Dalam",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 24061.7,
+      "luas_b_m2": 14436.0,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 2500.8,
+      "jarak_centroid_m": 2770.8
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 263,
+      "index_b": 267,
+      "keterangan_a": "Pulau Selokia Dalam",
+      "keterangan_b": "Pulau Selokia Luar",
+      "luas_a_m2": 24061.7,
+      "luas_b_m2": 12728.6,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 467.6,
+      "jarak_centroid_m": 635.9
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 264,
+      "index_b": 265,
+      "keterangan_a": "Gusung",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 38799.6,
+      "luas_b_m2": 7777.0,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 215.3,
+      "jarak_centroid_m": 413.6
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 264,
+      "index_b": 266,
+      "keterangan_a": "Gusung",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 38799.6,
+      "luas_b_m2": 14436.0,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 2257.9,
+      "jarak_centroid_m": 2601.7
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 264,
+      "index_b": 267,
+      "keterangan_a": "Gusung",
+      "keterangan_b": "Pulau Selokia Luar",
+      "luas_a_m2": 38799.6,
+      "luas_b_m2": 12728.6,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 558.6,
+      "jarak_centroid_m": 710.0
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 265,
+      "index_b": 266,
+      "keterangan_a": "No Name",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 7777.0,
+      "luas_b_m2": 14436.0,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 2084.2,
+      "jarak_centroid_m": 2340.8
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 265,
+      "index_b": 267,
+      "keterangan_a": "No Name",
+      "keterangan_b": "Pulau Selokia Luar",
+      "luas_a_m2": 7777.0,
+      "luas_b_m2": 12728.6,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 752.6,
+      "jarak_centroid_m": 878.0
+    },
+    {
+      "kelurahan": "GUNTUNG",
+      "rt": "003",
+      "index_a": 266,
+      "index_b": 267,
+      "keterangan_a": "No Name",
+      "keterangan_b": "Pulau Selokia Luar",
+      "luas_a_m2": 14436.0,
+      "luas_b_m2": 12728.6,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 1966.1,
+      "jarak_centroid_m": 2237.1
+    },
+    {
+      "kelurahan": "LOKTUAN",
+      "rt": "003",
+      "index_a": 376,
+      "index_b": 382,
+      "keterangan_a": null,
+      "keterangan_b": null,
+      "luas_a_m2": 20721.2,
+      "luas_b_m2": 16964.4,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 28.7,
+      "jarak_centroid_m": 240.4
+    },
+    {
+      "kelurahan": "LOKTUAN",
+      "rt": "004",
+      "index_a": 372,
+      "index_b": 375,
+      "keterangan_a": null,
+      "keterangan_b": null,
+      "luas_a_m2": 3092.1,
+      "luas_b_m2": 15596.6,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 21.4,
+      "jarak_centroid_m": 257.2
+    },
+    {
+      "kelurahan": "SATIMPO",
+      "rt": "004",
+      "index_a": 425,
+      "index_b": 426,
+      "keterangan_a": "Satimpo",
+      "keterangan_b": "Pulau Kedindingan",
+      "luas_a_m2": 4856800.4,
+      "luas_b_m2": 809169.4,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 4921.1,
+      "jarak_centroid_m": 8500.2
+    },
+    {
+      "kelurahan": "SATIMPO",
+      "rt": "004",
+      "index_a": 425,
+      "index_b": 427,
+      "keterangan_a": "Satimpo",
+      "keterangan_b": "Pulau Kedindingan",
+      "luas_a_m2": 4856800.4,
+      "luas_b_m2": 485555.1,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 6364.5,
+      "jarak_centroid_m": 9722.7
+    },
+    {
+      "kelurahan": "SATIMPO",
+      "rt": "004",
+      "index_a": 426,
+      "index_b": 427,
+      "keterangan_a": "Pulau Kedindingan",
+      "keterangan_b": "Pulau Kedindingan",
+      "luas_a_m2": 809169.4,
+      "luas_b_m2": 485555.1,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 187.4,
+      "jarak_centroid_m": 1475.2
+    },
+    {
+      "kelurahan": "TANJUNG LAUT INDAH",
+      "rt": "030",
+      "index_a": 491,
+      "index_b": 492,
+      "keterangan_a": "Pulau Melahing",
+      "keterangan_b": "Pulau Melahing",
+      "luas_a_m2": 27584.2,
+      "luas_b_m2": 10301.0,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 53.2,
+      "jarak_centroid_m": 263.3
+    },
+    {
+      "kelurahan": "TANJUNG LAUT INDAH",
+      "rt": "030",
+      "index_a": 491,
+      "index_b": 493,
+      "keterangan_a": "Pulau Melahing",
+      "keterangan_b": "Melahing",
+      "luas_a_m2": 27584.2,
+      "luas_b_m2": 23196.8,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 821.8,
+      "jarak_centroid_m": 987.4
+    },
+    {
+      "kelurahan": "TANJUNG LAUT INDAH",
+      "rt": "030",
+      "index_a": 491,
+      "index_b": 494,
+      "keterangan_a": "Pulau Melahing",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 27584.2,
+      "luas_b_m2": 94529.6,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 2494.5,
+      "jarak_centroid_m": 2891.3
+    },
+    {
+      "kelurahan": "TANJUNG LAUT INDAH",
+      "rt": "030",
+      "index_a": 492,
+      "index_b": 493,
+      "keterangan_a": "Pulau Melahing",
+      "keterangan_b": "Melahing",
+      "luas_a_m2": 10301.0,
+      "luas_b_m2": 23196.8,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 957.3,
+      "jarak_centroid_m": 1126.4
+    },
+    {
+      "kelurahan": "TANJUNG LAUT INDAH",
+      "rt": "030",
+      "index_a": 492,
+      "index_b": 494,
+      "keterangan_a": "Pulau Melahing",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 10301.0,
+      "luas_b_m2": 94529.6,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 2310.2,
+      "jarak_centroid_m": 2636.8
+    },
+    {
+      "kelurahan": "TANJUNG LAUT INDAH",
+      "rt": "030",
+      "index_a": 493,
+      "index_b": 494,
+      "keterangan_a": "Melahing",
+      "keterangan_b": "No Name",
+      "luas_a_m2": 23196.8,
+      "luas_b_m2": 94529.6,
+      "status": "terpisah",
+      "luas_irisan_m2": 0.0,
+      "jarak_m": 2880.1,
+      "jarak_centroid_m": 3234.2
+    }
+  ],
+  "luas_kelurahan": {
+    "per_kelurahan": [
+      {
+        "kelurahan": "Guntung",
+        "luaswh_ha": 1109.87,
+        "luas_geodesik_ha": 1135.75,
+        "luas_utm_ha": 1134.93,
+        "selisih_persen_vs_geodesik": -2.279,
+        "luas_gabungan_rt_ha": 1134.93,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 8,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": -2.208
+      },
+      {
+        "kelurahan": "Loktuan",
+        "luaswh_ha": 335.91,
+        "luas_geodesik_ha": 336.15,
+        "luas_utm_ha": 335.91,
+        "selisih_persen_vs_geodesik": -0.073,
+        "luas_gabungan_rt_ha": 335.91,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 1,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": 0.0
+      },
+      {
+        "kelurahan": "Belimbing",
+        "luaswh_ha": 958.49,
+        "luas_geodesik_ha": 959.2,
+        "luas_utm_ha": 958.49,
+        "selisih_persen_vs_geodesik": -0.074,
+        "luas_gabungan_rt_ha": 958.49,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 1,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": 0.0
+      },
+      {
+        "kelurahan": "Gunung Telihan",
+        "luaswh_ha": 228.89,
+        "luas_geodesik_ha": 229.06,
+        "luas_utm_ha": 228.89,
+        "selisih_persen_vs_geodesik": -0.074,
+        "luas_gabungan_rt_ha": 228.89,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 1,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": 0.0
+      },
+      {
+        "kelurahan": "Gunung Elai",
+        "luaswh_ha": 501.5,
+        "luas_geodesik_ha": 501.86,
+        "luas_utm_ha": 501.5,
+        "selisih_persen_vs_geodesik": -0.073,
+        "luas_gabungan_rt_ha": 501.5,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 1,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": 0.0
+      },
+      {
+        "kelurahan": "Kanaan",
+        "luaswh_ha": 603.31,
+        "luas_geodesik_ha": 603.76,
+        "luas_utm_ha": 603.31,
+        "selisih_persen_vs_geodesik": -0.074,
+        "luas_gabungan_rt_ha": 603.31,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 1,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": 0.0
+      },
+      {
+        "kelurahan": "Bontang Baru",
+        "luaswh_ha": 221.57,
+        "luas_geodesik_ha": 221.73,
+        "luas_utm_ha": 221.57,
+        "selisih_persen_vs_geodesik": -0.073,
+        "luas_gabungan_rt_ha": 221.57,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 1,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": 0.0
+      },
+      {
+        "kelurahan": "Api-Api",
+        "luaswh_ha": 216.09,
+        "luas_geodesik_ha": 216.24,
+        "luas_utm_ha": 216.09,
+        "selisih_persen_vs_geodesik": -0.073,
+        "luas_gabungan_rt_ha": 216.08,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 1,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": 0.0
+      },
+      {
+        "kelurahan": "Tanjung Laut",
+        "luaswh_ha": 142.85,
+        "luas_geodesik_ha": 142.95,
+        "luas_utm_ha": 142.85,
+        "selisih_persen_vs_geodesik": -0.073,
+        "luas_gabungan_rt_ha": 142.85,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 1,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": 0.0
+      },
+      {
+        "kelurahan": "Bontang Kuala",
+        "luaswh_ha": 894.67,
+        "luas_geodesik_ha": 895.31,
+        "luas_utm_ha": 894.67,
+        "selisih_persen_vs_geodesik": -0.072,
+        "luas_gabungan_rt_ha": 894.67,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 11,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": 0.0
+      },
+      {
+        "kelurahan": "Tanjung Laut Indah",
+        "luaswh_ha": 252.11,
+        "luas_geodesik_ha": 252.29,
+        "luas_utm_ha": 252.11,
+        "selisih_persen_vs_geodesik": -0.072,
+        "luas_gabungan_rt_ha": 252.11,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 5,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": 0.0
+      },
+      {
+        "kelurahan": "Satimpo",
+        "luaswh_ha": 1772.55,
+        "luas_geodesik_ha": 1773.85,
+        "luas_utm_ha": 1772.55,
+        "selisih_persen_vs_geodesik": -0.073,
+        "luas_gabungan_rt_ha": 1772.55,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 3,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": 0.0
+      },
+      {
+        "kelurahan": "Berebas Tengah",
+        "luaswh_ha": 86.21,
+        "luas_geodesik_ha": 86.27,
+        "luas_utm_ha": 86.21,
+        "selisih_persen_vs_geodesik": -0.073,
+        "luas_gabungan_rt_ha": 86.21,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 1,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": 0.0
+      },
+      {
+        "kelurahan": "Berbas Pantai",
+        "luaswh_ha": 56.24,
+        "luas_geodesik_ha": 56.28,
+        "luas_utm_ha": 56.24,
+        "selisih_persen_vs_geodesik": -0.073,
+        "luas_gabungan_rt_ha": 56.24,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 1,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": 0.0
+      },
+      {
+        "kelurahan": "Bontang Lestari",
+        "luaswh_ha": 8782.41,
+        "luas_geodesik_ha": 8788.91,
+        "luas_utm_ha": 8782.41,
+        "selisih_persen_vs_geodesik": -0.074,
+        "luas_gabungan_rt_ha": 8782.41,
+        "cakupan_rt_persen": 100.0,
+        "jumlah_bagian": 6,
+        "jumlah_hole": 0,
+        "selisih_persen_vs_utm": 0.0
+      }
+    ],
+    "median_selisih_persen_kelurahan_lain": -0.073,
+    "luaswh_sama_dengan_utm": [
+      "Loktuan",
+      "Belimbing",
+      "Gunung Telihan",
+      "Gunung Elai",
+      "Kanaan",
+      "Bontang Baru",
+      "Api-Api",
+      "Tanjung Laut",
+      "Bontang Kuala",
+      "Tanjung Laut Indah",
+      "Satimpo",
+      "Berebas Tengah",
+      "Berbas Pantai",
+      "Bontang Lestari"
+    ],
+    "kesimpulan_definisi_luaswh": "luaswh = luas planar UTM 50N untuk 14 dari 15 kelurahan (selisih < 0,01%); selisih ~-0,07% terhadap geodesik hanyalah faktor skala UTM.",
+    "investigasi": {
+      "kelurahan": "Guntung",
+      "luaswh_ha": 1109.872,
+      "bagian": [
+        {
+          "luas_utm_ha": 1122.401,
+          "luas_geodesik_ha": 1123.217,
+          "jumlah_hole": 0,
+          "luas_hole_ha": 0.0
+        },
+        {
+          "luas_utm_ha": 3.88,
+          "luas_geodesik_ha": 3.883,
+          "jumlah_hole": 0,
+          "luas_hole_ha": 0.0
+        },
+        {
+          "luas_utm_ha": 2.406,
+          "luas_geodesik_ha": 2.408,
+          "jumlah_hole": 0,
+          "luas_hole_ha": 0.0
+        },
+        {
+          "luas_utm_ha": 1.463,
+          "luas_geodesik_ha": 1.464,
+          "jumlah_hole": 0,
+          "luas_hole_ha": 0.0
+        },
+        {
+          "luas_utm_ha": 1.444,
+          "luas_geodesik_ha": 1.445,
+          "jumlah_hole": 0,
+          "luas_hole_ha": 0.0
+        },
+        {
+          "luas_utm_ha": 1.286,
+          "luas_geodesik_ha": 1.287,
+          "jumlah_hole": 0,
+          "luas_hole_ha": 0.0
+        },
+        {
+          "luas_utm_ha": 1.273,
+          "luas_geodesik_ha": 1.274,
+          "jumlah_hole": 0,
+          "luas_hole_ha": 0.0
+        },
+        {
+          "luas_utm_ha": 0.778,
+          "luas_geodesik_ha": 0.778,
+          "jumlah_hole": 0,
+          "luas_hole_ha": 0.0
+        }
+      ],
+      "luas_bagian_kecil_ha": 12.53,
+      "hipotesis_urut_terdekat": [
+        {
+          "hipotesis": "hanya_bagian_terbesar_utm",
+          "luas_ha": 1122.401,
+          "selisih_dengan_luaswh_persen": -1.116
+        },
+        {
+          "hipotesis": "seluruh_geometri_utm",
+          "luas_ha": 1134.931,
+          "selisih_dengan_luaswh_persen": -2.208
+        },
+        {
+          "hipotesis": "seluruh_geometri_tanpa_mengurangi_hole_utm",
+          "luas_ha": 1134.931,
+          "selisih_dengan_luaswh_persen": -2.208
+        },
+        {
+          "hipotesis": "gabungan_poligon_rt_utm",
+          "luas_ha": 1134.93,
+          "selisih_dengan_luaswh_persen": -2.208
+        },
+        {
+          "hipotesis": "seluruh_geometri_geodesik",
+          "luas_ha": 1135.755,
+          "selisih_dengan_luaswh_persen": -2.279
+        }
+      ]
+    }
+  },
+  "luas_rt_atribut": {
+    "ambang_persen": 1,
+    "jumlah_beda": 144,
+    "jumlah_dicek": 526,
+    "selisih_maks_persen": 40.73,
+    "daftar_beda_terbesar": [
+      {
+        "index": 107,
+        "kelurahan": "BERBAS PANTAI",
+        "rt": "003",
+        "luas_atribut_ha": 3.631,
+        "luas_geometri_ha": 2.58,
+        "selisih_persen": 40.73
+      },
+      {
+        "index": 126,
+        "kelurahan": "BEREBAS TENGAH",
+        "rt": "036",
+        "luas_atribut_ha": 2.172,
+        "luas_geometri_ha": 3.146,
+        "selisih_persen": -30.96
+      },
+      {
+        "index": 516,
+        "kelurahan": "TANJUNG LAUT INDAH",
+        "rt": "022",
+        "luas_atribut_ha": 1.874,
+        "luas_geometri_ha": 1.715,
+        "selisih_persen": 9.28
+      },
+      {
+        "index": 400,
+        "kelurahan": "LOKTUAN",
+        "rt": "051",
+        "luas_atribut_ha": 3.341,
+        "luas_geometri_ha": 3.659,
+        "selisih_persen": -8.71
+      },
+      {
+        "index": 419,
+        "kelurahan": "LOKTUAN",
+        "rt": "032",
+        "luas_atribut_ha": 1.003,
+        "luas_geometri_ha": 1.098,
+        "selisih_persen": -8.66
+      },
+      {
+        "index": 116,
+        "kelurahan": "BERBAS PANTAI",
+        "rt": "014",
+        "luas_atribut_ha": 0.69,
+        "luas_geometri_ha": 0.647,
+        "selisih_persen": 6.68
+      },
+      {
+        "index": 95,
+        "kelurahan": "BERBAS PANTAI",
+        "rt": "017",
+        "luas_atribut_ha": 1.004,
+        "luas_geometri_ha": 0.941,
+        "selisih_persen": 6.62
+      },
+      {
+        "index": 283,
+        "kelurahan": "GUNTUNG",
+        "rt": "018",
+        "luas_atribut_ha": 2.77,
+        "luas_geometri_ha": 2.598,
+        "selisih_persen": 6.62
+      },
+      {
+        "index": 515,
+        "kelurahan": "TANJUNG LAUT INDAH",
+        "rt": "025",
+        "luas_atribut_ha": 1.667,
+        "luas_geometri_ha": 1.772,
+        "selisih_persen": -5.89
+      },
+      {
+        "index": 304,
+        "kelurahan": "GUNUNG ELAI",
+        "rt": "005",
+        "luas_atribut_ha": 2.191,
+        "luas_geometri_ha": 2.076,
+        "selisih_persen": 5.56
+      },
+      {
+        "index": 142,
+        "kelurahan": "BEREBAS TENGAH",
+        "rt": "058",
+        "luas_atribut_ha": 1.505,
+        "luas_geometri_ha": 1.591,
+        "selisih_persen": -5.38
+      },
+      {
+        "index": 164,
+        "kelurahan": "BEREBAS TENGAH",
+        "rt": "041",
+        "luas_atribut_ha": 0.608,
+        "luas_geometri_ha": 0.577,
+        "selisih_persen": 5.35
+      },
+      {
+        "index": 503,
+        "kelurahan": "TANJUNG LAUT INDAH",
+        "rt": "019",
+        "luas_atribut_ha": 2.137,
+        "luas_geometri_ha": 2.033,
+        "selisih_persen": 5.1
+      },
+      {
+        "index": 139,
+        "kelurahan": "BEREBAS TENGAH",
+        "rt": "031",
+        "luas_atribut_ha": 0.817,
+        "luas_geometri_ha": 0.778,
+        "selisih_persen": 4.98
+      },
+      {
+        "index": 517,
+        "kelurahan": "TANJUNG LAUT INDAH",
+        "rt": "023",
+        "luas_atribut_ha": 1.627,
+        "luas_geometri_ha": 1.55,
+        "selisih_persen": 4.97
+      },
+      {
+        "index": 76,
+        "kelurahan": "BELIMBING",
+        "rt": "032",
+        "luas_atribut_ha": 1.238,
+        "luas_geometri_ha": 1.302,
+        "selisih_persen": -4.92
+      },
+      {
+        "index": 69,
+        "kelurahan": "BELIMBING",
+        "rt": "028",
+        "luas_atribut_ha": 1.185,
+        "luas_geometri_ha": 1.247,
+        "selisih_persen": -4.91
+      },
+      {
+        "index": 115,
+        "kelurahan": "BERBAS PANTAI",
+        "rt": "006",
+        "luas_atribut_ha": 1.496,
+        "luas_geometri_ha": 1.57,
+        "selisih_persen": -4.72
+      },
+      {
+        "index": 398,
+        "kelurahan": "LOKTUAN",
+        "rt": "050",
+        "luas_atribut_ha": 3.344,
+        "luas_geometri_ha": 3.507,
+        "selisih_persen": -4.66
+      },
+      {
+        "index": 167,
+        "kelurahan": "BEREBAS TENGAH",
+        "rt": "039",
+        "luas_atribut_ha": 0.632,
+        "luas_geometri_ha": 0.663,
+        "selisih_persen": -4.6
+      },
+      {
+        "index": 360,
+        "kelurahan": "KANAAN",
+        "rt": "010",
+        "luas_atribut_ha": 3.334,
+        "luas_geometri_ha": 3.195,
+        "selisih_persen": 4.36
+      },
+      {
+        "index": 191,
+        "kelurahan": "BONTANG BARU",
+        "rt": "016",
+        "luas_atribut_ha": 2.29,
+        "luas_geometri_ha": 2.393,
+        "selisih_persen": -4.31
+      },
+      {
+        "index": 114,
+        "kelurahan": "BERBAS PANTAI",
+        "rt": "009",
+        "luas_atribut_ha": 0.875,
+        "luas_geometri_ha": 0.914,
+        "selisih_persen": -4.24
+      },
+      {
+        "index": 424,
+        "kelurahan": "LOKTUAN",
+        "rt": "038",
+        "luas_atribut_ha": 0.893,
+        "luas_geometri_ha": 0.932,
+        "selisih_persen": -4.14
+      },
+      {
+        "index": 206,
+        "kelurahan": "BONTANG BARU",
+        "rt": "004",
+        "luas_atribut_ha": 2.644,
+        "luas_geometri_ha": 2.539,
+        "selisih_persen": 4.13
+      }
+    ]
+  },
+  "bukti_pulau": {
+    "catatan": "Daratan utama = bagian terbesar dari gabungan seluruh RT. Jarak 0 = menyatu dengan daratan.",
+    "per_keterangan": [
+      {
+        "keterangan": "(kosong)",
+        "jumlah_rt": 386,
+        "rt_terpisah_dari_daratan": 0,
+        "jarak_min_m": 0.0,
+        "jarak_maks_m": 0.0
+      },
+      {
+        "keterangan": "Bontang Kuala",
+        "jumlah_rt": 20,
+        "rt_terpisah_dari_daratan": 0,
+        "jarak_min_m": 0.0,
+        "jarak_maks_m": 0.0
+      },
+      {
+        "keterangan": "Bontang Lestari",
+        "jumlah_rt": 17,
+        "rt_terpisah_dari_daratan": 0,
+        "jarak_min_m": 0.0,
+        "jarak_maks_m": 0.0
+      },
+      {
+        "keterangan": "Guntung",
+        "jumlah_rt": 17,
+        "rt_terpisah_dari_daratan": 0,
+        "jarak_min_m": 0.0,
+        "jarak_maks_m": 0.0
+      },
+      {
+        "keterangan": "Gusung",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 123.0,
+        "jarak_maks_m": 123.0
+      },
+      {
+        "keterangan": "Melahing",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 1370.7,
+        "jarak_maks_m": 1370.7
+      },
+      {
+        "keterangan": "No Name",
+        "jumlah_rt": 9,
+        "rt_terpisah_dari_daratan": 9,
+        "jarak_min_m": 367.3,
+        "jarak_maks_m": 3798.5
+      },
+      {
+        "keterangan": "Pulau Agar-Agar",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 688.6,
+        "jarak_maks_m": 688.6
+      },
+      {
+        "keterangan": "Pulau Badak-Badak Barat",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 742.0,
+        "jarak_maks_m": 742.0
+      },
+      {
+        "keterangan": "Pulau Badak-Badak Timur",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 52.4,
+        "jarak_maks_m": 52.4
+      },
+      {
+        "keterangan": "Pulau Beras Basah",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 4865.9,
+        "jarak_maks_m": 4865.9
+      },
+      {
+        "keterangan": "Pulau Gusung",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 256.9,
+        "jarak_maks_m": 256.9
+      },
+      {
+        "keterangan": "Pulau Karangkiampau",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 1484.1,
+        "jarak_maks_m": 1484.1
+      },
+      {
+        "keterangan": "Pulau Kedindingan",
+        "jumlah_rt": 2,
+        "rt_terpisah_dari_daratan": 2,
+        "jarak_min_m": 4236.7,
+        "jarak_maks_m": 5500.7
+      },
+      {
+        "keterangan": "Pulau Melahing",
+        "jumlah_rt": 2,
+        "rt_terpisah_dari_daratan": 2,
+        "jarak_min_m": 2343.2,
+        "jarak_maks_m": 2466.7
+      },
+      {
+        "keterangan": "Pulau Panjang",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 313.4,
+        "jarak_maks_m": 313.4
+      },
+      {
+        "keterangan": "Pulau Segajah",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 4440.3,
+        "jarak_maks_m": 4440.3
+      },
+      {
+        "keterangan": "Pulau Selokia Dalam",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 202.1,
+        "jarak_maks_m": 202.1
+      },
+      {
+        "keterangan": "Pulau Selokia Luar",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 817.1,
+        "jarak_maks_m": 817.1
+      },
+      {
+        "keterangan": "Pulau Siacca",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 172.9,
+        "jarak_maks_m": 172.9
+      },
+      {
+        "keterangan": "Pulau Tihi-Tihi",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 1845.6,
+        "jarak_maks_m": 1845.6
+      },
+      {
+        "keterangan": "Satimpo",
+        "jumlah_rt": 25,
+        "rt_terpisah_dari_daratan": 0,
+        "jarak_min_m": 0.0,
+        "jarak_maks_m": 0.0
+      },
+      {
+        "keterangan": "Selangan",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 315.0,
+        "jarak_maks_m": 315.0
+      },
+      {
+        "keterangan": "Tanjung Laut Indah",
+        "jumlah_rt": 32,
+        "rt_terpisah_dari_daratan": 0,
+        "jarak_min_m": 0.0,
+        "jarak_maks_m": 0.0
+      },
+      {
+        "keterangan": "Tihi-Tihi",
+        "jumlah_rt": 1,
+        "rt_terpisah_dari_daratan": 1,
+        "jarak_min_m": 1903.9,
+        "jarak_maks_m": 1903.9
+      }
+    ]
+  }
+}

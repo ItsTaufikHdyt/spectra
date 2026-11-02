@@ -1,0 +1,27 @@
+# Dependensi skrip data-pipeline (Python 3.14). Pasang dengan:
+#   python3 -m venv data-pipeline/.venv
+#   data-pipeline/.venv/bin/pip install -r data-pipeline/requirements.txt
+# 04_build_master.py hanya memakai library standar; paket di bawah untuk skrip GeoJSON.
+
+# Langsung dipakai
+shapely==2.2.0
+pyproj==3.8.0
+matplotlib==3.11.2
+tabulate==0.10.0
+geopandas==1.2.0   # adapter sumber data (scripts/sources/)
+PyYAML==6.0.3      # config/sources.yaml
+
+# Turunan (hasil pip freeze, dikunci agar hasil reproducible)
+certifi==2026.10.23
+contourpy==1.4.0
+cycler==0.12.1
+fonttools==4.68.0
+kiwisolver==1.5.1
+numpy==2.5.4
+packaging==26.3
+pandas==3.1.0
+pillow==13.0.0
+pyogrio==0.13.0
+pyparsing==3.3.3
+python-dateutil==4.0.0
+tzdata==2026.6

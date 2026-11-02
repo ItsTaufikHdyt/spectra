@@ -1,0 +1,133 @@
+{
+  "sumber": "sungai_ln_5k.json",
+  "crs_sumber": "urn:ogc:def:crs:EPSG::32650",
+  "crs_output": "EPSG:4326 (GeoJSON RFC 7946, tanpa anggota 'crs')",
+  "fitur": [
+    {
+      "id": 1,
+      "nama": "Sungai Bontang",
+      "panjang_km_atribut": 13.3071,
+      "panjang_m_atribut": 13307.109,
+      "panjang_utm_m": 13317.279,
+      "panjang_geodesik_m": 13322.139,
+      "selisih_vs_panjang_m_persen": 0.0764,
+      "selisih_vs_panjang_km_persen": 0.0764,
+      "selisih_vs_panjang_persen": 0.0764,
+      "persen_panjang_di_dalam_batas_kota": 99.86,
+      "sinuositas_bagian_utama": 1.448,
+      "bbox_wgs84": [
+        117.439412,
+        0.128314,
+        117.517358,
+        0.141641
+      ],
+      "catatan": []
+    },
+    {
+      "id": 2,
+      "nama": "Sungai Nyerakat",
+      "panjang_km_atribut": 17.4194,
+      "panjang_m_atribut": 17419.382,
+      "panjang_utm_m": 17419.382,
+      "panjang_geodesik_m": 17425.81,
+      "selisih_vs_panjang_m_persen": 0.0,
+      "selisih_vs_panjang_km_persen": 0.0,
+      "selisih_vs_panjang_persen": 0.0,
+      "persen_panjang_di_dalam_batas_kota": 100.0,
+      "sinuositas_bagian_utama": 1.559,
+      "bbox_wgs84": [
+        117.428014,
+        0.030858,
+        117.472999,
+        0.052244
+      ],
+      "catatan": []
+    },
+    {
+      "id": 3,
+      "nama": "Sungai Kanibungan",
+      "panjang_km_atribut": 3.7114,
+      "panjang_m_atribut": 3711.36,
+      "panjang_utm_m": 3709.848,
+      "panjang_geodesik_m": 3711.202,
+      "selisih_vs_panjang_m_persen": -0.0408,
+      "selisih_vs_panjang_km_persen": -0.0408,
+      "selisih_vs_panjang_persen": -0.0408,
+      "persen_panjang_di_dalam_batas_kota": 95.85,
+      "sinuositas_bagian_utama": 1.394,
+      "bbox_wgs84": [
+        117.469161,
+        0.193049,
+        117.49261,
+        0.199534
+      ],
+      "catatan": []
+    },
+    {
+      "id": 4,
+      "nama": "Sungai Guntung",
+      "panjang_km_atribut": 4.7263,
+      "panjang_m_atribut": 4726.265,
+      "panjang_utm_m": 4726.862,
+      "panjang_geodesik_m": 4728.582,
+      "selisih_vs_panjang_m_persen": 0.0126,
+      "selisih_vs_panjang_km_persen": 0.0126,
+      "selisih_vs_panjang_persen": 0.0126,
+      "persen_panjang_di_dalam_batas_kota": 79.42,
+      "sinuositas_bagian_utama": 1.093,
+      "bbox_wgs84": [
+        117.469164,
+        0.188665,
+        117.504538,
+        0.206011
+      ],
+      "catatan": [
+        "Alur hampir lurus (sinuositas 1,093) dan 20,6% panjang di luar batas kota: cek apakah alur sungai sebenarnya atau garis bantu/kanal/alur laut."
+      ]
+    },
+    {
+      "id": 0,
+      "nama": "Drainase Dahllia",
+      "panjang_km_atribut": 6.9847,
+      "panjang_m_atribut": 6984.726,
+      "panjang_utm_m": 7011.144,
+      "panjang_geodesik_m": 7013.699,
+      "selisih_vs_panjang_m_persen": 0.3782,
+      "selisih_vs_panjang_km_persen": 0.3782,
+      "selisih_vs_panjang_persen": 0.3782,
+      "persen_panjang_di_dalam_batas_kota": 96.82,
+      "sinuositas_bagian_utama": 1.428,
+      "bbox_wgs84": [
+        117.463392,
+        0.110693,
+        117.504974,
+        0.131701
+      ],
+      "catatan": [
+        "Kandidat koreksi ejaan: 'Dahllia' kemungkinan 'Dahlia' (belum diputuskan).",
+        "Kandidat koreksi kategori: drainase, bukan sungai (belum diputuskan).",
+        "id = 0, berbeda dari pola id 1–4 fitur lain.",
+        "Panjang hitung ulang berbeda > 0,1% dari atribut."
+      ]
+    }
+  ],
+  "extent_output": {
+    "bbox_wgs84": [
+      117.428014,
+      0.030858,
+      117.517358,
+      0.206011
+    ],
+    "diharapkan": [
+      117.39,
+      0.02,
+      117.57,
+      0.21
+    ],
+    "toleransi_derajat": 0.01,
+    "sesuai": true
+  },
+  "penanda_file": [
+    "Nama file 'sungai_ln_5k.json' memuat '_5k', sedangkan sungai terpanjang 17.4 km. Bila '_5k' berarti 5 km, nama tidak sesuai isi; bila berarti skala peta 1:5.000 (lazim pada data RBI), nama sesuai. Belum diputuskan; output memakai nama tanpa '_5k'."
+  ]
+}
