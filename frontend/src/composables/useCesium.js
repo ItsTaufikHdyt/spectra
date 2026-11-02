@@ -5,13 +5,14 @@ import * as Cesium from 'cesium';
 export const viewer = shallowRef(null);
 
 export function useCesium() {
-  const initViewer = async (containerId) => {
+  /** @param {string|HTMLElement} container id atau elemen DOM wadah viewer */
+  const initViewer = async (container) => {
     // Pusat Kelurahan Bontang Kuala
     const defaultLng = 117.5169;
     const defaultLat = 0.1415;
     const defaultAlt = 1500;
 
-    const v = new Cesium.Viewer(containerId, {
+    const v = new Cesium.Viewer(container, {
       animation: false,
       timeline: false,
       navigationHelpButton: false,
@@ -24,6 +25,8 @@ export function useCesium() {
       selectionIndicator: false,
       baseLayer: false
     });
+    // Simpan segera agar destroyViewer() tetap bisa melepasnya bila langkah berikut gagal.
+    viewer.value = v;
 
     // Rendering optimization
     v.resolutionScale = Math.min(window.devicePixelRatio, 1.5);
@@ -40,7 +43,6 @@ export function useCesium() {
       }
     });
 
-    viewer.value = v;
     return v;
   };
 
