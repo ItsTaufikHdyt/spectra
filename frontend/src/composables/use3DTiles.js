@@ -4,6 +4,7 @@ import { viewer } from './useCesium';
 import { useMapStore } from '@/stores/mapStore';
 import { useObjectStore } from '@/stores/objectStore';
 import { parseContentUrl, pickFirst, slugToName } from '@/utils/tileMeta';
+import { MAP_COLORS } from '@/utils/mapColors';
 
 /** Master tileset 15 kelurahan (dibuat oleh data-pipeline/scripts/04_build_master.py). */
 export const MASTER_TILESET_URL = '/tiles/master-tileset.json';
@@ -30,7 +31,8 @@ export const TILESET_OPTIONS = Object.freeze({
 
 // Ikhtisar kelurahan (LOD kasar sisi klien) — lihat buildKelurahanOverview().
 const OVERVIEW_ID_PREFIX = 'ikhtisar-kelurahan:';
-const OVERVIEW_COLOR = Cesium.Color.fromCssColorString('#38bdf8'); // bontang.accent
+const OVERVIEW_COLOR = Cesium.Color.fromCssColorString(MAP_COLORS.overview);
+const SELECTION_COLOR = Cesium.Color.fromCssColorString(MAP_COLORS.selection);
 // Nominal tinggi layar untuk memperkirakan jarak hilangnya bangunan (piksel).
 const NOMINAL_SCREEN_HEIGHT = 1080;
 
@@ -96,8 +98,8 @@ const showSelectionMarker = (cartesian) => {
     position: cartesian,
     point: {
       pixelSize: 12,
-      color: Cesium.Color.YELLOW,
-      outlineColor: Cesium.Color.BLACK,
+      color: SELECTION_COLOR,
+      outlineColor: Cesium.Color.fromCssColorString('#0D1820'),
       outlineWidth: 2,
       disableDepthTestDistance: Number.POSITIVE_INFINITY
     }
@@ -197,17 +199,17 @@ const buildKelurahanOverview = (v, list) => {
       rectangle: {
         coordinates: rect,
         height: 0, // tinggi eksplisit: outline tidak didukung pada geometri clamp-to-ground
-        material: OVERVIEW_COLOR.withAlpha(0.18),
+        material: OVERVIEW_COLOR.withAlpha(0.05),
         outline: true,
-        outlineColor: OVERVIEW_COLOR.withAlpha(0.9),
+        outlineColor: OVERVIEW_COLOR.withAlpha(0.85),
         distanceDisplayCondition: showFar
       },
       position: Cesium.Cartesian3.fromRadians((w + e) / 2, (s + n) / 2, 0),
       label: {
         text: k.name,
-        font: '600 13px Inter, system-ui, sans-serif',
+        font: '600 13px "Public Sans", system-ui, sans-serif',
         fillColor: Cesium.Color.WHITE,
-        outlineColor: Cesium.Color.fromCssColorString('#020617'),
+        outlineColor: Cesium.Color.fromCssColorString('#0D1820'),
         outlineWidth: 3,
         style: Cesium.LabelStyle.FILL_AND_OUTLINE,
         disableDepthTestDistance: Number.POSITIVE_INFINITY,
@@ -415,10 +417,10 @@ export function use3DTiles() {
     });
 
     if (feature) {
-      // Highlight kuning terang pada fitur terpilih (jalur property table).
+      // Highlight warna aksen pada fitur terpilih (jalur property table).
       if (Cesium.defined(feature.color)) Cesium.Color.clone(feature.color, highlighted.originalColor);
       highlighted.feature = feature;
-      feature.color = Cesium.Color.YELLOW.withAlpha(0.8);
+      feature.color = SELECTION_COLOR.withAlpha(0.85);
     } else {
       // Tanpa feature table, bangunan tidak bisa di-highlight per objek -> beri penanda titik.
       showSelectionMarker(cartesian);
@@ -436,7 +438,7 @@ export function use3DTiles() {
   // -------------------------------------------------------------------------
   // Navigasi kamera
   // -------------------------------------------------------------------------
-  const flyToSphere = (sphere, { heading = 15, pitch = -35, duration = 2 } = {}) => {
+  const flyToSphere = (sphere, { heading = 15, pitch = -35, duration = 2, range = 0 } = {}) => {
     if (!isViewerAlive()) return;
     // range = 0 -> Cesium menghitung jarak otomatis agar seluruh sphere terlihat.
     viewer.value.camera.flyToBoundingSphere(sphere, {
@@ -444,7 +446,7 @@ export function use3DTiles() {
       offset: new Cesium.HeadingPitchRange(
         Cesium.Math.toRadians(heading),
         Cesium.Math.toRadians(pitch),
-        0
+        range
       )
     });
   };
@@ -469,7 +471,15 @@ export function use3DTiles() {
       Cesium.Ellipsoid.WGS84,
       (minH + maxH) / 2
     );
-    flyToSphere(sphere, options);
+    // Jarak "muat seluruh kelurahan" sering melebihi ambang render bangunan (root tanpa
+    // konten), sehingga yang tampil hanya kotak ikhtisar. Batasi agar bangunan ikut dimuat.
+    let range = 0;
+    if (item.geometricError > 0) {
+      const fovy = viewer.value?.camera.frustum.fovy ?? Cesium.Math.toRadians(60);
+      const fitRange = sphere.radius / Math.sin(fovy / 2);
+      range = Math.min(fitRange, buildingsVisibleWithin(item.geometricError, fovy) * 0.75);
+    }
+    flyToSphere(sphere, { range, ...options });
   };
 
   const zoomToBontangKuala = (options) => flyToKelurahan('bontang_kuala', options);

@@ -46,19 +46,6 @@ export function useCesium() {
     return v;
   };
 
-  const flyToBontang = () => {
-    if (!viewer.value) return;
-    viewer.value.camera.flyTo({
-      destination: Cesium.Cartesian3.fromDegrees(117.5169, 0.1415, 1500),
-      orientation: {
-        heading: Cesium.Math.toRadians(15),
-        pitch: Cesium.Math.toRadians(-45),
-        roll: 0
-      },
-      duration: 2.0
-    });
-  };
-
   /**
    * Hancurkan viewer (melepas WebGL context, handler, dan seluruh primitive).
    * Panggil SETELAH resource turunan (mis. unload3DTiles) dilepas.
@@ -72,7 +59,6 @@ export function useCesium() {
   return {
     viewer,
     initViewer,
-    destroyViewer,
-    flyToBontang
+    destroyViewer
   };
 }

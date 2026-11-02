@@ -1,84 +1,126 @@
 <template>
-  <div class="bg-slate-900/90 border border-slate-700/80 backdrop-blur-md rounded-xl p-4 w-72 shadow-2xl text-xs space-y-4">
-    <div class="border-b border-slate-700 pb-2">
-      <h3 class="font-bold text-sm text-sky-400 tracking-wide">PENGELOLAAN LAYER</h3>
-      <p class="text-slate-400 text-[11px]">Digital Twin Kota Bontang</p>
-    </div>
-
-    <!-- Basemap Switcher -->
-    <div class="space-y-2">
-      <span class="font-semibold text-slate-300 uppercase tracking-wider text-[10px]">Basemap Satelit</span>
-      <div class="grid grid-cols-2 gap-2">
+  <div class="p-4 space-y-6 text-body">
+    <!-- Peta dasar -->
+    <section aria-labelledby="judul-peta-dasar" class="space-y-2">
+      <h2 id="judul-peta-dasar" class="text-small font-semibold text-bontang-muted">Peta dasar</h2>
+      <div role="group" aria-labelledby="judul-peta-dasar" class="grid grid-cols-2 gap-1 p-1 rounded-lg bg-bontang-ink border border-bontang-line">
         <button
-          @click="mapStore.setBasemap('arcgis')"
-          :class="mapStore.activeBasemap === 'arcgis' ? 'bg-sky-500 text-white font-semibold' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'"
-          class="px-2.5 py-1.5 rounded-lg border border-slate-700 transition"
+          v-for="b in BASEMAPS"
+          :key="b.id"
+          type="button"
+          :aria-pressed="mapStore.activeBasemap === b.id"
+          class="px-2 py-1.5 rounded-md font-medium"
+          :class="
+            mapStore.activeBasemap === b.id
+              ? 'bg-bontang-raised text-bontang-text ring-1 ring-inset ring-bontang-accent'
+              : 'text-bontang-muted hover:text-bontang-text'
+          "
+          @click="mapStore.setBasemap(b.id)"
         >
-          ArcGIS Satellite
-        </button>
-        <button
-          @click="mapStore.setBasemap('osm')"
-          :class="mapStore.activeBasemap === 'osm' ? 'bg-sky-500 text-white font-semibold' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'"
-          class="px-2.5 py-1.5 rounded-lg border border-slate-700 transition"
-        >
-          OpenStreetMap
+          {{ b.label }}
         </button>
       </div>
-    </div>
+    </section>
 
-    <!-- Toggle Terrain & 3D Tiles -->
-    <div class="space-y-2">
-      <span class="font-semibold text-slate-300 uppercase tracking-wider text-[10px]">Model & Medan 3D</span>
-      <div class="space-y-1.5">
-        <!-- Data DTM belum tersedia di proyek: tampilkan status, bukan toggle palsu. -->
-        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40 border border-slate-700/60">
-          <span class="text-slate-400">DTM Terrain 3D</span>
-          <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-slate-700 text-slate-300">Segera hadir</span>
-        </div>
-        <label class="flex items-center justify-between p-2 rounded-lg bg-slate-800/80 border border-slate-700/60 cursor-pointer">
-          <span class="text-slate-200">Model 3D Tiles Bangunan</span>
-          <input type="checkbox" v-model="mapStore.is3DTilesActive" class="rounded text-sky-500 focus:ring-0 w-4 h-4" />
-        </label>
+    <!-- Lapisan -->
+    <section aria-labelledby="judul-lapisan" class="space-y-2">
+      <h2 id="judul-lapisan" class="text-small font-semibold text-bontang-muted">Lapisan</h2>
+      <ul class="rounded-lg border border-bontang-line divide-y divide-bontang-line">
+        <li class="flex items-start justify-between gap-3 p-3">
+          <div>
+            <p id="label-bangunan" class="font-medium">Bangunan 3D</p>
+            <p class="text-small text-bontang-muted">LOD2, 15 kelurahan. Dari jauh tampil sebagai kotak kelurahan.</p>
+            <p v-if="loadError" class="mt-1 text-small text-bontang-danger">Gagal dimuat: {{ loadError }}</p>
+          </div>
+          <button
+            type="button"
+            role="switch"
+            :aria-checked="mapStore.is3DTilesActive"
+            aria-labelledby="label-bangunan"
+            class="relative mt-0.5 w-9 h-5 shrink-0 rounded-full border motion-safe:transition-colors"
+            :class="mapStore.is3DTilesActive ? 'bg-bontang-accent border-bontang-accent' : 'bg-bontang-ink border-bontang-edge'"
+            @click="mapStore.is3DTilesActive = !mapStore.is3DTilesActive"
+          >
+            <span
+              class="absolute top-0.5 left-0.5 w-3.5 h-3.5 rounded-full motion-safe:transition-transform"
+              :class="mapStore.is3DTilesActive ? 'translate-x-4 bg-bontang-accent-ink' : 'bg-bontang-muted'"
+              aria-hidden="true"
+            ></span>
+          </button>
+        </li>
+        <!-- Data belum ada di proyek: tampilkan status, bukan toggle palsu. -->
+        <li v-for="item in UPCOMING_LAYERS" :key="item.label" class="flex items-start justify-between gap-3 p-3">
+          <div>
+            <p class="font-medium text-bontang-muted">{{ item.label }}</p>
+            <p class="text-small text-bontang-subtle">{{ item.note }}</p>
+          </div>
+          <span class="shrink-0 px-2 py-0.5 rounded-full border border-bontang-line text-caption text-bontang-muted">Segera hadir</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Navigasi -->
+    <section aria-labelledby="judul-navigasi" class="space-y-2">
+      <div class="flex items-baseline justify-between">
+        <h2 id="judul-navigasi" class="text-small font-semibold text-bontang-muted">Navigasi</h2>
+        <span v-if="kelurahanList.length" class="text-caption text-bontang-subtle tabular-nums">
+          {{ formatNumber(kelurahanList.length) }} kelurahan
+        </span>
       </div>
-    </div>
-
-    <!-- Quick Navigation Button -->
-    <button
-      @click="flyToBontang"
-      class="w-full py-2 bg-slate-800 hover:bg-sky-600/90 border border-slate-600 text-slate-100 rounded-lg font-medium transition text-center shadow"
-    >
-      Fokus ke Kawasan Bontang
-    </button>
-
-    <!-- Fokus ke master tileset: seluruh kota / Bontang Kuala -->
-    <div class="grid grid-cols-2 gap-2">
       <button
-        @click="zoomToKota()"
+        type="button"
         :disabled="!tilesetRef"
-        class="py-2 bg-sky-600/90 hover:bg-sky-500 disabled:opacity-40 disabled:cursor-not-allowed border border-sky-500 text-white rounded-lg font-semibold transition text-center shadow"
+        class="w-full px-3 py-2 rounded-lg border border-bontang-edge font-medium hover:bg-bontang-raised disabled:opacity-50 disabled:cursor-not-allowed"
+        @click="goToKota"
       >
-        Seluruh Kota
+        Tampilkan seluruh kota
       </button>
-      <button
-        @click="zoomToBontangKuala()"
-        :disabled="!tilesetRef"
-        class="py-2 bg-sky-600/90 hover:bg-sky-500 disabled:opacity-40 disabled:cursor-not-allowed border border-sky-500 text-white rounded-lg font-semibold transition text-center shadow"
-      >
-        Bontang Kuala
-      </button>
-    </div>
-    <p v-if="loadError" class="text-[10px] text-amber-300/90 leading-tight">
-      Model 3D gagal dimuat: {{ loadError }}
-    </p>
+      <ul v-if="kelurahanList.length" class="max-h-56 overflow-y-auto rounded-lg border border-bontang-line py-1">
+        <li v-for="k in kelurahanList" :key="k.slug">
+          <button
+            type="button"
+            class="w-full text-left px-3 py-1.5 border-l-2 hover:bg-bontang-raised"
+            :class="activeSlug === k.slug ? 'border-bontang-accent bg-bontang-raised' : 'border-transparent'"
+            :aria-current="activeSlug === k.slug ? 'location' : undefined"
+            @click="goToKelurahan(k.slug)"
+          >
+            {{ k.name }}
+          </button>
+        </li>
+      </ul>
+      <p v-else-if="!loadError" class="text-small text-bontang-muted">Daftar kelurahan muncul setelah model 3D dimuat.</p>
+    </section>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { useMapStore } from '@/stores/mapStore';
-import { useCesium } from '@/composables/useCesium';
 import { use3DTiles } from '@/composables/use3DTiles';
+import { formatNumber } from '@/utils/format';
+
+const BASEMAPS = [
+  { id: 'arcgis', label: 'Citra satelit' },
+  { id: 'osm', label: 'OpenStreetMap' }
+];
+
+const UPCOMING_LAYERS = [
+  { label: 'Terrain DTM', note: 'Model elevasi 1 m untuk medan 3D.' },
+  { label: 'Orthophoto', note: 'Foto udara resolusi 5 cm.' }
+];
 
 const mapStore = useMapStore();
-const { flyToBontang } = useCesium();
-const { tilesetRef, loadError, zoomToKota, zoomToBontangKuala } = use3DTiles();
+const { tilesetRef, kelurahanList, loadError, zoomToKota, flyToKelurahan } = use3DTiles();
+
+// Penanda tujuan navigasi terakhir (bukan lokasi kamera sebenarnya).
+const activeSlug = ref('bontang_kuala');
+
+const goToKota = () => {
+  activeSlug.value = null;
+  zoomToKota();
+};
+const goToKelurahan = (slug) => {
+  activeSlug.value = slug;
+  flyToKelurahan(slug);
+};
 </script>

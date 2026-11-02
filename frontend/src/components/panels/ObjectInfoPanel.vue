@@ -1,39 +1,103 @@
 <template>
-  <div v-if="selected" class="bg-slate-900/95 border border-slate-700/80 backdrop-blur-md rounded-xl p-4 w-80 shadow-2xl text-xs space-y-3">
-    <div class="flex items-start justify-between border-b border-slate-700 pb-2">
-      <div>
-        <h4 class="font-bold text-slate-100 text-sm">{{ displayName }}</h4>
-        <p class="text-slate-400 mt-0.5">Kel. {{ selected.identity.kelurahan }} · {{ selected.identity.category }}</p>
-      </div>
-      <button type="button" aria-label="Tutup informasi objek" @click="objectStore.clearSelection()" class="text-slate-400 hover:text-slate-200 text-lg">✕</button>
-    </div>
-
-    <!-- Atribut bangunan: tampilkan state, bukan baris "Tidak tersedia" berulang. -->
-    <div v-if="objectStore.attributeStatus === 'ready'" class="space-y-1">
-      <div v-for="row in attributeRows" :key="row.key" class="flex justify-between gap-3">
-        <span class="text-slate-400">{{ row.key }}</span>
-        <span class="text-slate-200 text-right break-all">{{ row.value }}</span>
-      </div>
-    </div>
-    <p v-else-if="objectStore.attributeStatus === 'loading'" class="text-slate-400">Memuat atribut bangunan...</p>
-    <div v-else-if="objectStore.attributeStatus === 'error'" class="p-2 rounded bg-red-500/10 border border-red-500/30 text-red-200 space-y-1">
-      <p>Atribut gagal dimuat: {{ objectStore.attributeError }}</p>
-      <button type="button" class="underline" @click="objectStore.retryAttributes()">Coba lagi</button>
-    </div>
-    <div v-else class="p-3 rounded-lg bg-slate-800/60 border border-slate-700 space-y-1">
-      <p class="font-semibold text-slate-200">Data atribut belum tersedia</p>
-      <p class="text-slate-400 leading-snug">
-        Model 3D belum membawa nama, tinggi, dan fungsi bangunan. Informasi ini akan tampil di sini
-        setelah data atribut tersambung.
-      </p>
-    </div>
-
-    <div v-if="selected.location" class="space-y-1 text-slate-300">
-      <div class="flex justify-between"><span class="text-slate-400">Bujur</span><span>{{ formatDegrees(selected.location.longitude) }}</span></div>
-      <div class="flex justify-between"><span class="text-slate-400">Lintang</span><span>{{ formatDegrees(selected.location.latitude) }}</span></div>
-      <div class="flex justify-between"><span class="text-slate-400">Elevasi titik klik</span><span>{{ formatWithUnit(selected.location.elevation, 'm') }}</span></div>
-    </div>
+  <!-- Belum ada pilihan: arahkan pengguna, bukan sekadar kosong. -->
+  <div v-if="!selected" class="h-full flex flex-col items-center justify-center gap-3 p-8 text-center">
+    <svg viewBox="0 0 48 48" class="w-12 h-12 text-bontang-edge" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M10 38V18l14-8 14 8v20" />
+      <path d="M18 38V26h12v12" />
+      <circle cx="24" cy="19" r="2.5" />
+    </svg>
+    <h2 class="text-title font-semibold">Belum ada objek dipilih</h2>
+    <p class="text-body text-bontang-muted max-w-[32ch]">
+      Klik bangunan di peta untuk melihat lokasi dan atributnya. Dari kejauhan, klik kotak
+      kelurahan untuk mendekat.
+    </p>
   </div>
+
+  <article v-else aria-labelledby="judul-objek" class="p-4 space-y-5 text-body">
+    <header class="flex items-start justify-between gap-3">
+      <div class="min-w-0">
+        <p class="text-small text-bontang-muted">{{ selected.identity.category }}</p>
+        <h2 id="judul-objek" class="text-display font-semibold leading-tight break-words">{{ displayName }}</h2>
+        <p class="text-body text-bontang-muted">Kelurahan {{ selected.identity.kelurahan }}</p>
+      </div>
+      <button
+        type="button"
+        class="shrink-0 p-1.5 rounded-md text-bontang-muted hover:text-bontang-text hover:bg-bontang-raised"
+        aria-label="Hapus pilihan objek"
+        @click="objectStore.clearSelection()"
+      >
+        <svg viewBox="0 0 20 20" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+          <path d="M5 5l10 10M15 5L5 15" />
+        </svg>
+      </button>
+    </header>
+
+    <!-- Atribut bangunan -->
+    <section aria-labelledby="judul-atribut" class="space-y-2">
+      <h3 id="judul-atribut" class="text-small font-semibold text-bontang-muted">Atribut bangunan</h3>
+
+      <dl v-if="objectStore.attributeStatus === 'ready'" class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5">
+        <template v-for="row in attributeRows" :key="row.key">
+          <dt class="text-bontang-muted">{{ row.key }}</dt>
+          <dd class="text-right tabular-nums break-words">{{ row.value }}</dd>
+        </template>
+      </dl>
+
+      <div v-else-if="objectStore.attributeStatus === 'loading'" class="space-y-2" aria-busy="true">
+        <p class="sr-only">Memuat atribut bangunan</p>
+        <div class="h-3 w-3/4 rounded bg-bontang-raised motion-safe:animate-pulse"></div>
+        <div class="h-3 w-1/2 rounded bg-bontang-raised motion-safe:animate-pulse"></div>
+      </div>
+
+      <div v-else-if="objectStore.attributeStatus === 'error'" role="alert" class="rounded-lg border border-bontang-danger/50 p-3 space-y-2">
+        <p class="font-medium text-bontang-danger">Atribut gagal dimuat</p>
+        <p class="text-small text-bontang-muted break-words">{{ objectStore.attributeError }}</p>
+        <button type="button" class="px-3 py-1.5 rounded-md border border-bontang-edge text-small font-medium hover:bg-bontang-raised" @click="objectStore.retryAttributes()">
+          Coba lagi
+        </button>
+      </div>
+
+      <div v-else class="rounded-lg border border-dashed border-bontang-edge p-3 space-y-1">
+        <p class="font-medium">Data atribut belum tersedia</p>
+        <p class="text-small text-bontang-muted">
+          Model 3D belum membawa nama, tinggi, dan fungsi bangunan. Informasi ini tampil di sini
+          setelah data atribut tersambung.
+        </p>
+      </div>
+    </section>
+
+    <!-- Lokasi titik klik -->
+    <section v-if="selected.location" aria-labelledby="judul-lokasi" class="space-y-2">
+      <h3 id="judul-lokasi" class="text-small font-semibold text-bontang-muted">Lokasi titik klik</h3>
+      <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5">
+        <dt class="text-bontang-muted">Bujur</dt>
+        <dd class="text-right tabular-nums">{{ formatDegrees(selected.location.longitude) }}</dd>
+        <dt class="text-bontang-muted">Lintang</dt>
+        <dd class="text-right tabular-nums">{{ formatDegrees(selected.location.latitude) }}</dd>
+        <dt class="text-bontang-muted">Elevasi</dt>
+        <dd class="text-right tabular-nums">{{ formatWithUnit(selected.location.elevation, 'm') }}</dd>
+      </dl>
+    </section>
+
+    <!-- Sumber data -->
+    <section aria-labelledby="judul-sumber" class="space-y-2">
+      <h3 id="judul-sumber" class="text-small font-semibold text-bontang-muted">Sumber data</h3>
+      <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5">
+        <dt class="text-bontang-muted">Tingkat detail</dt>
+        <dd class="text-right">LOD 2</dd>
+        <dt class="text-bontang-muted">Tile</dt>
+        <dd class="text-right break-all">{{ selected.tile.path || '–' }}</dd>
+        <template v-if="selected.tile.featureId !== undefined">
+          <dt class="text-bontang-muted">ID fitur</dt>
+          <dd class="text-right tabular-nums">{{ formatNumber(selected.tile.featureId) }}</dd>
+        </template>
+      </dl>
+    </section>
+
+    <p class="text-small text-bontang-muted border-t border-bontang-line pt-3">
+      Elevasi adalah tinggi titik yang diklik, bukan elevasi lantai dasar (FFL) hasil survei.
+    </p>
+  </article>
 </template>
 
 <script setup>

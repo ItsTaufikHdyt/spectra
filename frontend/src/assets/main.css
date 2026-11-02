@@ -10,7 +10,52 @@ html, body, #app {
   overflow: hidden;
 }
 
-/* Cesium Custom Styles */
+/* Fokus keyboard selalu terlihat, memakai satu-satunya warna aksen. */
+:focus-visible {
+  outline: 2px solid theme('colors.bontang.accent');
+  outline-offset: 2px;
+}
+
+/* Angka di panel/legenda sejajar kolom. */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Atribusi data (ArcGIS, OpenStreetMap) WAJIB tampil sesuai ketentuan penyedia;
+   dipindah ke kanan bawah agar tidak bertabrakan dengan legenda. */
 .cesium-viewer-bottom {
-  display: none !important;
+  left: auto !important;
+  right: 8px;
+  bottom: 6px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: rgba(13, 24, 32, 0.72);
+}
+.cesium-widget-credits {
+  font-family: inherit;
+  font-size: 11px;
+  color: theme('colors.bontang.muted');
+}
+.cesium-credit-logoContainer {
+  display: none !important; /* logo Cesium dekoratif; atribusi teks tetap tampil */
+}
+
+/* Transisi panel: hanya opacity/transform (murah, tidak memicu layout ulang kanvas). */
+@media (prefers-reduced-motion: no-preference) {
+  .panel-left-enter-active,
+  .panel-left-leave-active,
+  .panel-right-enter-active,
+  .panel-right-leave-active {
+    transition: transform 160ms ease-out, opacity 160ms ease-out;
+  }
+}
+.panel-left-enter-from,
+.panel-left-leave-to {
+  transform: translateX(-12px);
+  opacity: 0;
+}
+.panel-right-enter-from,
+.panel-right-leave-to {
+  transform: translateX(12px);
+  opacity: 0;
 }

@@ -2,25 +2,25 @@
   <div class="relative w-full h-full">
     <div id="cesiumContainer" ref="containerEl" class="w-full h-full"></div>
 
-    <div v-if="status === 'loading'" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center z-50">
+    <div v-if="status === 'loading'" class="absolute inset-0 z-40 flex items-center justify-center bg-bontang-ink/85" role="status">
       <div class="flex flex-col items-center gap-3">
-        <div class="w-10 h-10 border-4 border-sky-400 border-t-transparent rounded-full animate-spin"></div>
-        <p class="text-sky-300 font-medium text-sm">Menyiapkan Digital Twin Bontang...</p>
+        <div class="w-8 h-8 rounded-full border-2 border-bontang-line border-t-bontang-accent motion-safe:animate-spin" aria-hidden="true"></div>
+        <p class="text-body text-bontang-muted">Menyiapkan peta 3D Kota Bontang…</p>
       </div>
     </div>
 
-    <div v-else-if="status === 'error'" role="alert" class="absolute inset-0 bg-slate-950/90 flex items-center justify-center z-50">
+    <div v-else-if="status === 'error'" role="alert" class="absolute inset-0 z-40 flex items-center justify-center bg-bontang-ink/95">
       <div class="max-w-sm text-center space-y-3 p-6">
-        <p class="text-slate-100 font-semibold">Peta 3D gagal dimuat</p>
-        <p class="text-slate-400 text-sm">
+        <p class="text-title font-semibold">Peta 3D gagal dimuat</p>
+        <p class="text-body text-bontang-muted">
           Penampil 3D tidak dapat dijalankan. Pastikan browser mendukung WebGL dan akselerasi
-          grafis aktif.
+          grafis aktif, lalu coba lagi.
         </p>
-        <p class="text-slate-500 text-xs font-mono break-words">{{ errorMessage }}</p>
+        <p class="text-small text-bontang-subtle break-words">{{ errorMessage }}</p>
         <button
           type="button"
           @click="start"
-          class="px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-sm"
+          class="px-4 py-2 rounded-lg bg-bontang-accent text-bontang-accent-ink font-semibold text-body hover:brightness-110"
         >
           Coba lagi
         </button>
