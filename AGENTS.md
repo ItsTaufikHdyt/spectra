@@ -38,7 +38,13 @@ spectra/
 > Belum ada test runner maupun linter yang terkonfigurasi. Verifikasi utama = `npm run build` sukses + cek akses HTTP aset.
 
 ### Data Pipeline
-Tooling: `cjio` (Python) untuk merge/clean CityJSON, `3dgi/tyler` (Rust) untuk konversi 3D Tiles v1.1. Skrip ETL otomatis belum ada (lihat `STATUS.md` M1).
+Tooling: `cjio` (Python) untuk merge/clean CityJSON, `3dgi/tyler` (Rust) untuk konversi 3D Tiles v1.1.
+Hanya `04_build_master.py` yang ada di repo (stdlib Python, tanpa dependensi):
+
+| Perintah (dari root repo) | Fungsi |
+|---------------------------|--------|
+| `python3 data-pipeline/scripts/04_build_master.py` | Validasi 15 kelurahan + tulis `processed/3dtiles/master-tileset.json`. |
+| `python3 data-pipeline/scripts/04_build_master.py --sync` | Idem + salin inkremental ke `frontend/public/tiles/`. **Jalankan ulang setiap data kelurahan berubah.** |
 
 ---
 
@@ -80,7 +86,19 @@ Tooling: `cjio` (Python) untuk merge/clean CityJSON, `3dgi/tyler` (Rust) untuk k
 - **Dependensi CesiumJS:** cek versi terpasang sebelum memakai API — versi aktual **1.146.x**
   (meski `package.json` menyebut `^1.119.0`). Beberapa opsi lama sudah usang:
   - `tileset.readyPromise` → sudah dihapus; `Cesium3DTileset.fromUrl()` resolve setelah ready.
-  - `maximumMemoryUsage` → ganti `cacheBytes` / `maximumCacheOverflowBytes`.
+  - `maximumMemoryUsage` → tidak ada di 1.146 (diabaikan diam-diam); pakai `cacheBytes` / `maximumCacheOverflowBytes`.
+  - Banyak opsi performa sudah default di 1.146 (`cacheBytes` 512 MB, `cullWithChildrenBounds`,
+    `cullRequestsWhileMoving`, `foveatedScreenSpaceError`, `dynamicScreenSpaceError` = true). Jangan
+    mengklaim opsi-opsi itu "mengoptimalkan" — hanya `maximumScreenSpaceError`, `skipLevelOfDetail`,
+    dan `maximumCacheOverflowBytes` yang mengubah perilaku. Parameter ada di `TILESET_OPTIONS` (`use3DTiles.js`).
+- **Siklus hidup resource Cesium:** `ScreenSpaceEventHandler`, entity, tileset, dan viewer WAJIB dilepas
+  saat unmount (`unload3DTiles()` lalu `destroyViewer()` di `onBeforeUnmount`). `watch` yang hidup di
+  tingkat modul harus memakai `effectScope(true)` agar tidak ikut berhenti bersama komponen pemanggil.
+- **Picking:** gunakan hanya `LEFT_CLICK` (tanpa `MOUSE_MOVE`/hover). `scene.pick()` mengembalikan
+  `Cesium3DTileFeature` **hanya jika tile punya property table**; untuk `.glb` tanpa
+  `EXT_structural_metadata` (kondisi data saat ini) hasilnya objek biasa `{content, primitive: tileset}`.
+  Jangan hanya mengandalkan `instanceof Cesium3DTileFeature`.
+- **Nama kelurahan** diturunkan dari slug folder di URL konten (`/tiles/<slug>/...`) lewat `utils/tileMeta.js`.
 
 ---
 
@@ -88,10 +106,15 @@ Tooling: `cjio` (Python) untuk merge/clean CityJSON, `3dgi/tyler` (Rust) untuk k
 
 - Aset 3D untuk pengujian lokal diletakkan di `frontend/public/tiles/<kelurahan>/`
   dan diakses browser via path absolut `/tiles/<kelurahan>/tileset.json`.
+- Frontend memuat **satu** `master-tileset.json` (`/tiles/master-tileset.json`) yang mereferensikan
+  `/tiles/<kelurahan>/tileset.json` sebagai external tileset. Aset untuk dev ada di
+  `frontend/public/tiles/` — selalu diisi lewat `04_build_master.py --sync`, bukan disalin manual.
 - Output ETL kanonikal ada di `data-pipeline/processed/`; `frontend/public/tiles/` hanya
-  salinan/symlink untuk dev. Jangan jadikan `public/tiles/` sumber kebenaran.
-- Folder `data-pipeline/raw/` dan `processed/` berisi data besar → **jangan commit**
-  (hanya `scripts/` yang di-commit). Perbaiki `.gitignore` bila perlu.
+  salinan untuk dev. Jangan jadikan `public/tiles/` sumber kebenaran.
+- `data-pipeline/raw/`, `data-pipeline/processed/`, dan `frontend/public/tiles/` berisi data besar →
+  **jangan commit** (sudah di-ignore di `.gitignore`; hanya `.gitkeep` dan `scripts/` yang dilacak).
+- `geometricError` root master sengaja besar (4× error terbesar kelurahan): root master tanpa konten,
+  jika errornya kecil seluruh kota menghilang saat kamera menjauh. Jangan diperkecil tanpa menguji.
 
 ---
 

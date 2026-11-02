@@ -49,13 +49,26 @@
       Fokus ke Kawasan Bontang
     </button>
 
-    <!-- Fokus ke Tileset Bontang Kuala -->
-    <button
-      @click="zoomToBontangKuala"
-      class="w-full py-2 bg-sky-600/90 hover:bg-sky-500 border border-sky-500 text-white rounded-lg font-semibold transition text-center shadow"
-    >
-      Fokus ke Bontang Kuala
-    </button>
+    <!-- Fokus ke master tileset: seluruh kota / Bontang Kuala -->
+    <div class="grid grid-cols-2 gap-2">
+      <button
+        @click="zoomToKota()"
+        :disabled="!tilesetRef"
+        class="py-2 bg-sky-600/90 hover:bg-sky-500 disabled:opacity-40 disabled:cursor-not-allowed border border-sky-500 text-white rounded-lg font-semibold transition text-center shadow"
+      >
+        Seluruh Kota
+      </button>
+      <button
+        @click="zoomToBontangKuala()"
+        :disabled="!tilesetRef"
+        class="py-2 bg-sky-600/90 hover:bg-sky-500 disabled:opacity-40 disabled:cursor-not-allowed border border-sky-500 text-white rounded-lg font-semibold transition text-center shadow"
+      >
+        Bontang Kuala
+      </button>
+    </div>
+    <p v-if="loadError" class="text-[10px] text-amber-300/90 leading-tight">
+      Model 3D gagal dimuat: {{ loadError }}
+    </p>
   </div>
 </template>
 
@@ -66,5 +79,5 @@ import { use3DTiles } from '@/composables/use3DTiles';
 
 const mapStore = useMapStore();
 const { flyToBontang } = useCesium();
-const { zoomToBontangKuala } = use3DTiles();
+const { tilesetRef, loadError, zoomToKota, zoomToBontangKuala } = use3DTiles();
 </script>

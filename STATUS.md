@@ -1,7 +1,7 @@
 # STATUS PROYEK — Digital Twin Kota Bontang (`spectra`)
 
-> **Terakhir diperbarui:** 2026-10-09
-> **Fase:** Transisi POC → Scale-Up Skala Kota (15 Kelurahan)
+> **Terakhir diperbarui:** 2026-10-12
+> **Fase:** Scale-Up Skala Kota — 15 kelurahan sudah berupa 3D Tiles, frontend memuat satu master tileset.
 > Dokumen ini adalah sumber kebenaran status implementasi. Perbarui setiap kali ada perubahan berarti.
 
 ---
@@ -10,10 +10,10 @@
 
 | Modul | Status | Keterangan |
 |-------|:------:|------------|
-| `frontend/` | 🟢 **Berjalan** | Viewer, basemap, panel UI, 3D Tiles Bontang Kuala, picking + highlight. |
-| `data-pipeline/` | 🟡 **Sebagian** | 1 kelurahan sudah dikonversi ke 3D Tiles v1.1 (Bontang Kuala). Skrip ETL belum ditulis. |
+| `frontend/` | 🟡 **Berjalan, render belum diuji** | Loader master tileset + tuning performa + picking aman. Render WebGL & klik nyata belum diverifikasi di browser. |
+| `data-pipeline/` | 🟡 **Sebagian** | 15 kelurahan sudah jadi 3D Tiles v1.1 + `master-tileset.json`. Hanya `04_build_master.py` yang ada di repo; konversi `cjio`/`tyler` dilakukan di luar repo (belum reproducible). |
 | `backend/` | ⚪ **Belum dimulai** | Framework (Laravel vs FastAPI) belum diputuskan. |
-| Git / Versioning | 🔴 **Belum ada** | Direktori belum menjadi git repository. |
+| Git | 🟡 **Lokal saja** | 1 commit (`e71f008`), branch `master`, belum ada remote. |
 | Docker / Orkestrasi | 🔴 **Belum ada** | `docker-compose.yml` belum dibuat. |
 
 Legenda: 🟢 selesai & terverifikasi · 🟡 sebagian · 🔴 belum ada · ⚪ belum dimulai
@@ -22,48 +22,60 @@ Legenda: 🟢 selesai & terverifikasi · 🟡 sebagian · 🔴 belum ada · ⚪ 
 
 ## 2. Yang Sudah Selesai
 
-### Frontend
-- Scaffolding Vue 3 + Vite + Pinia + Tailwind + CesiumJS.
-- `useCesium.js` — inisialisasi Viewer di `shallowRef()`; kamera default ke pusat Bontang Kuala (Lng 117.5169, Lat 0.1415, Alt 1500 m, pitch -45°).
-- `useLayers.js` — basemap ArcGIS Imagery & OpenStreetMap dengan switcher.
-- `use3DTiles.js` — memuat 3D Tiles v1.1 Bontang Kuala dari `/tiles/bontang_kuala/tileset.json`, `zoomToBontangKuala()`, feature picking (`LEFT_CLICK`) + highlight kuning, `applyHeightOffset()`, watcher visibilitas.
-- Panel UI: `LayerControl.vue` (basemap switcher, toggle terrain & 3D Tiles, tombol fokus) dan `ObjectInfoPanel.vue` (atribut objek terpilih).
-- Pinia stores: `mapStore` (status layer/kamera), `objectStore` (objek terpilih).
-
 ### Data Pipeline
-- Konversi CityJSON LOD2 Kelurahan Bontang Kuala → OGC 3D Tiles v1.1 (`tileset.json` + 3 file `.glb`), tersimpan di `data-pipeline/processed/3dtiles/bontang_kuala/` dan disalin ke `frontend/public/tiles/bontang_kuala/`.
+- 3D Tiles v1.1 untuk **15 kelurahan** di `data-pipeline/processed/3dtiles/<slug>/` (125 file `.glb`, ±125 MB, 47.108 feature).
+- `data-pipeline/scripts/04_build_master.py`: membaca seluruh kelurahan, memvalidasi (region + keberadaan tiap file konten), menggabungkan region (union), menulis `master-tileset.json` (15 anak, external tileset), dan `--sync` ke `frontend/public/tiles/` (inkremental, idempoten, tidak menyalin `tileset_unpruned.json`).
 
-### Verifikasi Terakhir (2026-10-09)
-- `npm run build` sukses tanpa error (33 modul).
-- Akses HTTP dev server: `tileset.json` → 200; tiga `.glb` → 200 (2.1 MB / 1.9 MB / 1.3 MB).
+  ```bash
+  python3 data-pipeline/scripts/04_build_master.py          # bangun master saja
+  python3 data-pipeline/scripts/04_build_master.py --sync   # + salin ke frontend/public/tiles/
+  ```
+
+### Frontend
+- `use3DTiles.js`: memuat `/tiles/master-tileset.json` via `Cesium3DTileset.fromUrl()`; state di `shallowRef`; opsi performa di konstanta `TILESET_OPTIONS`; picking `LEFT_CLICK` saja dengan satu `ScreenSpaceEventHandler` yang di-destroy; `unload3DTiles()` (handler, marker, watcher, listener, tileset) + HMR dispose; navigasi `zoomToKota()`, `flyToKelurahan(slug)`, `zoomToBontangKuala()`.
+- `useCesium.js`: `destroyViewer()`. `CesiumCanvas.vue`: cleanup di `onBeforeUnmount`, basemap gagal tidak menahan pemuatan model.
+- `LayerControl.vue`: tombol "Seluruh Kota" / "Bontang Kuala" + pesan error muat. `ObjectInfoPanel.vue`: kelurahan, tinggi aman, daftar properti.
+- `utils/tileMeta.js`: helper murni (slug → nama, parse URL konten, pickFirst).
+
+### Verifikasi (2026-10-12)
+- `04_build_master.py`: 15 kelurahan, 125 konten, tidak ada file hilang; semua region anak berada di dalam region master; `--sync` kedua menyalin 0 file.
+- HTTP dev server: 141 file (125 `.glb` + 16 tileset JSON) **identik byte-per-byte** dengan disk (magic bytes `glTF`/`{` cocok).
+- Cesium 1.146.0 (Node): `Cesium3DTileset.fromUrl()` sukses untuk master dan ke-15 child; opsi terbaca (SSE 24, cache 512 MB, overflow 256 MB, skipLOD true).
+- 14 skenario logika `use3DTiles.js` (viewer tiruan + Cesium/Pinia asli) lulus: picking dua jalur, highlight, toggle, race unload-vs-load, re-init, error. Listener ditambah 45 = dilepas 45. Uji mutasi (3 kerusakan sengaja) terdeteksi.
+- `npm run build` sukses (34 modul).
+
+### Belum terverifikasi (jangan diklaim berhasil)
+- Render WebGL bangunan di browser, tampilan `skipLevelOfDetail: true`, dan klik/picking sungguhan.
+- **Performa/lag**: tidak ada pengukuran FPS atau memori GPU; pengaruh tuning belum terbukti.
 
 ---
 
-## 3. Hutang Teknis & Isu Terbuka (Known Gaps)
+## 3. Hutang Teknis & Isu Terbuka
 
 | # | Isu | Prioritas | Lokasi |
 |---|-----|:---------:|--------|
-| 1 | Terrain belum tersambung — kedua cabang toggle masih `EllipsoidTerrainProvider()`. | Tinggi | `useLayers.js` |
-| 2 | Orthophoto & `orthoOpacity` belum di-wire ke imagery layer. | Sedang | `useLayers.js`, `mapStore.js` |
-| 3 | `master-tileset.json` multi-kelurahan belum dibuat (baru single tileset). | Tinggi | `data-pipeline/`, `use3DTiles.js` |
-| 4 | Skrip ETL (`01`–`04`) belum ditulis. | Tinggi | `data-pipeline/scripts/` |
-| 5 | Versi Cesium terpasang 1.146.0, tapi `package.json` menyebut `^1.119.0`. Opsi `maximumMemoryUsage` sudah usang (ganti `cacheBytes`). | Sedang | `frontend/package.json`, `use3DTiles.js` |
-| 6 | `.gitignore` memakai prefix `./` yang tidak dikenali Git; meng-ignore seluruh `data-pipeline/`. | Sedang | `.gitignore` |
-| 7 | Git belum diinisialisasi. | Tinggi | root |
-| 8 | Data 14 kelurahan lain belum tersedia. | Blocker eksternal | `data-pipeline/raw/` |
-| 9 | Backend & skema PostGIS belum ada. | Sedang | `backend/` |
-| 10 | Komponen terencana belum dibuat: `services/`, `stores/layerStore.js`, `components/common/`, `components/simulation/`, `composables/useObjectSelect.js`. | Rendah | `frontend/src/` |
+| 1 | **Tile tidak membawa atribut bangunan.** Seluruh 125 `.glb` hanya punya `EXT_mesh_features` (tanpa `EXT_structural_metadata`); CityJSON mentah yang diperiksa (Bontang Kuala, Api Api) juga tanpa `attributes`. Picking hanya bisa menampilkan kelurahan, tile, dan koordinat — bukan nama/tinggi/kategori. Butuh sumber atribut + penyertaannya di ETL (atau lookup via backend). | Tinggi | ETL / data |
+| 2 | **Bangunan hilang bila kamera jauh.** Root tiap kelurahan (kecuali `bontang_lestari`) tidak punya konten; Cesium baru menelusurinya bila SSE root > batas. Perkiraan (asumsi layar 16:9, 1080 px): ambang ±2–7 km pada SSE 24 (median ±4 km; Guntung ±17 km); pada SSE 16 lebih jauh. Tombol "Seluruh Kota" menampilkan peta tanpa bangunan sampai pengguna mendekat. Perlu perilaku yang diinginkan + kemungkinan tile kasar di ETL. | Tinggi | ETL / `TILESET_OPTIONS` |
+| 3 | Toggle per kelurahan tidak mungkin dengan satu master tileset (satu objek `Cesium3DTileset`). Bila dibutuhkan: muat per kelurahan (Opsi B). | Sedang | `use3DTiles.js` |
+| 4 | Terrain belum tersambung — kedua cabang toggle `EllipsoidTerrainProvider()`. | Tinggi | `useLayers.js` |
+| 5 | Orthophoto & `orthoOpacity` belum di-wire. | Sedang | `useLayers.js`, `mapStore.js` |
+| 6 | Skrip ETL `01`–`03` (merge, clean, tyler) belum ada di repo; hasil konversi tidak reproducible dari repo. | Tinggi | `data-pipeline/scripts/` |
+| 7 | `package.json` menyebut Cesium `^1.119.0`, terpasang 1.146.0 — pin versi. | Sedang | `frontend/package.json` |
+| 8 | `PRD.md` §2 usang (menyebut git belum ada, 1 kelurahan, master belum ada). | Sedang | `PRD.md` |
+| 9 | `frontend/public/tiles/` (126 MB) ikut tersalin ke `dist/` saat `npm run build`; produksi seharusnya dari MinIO/storage. | Sedang | deploy |
+| 10 | Backend, skema PostGIS, Docker belum ada. | Sedang | `backend/` |
+| 11 | Komponen terencana belum dibuat: `services/`, `stores/layerStore.js`, `components/common/`, `components/simulation/`. | Rendah | `frontend/src/` |
 
 ---
 
 ## 4. Roadmap / Milestone
 
-- [x] **M0:** Scaffolding frontend + integrasi 3D Tiles single kelurahan (Bontang Kuala).
-- [ ] **M1:** Tulis skrip ETL (`cjio` merge/clean) untuk CityJSON 15 kelurahan.
-- [ ] **M2:** Konversi seluruh kelurahan ke 3D Tiles v1.1 (`3dgi/tyler`) + bentuk `master-tileset.json`.
-- [ ] **M3:** Integrasi terrain 1m lokal (quantized-mesh) + orthophoto XYZ tiles di frontend.
-- [ ] **M4:** Keputusan backend → skema PostGIS → GeoServer (batas kelurahan/jalan/drainase).
-- [ ] **M5:** Skenario simulasi genangan banjir/rob (`components/simulation/`).
+- [x] **M0:** Scaffolding frontend + integrasi 3D Tiles.
+- [ ] **M1:** Skrip ETL `cjio` (merge/clean) untuk CityJSON 15 kelurahan di dalam repo.
+- [~] **M2:** 3D Tiles 15 kelurahan + `master-tileset.json` **ada**; skrip konversi `tyler` belum di repo.
+- [ ] **M3:** Terrain 1m lokal + orthophoto XYZ di frontend; uji render & performa di browser.
+- [ ] **M4:** Keputusan backend → PostGIS → GeoServer; sumber atribut bangunan (lihat #1).
+- [ ] **M5:** Simulasi genangan banjir/rob (`components/simulation/`).
 
 ---
 

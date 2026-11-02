@@ -57,9 +57,20 @@ export function useCesium() {
     });
   };
 
+  /**
+   * Hancurkan viewer (melepas WebGL context, handler, dan seluruh primitive).
+   * Panggil SETELAH resource turunan (mis. unload3DTiles) dilepas.
+   */
+  const destroyViewer = () => {
+    const v = viewer.value;
+    viewer.value = null;
+    if (v && !v.isDestroyed()) v.destroy();
+  };
+
   return {
     viewer,
     initViewer,
+    destroyViewer,
     flyToBontang
   };
 }

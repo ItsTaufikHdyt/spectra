@@ -11,25 +11,42 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useCesium } from '@/composables/useCesium';
 import { useLayers } from '@/composables/useLayers';
 import { use3DTiles } from '@/composables/use3DTiles';
 
 const isLoading = ref(true);
-const { initViewer } = useCesium();
+const { initViewer, destroyViewer } = useCesium();
 const { initBasemaps } = useLayers();
-const { load3DTiles, setupTilePicking, zoomToBontangKuala } = use3DTiles();
+const { load3DTiles, unload3DTiles, setupTilePicking, zoomToBontangKuala } = use3DTiles();
+
+let disposed = false;
 
 onMounted(async () => {
   await initViewer('cesiumContainer');
-  await initBasemaps();
-  const tileset = await load3DTiles('/tiles/bontang_kuala/tileset.json');
-  setupTilePicking();
-  // Arahkan kamera ke tileset Bontang Kuala jika berhasil dimuat.
-  if (tileset) {
-    zoomToBontangKuala();
+
+  // Basemap bersifat sekunder (butuh jaringan ke ArcGIS/OSM): kegagalannya
+  // tidak boleh menghalangi pemuatan model 3D maupun menahan layar loading.
+  try {
+    await initBasemaps();
+  } catch (err) {
+    console.warn('[CesiumCanvas] Basemap gagal dimuat:', err.message);
   }
+  if (disposed) return;
+
+  const tileset = await load3DTiles();
+  if (disposed) return;
+
+  setupTilePicking();
+  // Awal: fokus ke Bontang Kuala (instan, tanpa animasi terbang).
+  if (tileset) zoomToBontangKuala({ duration: 0 });
   isLoading.value = false;
+});
+
+onBeforeUnmount(() => {
+  disposed = true;
+  unload3DTiles(); // handler picking, marker, watcher, tileset
+  destroyViewer(); // terakhir: WebGL context
 });
 </script>
