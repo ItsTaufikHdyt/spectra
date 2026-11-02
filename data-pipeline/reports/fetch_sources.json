@@ -1,0 +1,240 @@
+{
+  "timestamp_utc": "20261102T053649Z",
+  "sumber": [
+    {
+      "id": "geojson_lokal_kelurahan",
+      "tipe": "geojson_lokal",
+      "layer": "kelurahan",
+      "prioritas": 1,
+      "file": "raw/geojson/batas-kelurahan.json",
+      "crs_file": null,
+      "fitur": 15,
+      "output": "processed/sources/geojson_lokal_kelurahan.geojson",
+      "sha256": "7138c094e35ddfe11843e851b89c9357a9f963bfdf92d080dda66ac7a41e12a3",
+      "jumlah": 15,
+      "uji_identik_jalur_lama": {
+        "file_lama": "processed/geojson/batas-kelurahan.norm.geojson",
+        "jumlah": [
+          15,
+          15
+        ],
+        "geometri_sama": true,
+        "nama_slug_sama": true,
+        "identik": true
+      },
+      "status": "ok"
+    },
+    {
+      "id": "geojson_lokal_rt",
+      "tipe": "geojson_lokal",
+      "layer": "rt",
+      "prioritas": 1,
+      "file": "raw/geojson/batas-rt.json",
+      "crs_file": null,
+      "fitur": 526,
+      "output": "processed/sources/geojson_lokal_rt.geojson",
+      "sha256": "52be851c8aa083461db01f02e41d2138f91e02bd6a9b1ecc20b0c44a436bbcd9",
+      "jumlah": 526,
+      "uji_identik_jalur_lama": {
+        "file_lama": "processed/geojson/batas-rt.norm.geojson",
+        "jumlah": [
+          526,
+          526
+        ],
+        "geometri_sama": true,
+        "nama_slug_sama": true,
+        "identik": true
+      },
+      "status": "ok"
+    },
+    {
+      "id": "geojson_lokal_sungai",
+      "tipe": "geojson_lokal",
+      "layer": "sungai",
+      "prioritas": 1,
+      "file": "raw/geojson/sungai_ln_5k.json",
+      "crs_file": "urn:ogc:def:crs:EPSG::32650",
+      "fitur": 5,
+      "output": "processed/sources/geojson_lokal_sungai.geojson",
+      "sha256": "ac619fbc6a38b2ce201dca927d5404244a3c2fd69a8baa931b0c8f21fd1477d3",
+      "jumlah": 5,
+      "uji_identik_jalur_lama": {
+        "file_lama": "processed/geojson/sungai_ln.wgs84.geojson",
+        "jumlah": [
+          5,
+          5
+        ],
+        "geometri_sama": true,
+        "nama_slug_sama": true,
+        "identik": true
+      },
+      "status": "ok"
+    },
+    {
+      "id": "wfs_kelurahan",
+      "tipe": "wfs",
+      "layer": "kelurahan",
+      "prioritas": 2,
+      "raw_dir": "raw/remote/wfs_kelurahan/20261102T053649Z",
+      "halaman": 1,
+      "page_size": 200,
+      "fitur": 15,
+      "numberMatched": 15,
+      "urutan_sumbu": "lonlat",
+      "iou_extent_vs_lokal": 1.0,
+      "output": "processed/sources/wfs_kelurahan.geojson",
+      "sha256": "0d9d47f239e4d4d3a6e8a2c427168499658b727a2465fe23e16874d8a7ba5d9a",
+      "jumlah": 15,
+      "status": "ok"
+    },
+    {
+      "id": "wfs_rt",
+      "tipe": "wfs",
+      "layer": "rt",
+      "prioritas": 2,
+      "raw_dir": "raw/remote/wfs_rt/20261102T053649Z",
+      "halaman": 3,
+      "page_size": 200,
+      "fitur": 526,
+      "numberMatched": 526,
+      "urutan_sumbu": "lonlat",
+      "iou_extent_vs_lokal": 1.0,
+      "output": "processed/sources/wfs_rt.geojson",
+      "sha256": "10e80a160e36884eb94daa6fadc3899858b813cbed34c6bcaf4ca8de9b0f06e0",
+      "jumlah": 526,
+      "status": "ok"
+    },
+    {
+      "id": "wfs_sungai",
+      "tipe": "wfs",
+      "layer": "sungai",
+      "prioritas": 2,
+      "raw_dir": "raw/remote/wfs_sungai/20261102T053649Z",
+      "halaman": 1,
+      "page_size": 200,
+      "fitur": 5,
+      "numberMatched": 5,
+      "urutan_sumbu": "lonlat",
+      "iou_extent_vs_lokal": 1.0,
+      "output": "processed/sources/wfs_sungai.geojson",
+      "sha256": "ef94a475d14763e2969bc55b17caefb3164c89772dc959a9bfa672258aab5be7",
+      "jumlah": 5,
+      "status": "ok"
+    },
+    {
+      "id": "csw_geoportal",
+      "tipe": "csw",
+      "layer": null,
+      "prioritas": 1,
+      "raw_dir": "raw/remote/csw_geoportal/20261102T053649Z",
+      "halaman": 3,
+      "page_size": 10,
+      "record": 25,
+      "numberOfRecordsMatched": 25,
+      "output": "processed/catalog/records.json",
+      "sha256": "8fcfaf4e74537180b580b3cf071c082f7ac90d90225c91632ad87bf3bdc0a7c8",
+      "status": "ok"
+    }
+  ],
+  "perbandingan": [
+    {
+      "layer": "kelurahan",
+      "jumlah_lokal": 15,
+      "jumlah_wfs": 15,
+      "selisih_jumlah": 0,
+      "besaran": "luas total (m², EPSG:32650)",
+      "nilai_lokal": 161877237.7,
+      "nilai_wfs": 161877237.7,
+      "selisih_persen": 0.0,
+      "luas_beda_simetris_m2": 0.0,
+      "beda_simetris_persen": 0.0,
+      "extent_lokal": [
+        117.388334,
+        0.022491,
+        117.565857,
+        0.206011
+      ],
+      "extent_wfs": [
+        117.388334,
+        0.022491,
+        117.565857,
+        0.206011
+      ],
+      "geser_extent_maks_m": 0.0,
+      "kunci_hanya_lokal": [],
+      "kunci_hanya_wfs": [],
+      "kelurahan_wfs_tanpa_padanan": [],
+      "fid_cocok": 15,
+      "atribut_beda_per_kolom": {},
+      "atribut_beda_tipe_saja": {
+        "objectid": 15
+      },
+      "status": "sama"
+    },
+    {
+      "layer": "rt",
+      "jumlah_lokal": 526,
+      "jumlah_wfs": 526,
+      "selisih_jumlah": 0,
+      "besaran": "luas total (m², EPSG:32650)",
+      "nilai_lokal": 161877301.7,
+      "nilai_wfs": 161877301.7,
+      "selisih_persen": 0.0,
+      "luas_beda_simetris_m2": 0.0,
+      "beda_simetris_persen": 0.0,
+      "extent_lokal": [
+        117.388332,
+        0.022491,
+        117.565855,
+        0.206011
+      ],
+      "extent_wfs": [
+        117.388332,
+        0.022491,
+        117.565855,
+        0.206011
+      ],
+      "geser_extent_maks_m": 0.0,
+      "kunci_hanya_lokal": [],
+      "kunci_hanya_wfs": [],
+      "kelurahan_wfs_tanpa_padanan": [],
+      "fid_cocok": 526,
+      "atribut_beda_per_kolom": {},
+      "atribut_beda_tipe_saja": {
+        "objectid": 526
+      },
+      "status": "sama"
+    },
+    {
+      "layer": "sungai",
+      "jumlah_lokal": 5,
+      "jumlah_wfs": 5,
+      "selisih_jumlah": 0,
+      "besaran": "panjang total (m)",
+      "nilai_lokal": 46184.5,
+      "nilai_wfs": 46184.5,
+      "selisih_persen": 0.0,
+      "hausdorff_m": 0.0,
+      "extent_lokal": [
+        117.428014,
+        0.030858,
+        117.517358,
+        0.206011
+      ],
+      "extent_wfs": [
+        117.428014,
+        0.030858,
+        117.517358,
+        0.206011
+      ],
+      "geser_extent_maks_m": 0.0,
+      "kunci_hanya_lokal": [],
+      "kunci_hanya_wfs": [],
+      "kelurahan_wfs_tanpa_padanan": [],
+      "fid_cocok": 5,
+      "atribut_beda_per_kolom": {},
+      "atribut_beda_tipe_saja": {},
+      "status": "sama"
+    }
+  ]
+}

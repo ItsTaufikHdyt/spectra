@@ -45,6 +45,7 @@ Hanya `04_build_master.py` yang ada di repo (stdlib Python, tanpa dependensi):
 |---------------------------|--------|
 | `python3 data-pipeline/scripts/04_build_master.py` | Validasi 15 kelurahan + tulis `processed/3dtiles/master-tileset.json`. |
 | `python3 data-pipeline/scripts/04_build_master.py --sync` | Idem + salin inkremental ke `frontend/public/tiles/`. **Jalankan ulang setiap data kelurahan berubah.** |
+| `data-pipeline/.venv/bin/python data-pipeline/scripts/fetch_sources.py` | Jalankan sumber aktif di `config/sources.yaml` (GeoJSON lokal, WFS, CSW geoportal) → `processed/sources/`, `processed/catalog/`, laporan `reports/fetch_sources.md`. Akses geoportal **hanya baca**. |
 
 ---
 
@@ -113,6 +114,10 @@ Hanya `04_build_master.py` yang ada di repo (stdlib Python, tanpa dependensi):
   salinan untuk dev. Jangan jadikan `public/tiles/` sumber kebenaran.
 - `data-pipeline/raw/`, `data-pipeline/processed/`, dan `frontend/public/tiles/` berisi data besar →
   **jangan commit** (sudah di-ignore di `.gitignore`; hanya `.gitkeep` dan `scripts/` yang dilacak).
+- GeoJSON batas wilayah & sungai: sumber kebenaran `data-pipeline/processed/geojson/` (hasil
+  `normalize_names.py` / `reproject_sungai.py`, sudah WGS84). Salinan dev di `frontend/public/geojson/`
+  diisi lewat `python3 data-pipeline/scripts/sync_geojson.py`, bukan disalin manual. Memuatnya di browser
+  adalah pengecualian sementara §3.2 (data kecil); jangan menambah GeoJSON besar dengan pola ini.
 - `geometricError` root master sengaja besar (4× error terbesar kelurahan): root master tanpa konten,
   jika errornya kecil seluruh kota menghilang saat kamera menjauh. Jangan diperkecil tanpa menguji.
 

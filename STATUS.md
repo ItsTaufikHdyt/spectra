@@ -47,6 +47,15 @@ Legenda: 🟢 selesai & terverifikasi · 🟡 sebagian · 🔴 belum ada · ⚪ 
 - Simulasi: `src/simulations/` (kontrak + registry), `simulationStore`, `useSimulation`, `SimulationPanel.vue`; dokumentasi `docs/simulation-contract.md`.
 - Uji: `npm test` (node --test) — 10 uji (format, tileMeta, kontrak simulasi). Siklus hidup `useSimulation` diuji sekali dengan loader Node sementara (tidak di repo).
 
+### Data GeoJSON & layer vektor (2026-11-02, belum di-commit)
+- QC & normalisasi `raw/geojson/` (batas kelurahan, batas RT, sungai): `scripts/check_geometry.py`, `normalize_names.py`, `reproject_sungai.py`, `show_data.py` (venv `data-pipeline/.venv`, `requirements.txt`). Laporan di `data-pipeline/reports/`, pemetaan nama di `config/kelurahan_map.csv`, output di `processed/geojson/`. Output deterministik (diuji 2× run, hash identik); hash `raw/` tidak berubah.
+- Layer vektor di frontend (`composables/useVectorLayers.js`): batas kelurahan, batas RT (lazy, dimuat saat dinyalakan), sungai/drainase sebagai polyline clamp-to-ground (`classificationType: TERRAIN`). Salinan dev via `scripts/sync_geojson.py` → `frontend/public/geojson/` (di-ignore). Diuji di Chromium headless via DevTools Protocol (waktu nyata, klik toggle & navigasi): 3 request GeoJSON 200, RT hanya diminta setelah toggle, tanpa error konsol.
+
+### Sumber data remote: Geoportal Kota Bontang (2026-11-02, belum di-commit)
+- Adapter sumber seragam di `data-pipeline/scripts/sources/` (`base`, `geojson_lokal`, `wfs`, `csw`, `remote_http` read-only, `ogc_xml`), dikonfigurasi di `config/sources.yaml`, dijalankan oleh `scripts/fetch_sources.py`. Inventaris layanan oleh `scripts/inventory_remote.py` → `reports/remote_inventory.md`. Uji offline: `scripts/test_sources.py`.
+- Geoportal anonim (tanpa autentikasi): WFS 2.0.0 dengan 23 FeatureType, CSW pycsw dengan 25 record ISO 19139. Kelurahan, RT, dan sungai di WFS **identik** dengan `raw/geojson/` (koordinat persis sama; hanya tipe `objectid` string vs angka). 20 FeatureType belum punya padanan lokal (banjir 2019–2026, rawan bencana, kecamatan, jalan, fasilitas kesehatan, dll.).
+- GeoJSON lokal tetap jalur utama (prioritas 1); output adapter lokal identik dengan `processed/geojson/` lama. Output baru: `processed/sources/*.geojson`, `processed/catalog/records.json`; respons mentah di `raw/remote/<id>/<timestamp>/`. Deterministik (diuji 3× run).
+
 ### Verifikasi (2026-10-12)
 - `04_build_master.py`: 15 kelurahan, 125 konten, tidak ada file hilang; semua region anak berada di dalam region master; `--sync` kedua menyalin 0 file.
 - HTTP dev server: 141 file (125 `.glb` + 16 tileset JSON) **identik byte-per-byte** dengan disk (magic bytes `glTF`/`{` cocok).
@@ -77,6 +86,10 @@ Legenda: 🟢 selesai & terverifikasi · 🟡 sebagian · 🔴 belum ada · ⚪ 
 | 10 | Backend, skema PostGIS, Docker belum ada. | Sedang | `backend/` |
 | 11 | ID bangunan di tile tidak permanen (path tile + featureId), jadi lookup atribut backend belum andal. Butuh `gml_id` di `EXT_structural_metadata`. | Tinggi | ETL |
 | 12 | Belum ada linter; test hanya helper murni (`npm test`). | Rendah | `frontend/` |
+| 13 | GeoJSON batas & sungai dimuat utuh di browser (±2,9 MB) — pengecualian sementara AGENTS §3.2; pindah ke GeoServer WMS/WFS atau vector tiles saat backend ada. `public/geojson/` ikut ke `dist/`. | Sedang | `useVectorLayers.js` |
+| 14 | Kotak ikhtisar kelurahan (bounding box) bertumpuk dengan batas kelurahan asli saat kamera jauh. Usulan: sembunyikan kotak bila layer batas kelurahan aktif (label tetap). | Rendah | `use3DTiles.js` |
+| 15 | Keputusan data GeoJSON tertunda: tampil/tidaknya 29 RT pulau, ejaan & kategori "Drainase Dahllia", 2 grup RT duplikat Loktuan (003, 004), `luaswh` Guntung (−2,21%), 144 RT dengan atribut `luas` beda > 1%. Lihat `data-pipeline/reports/`. | Sedang | data |
+| 16 | Prioritas sumber WFS vs GeoJSON lokal belum diputuskan (saat ini lokal = 1). Server WFS/CSW juga mengiklankan Transaction/Harvest; pipeline menolak operasi tulis di `remote_http.py`, tetapi pembatasan di sisi server di luar kendali repo. | Rendah | `config/sources.yaml` |
 
 ---
 

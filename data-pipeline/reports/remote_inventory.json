@@ -1,0 +1,2325 @@
+{
+  "wfs": {
+    "raw_dir": "raw/remote/wfs_geoportal/20261102T052937Z",
+    "versions": [
+      "2.0.0"
+    ],
+    "operations": [
+      "GetCapabilities",
+      "DescribeFeatureType",
+      "GetFeature",
+      "GetPropertyValue",
+      "ListStoredQueries",
+      "DescribeStoredQueries",
+      "CreateStoredQuery",
+      "DropStoredQuery",
+      "LockFeature",
+      "GetFeatureWithLock",
+      "Transaction"
+    ],
+    "constraints": {
+      "ImplementsBasicWFS": "TRUE",
+      "ImplementsTransactionalWFS": "TRUE",
+      "ImplementsLockingWFS": "TRUE",
+      "KVPEncoding": "TRUE",
+      "XMLEncoding": "TRUE",
+      "SOAPEncoding": "TRUE",
+      "ImplementsInheritance": "FALSE",
+      "ImplementsRemoteResolve": "FALSE",
+      "ImplementsResultPaging": "TRUE",
+      "ImplementsStandardJoins": "TRUE",
+      "ImplementsSpatialJoins": "TRUE",
+      "ImplementsTemporalJoins": "TRUE",
+      "ImplementsFeatureVersioning": "FALSE",
+      "ManageStoredQueries": "TRUE",
+      "PagingIsTransactionSafe": "FALSE",
+      "QueryExpressions": null
+    },
+    "feature_types": [
+      {
+        "name": "geonode:banjir_ar_25k_delineasi2026",
+        "title": "Banjir Kota Bontang Awal Tahun 2026",
+        "default_crs": "urn:ogc:def:crs:EPSG::32650",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.43635996698504,
+          0.029837202874365466,
+          117.5186760798268,
+          0.19770514908151537
+        ],
+        "keywords": [
+          "banjir_ar_25k_delineasi2026",
+          "Downloadable Data",
+          "features",
+          "banjir",
+          "bencana"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid_1",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "kecamatan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kelurahan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "rt",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "jenis_banj",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "durasi",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kedalaman",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_area",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "tipe",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "luas",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "tahun_data",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "catatan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiSurfacePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 327,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:banjir_ar_25k_2019_2020_final",
+        "title": "Banjir Kota Bontang Tahun 2019 - 2020",
+        "default_crs": "urn:ogc:def:crs:EPSG::32650",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.44302546292415,
+          0.11708111672634465,
+          117.5149942088572,
+          0.1984286428335976
+        ],
+        "keywords": [
+          "banjir_ar_25k_2019_2020_final",
+          "Downloadable Data",
+          "features",
+          "Bencana",
+          "Banjir"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid_1",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "objectid",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "kelurahan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "luas_ha",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_area",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "jenisbanji",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiSurfacePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 41,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:banjir_ar_25k_2021_final",
+        "title": "Banjir Kota Bontang Tahun 2021",
+        "default_crs": "urn:ogc:def:crs:EPSG::32650",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.44678326759335,
+          0.11708097407106745,
+          117.52265181485164,
+          0.19297542222384315
+        ],
+        "keywords": [
+          "banjir_ar_25k_2021_final",
+          "Downloadable Data",
+          "features",
+          "Bencana",
+          "Banjir"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid_1",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "objectid",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "kelurahan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "tinggi_cm",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "akm",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "ele",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_area",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "rt",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiSurfacePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 80,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:banjir_ar_25k_2022_final",
+        "title": "Banjir Kota Bontang Tahun 2022",
+        "default_crs": "urn:ogc:def:crs:EPSG::32650",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.44882265324078,
+          0.11073150094254529,
+          117.5181891603921,
+          0.19765996176472805
+        ],
+        "keywords": [
+          "Downloadable Data",
+          "features",
+          "banjir",
+          "bencana",
+          "banjir_ar_25k_2022_final"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_area",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "kecamatan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kelurahan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "rt",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "jenis_banj",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiSurfacePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 206,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:banjir_ar_25k_2023_final",
+        "title": "Banjir Kota Bontang Tahun 2023",
+        "default_crs": "urn:ogc:def:crs:EPSG::32650",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.43790301660383,
+          0.03467077744509319,
+          117.51880975400849,
+          0.19744881759645688
+        ],
+        "keywords": [
+          "Downloadable Data",
+          "features",
+          "banjir_ar_25k_2023_final",
+          "banjir",
+          "bencana"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid_1",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "objectid",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "kecamatan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kelurahan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "rt",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "jenis_banj",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "durasi",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kedalaman",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "shape_le_1",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_area",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiSurfacePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 144,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:banjir_ar_25k_2024_final",
+        "title": "Banjir Kota Bontang Tahun 2024",
+        "default_crs": "urn:ogc:def:crs:EPSG::32650",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.4476653145118,
+          0.03467077744509319,
+          117.51880975400849,
+          0.19744855585016072
+        ],
+        "keywords": [
+          "banjir_ar_25k_2024_final",
+          "Downloadable Data",
+          "features",
+          "banjir",
+          "bencana"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid_1",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "kecamatan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kelurahan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "rt",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "jenis_banj",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "durasi",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kedalaman",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_area",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiSurfacePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 129,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:banjir_ar_25k_890c6bb9af555d3221c4e453f9f5e32e",
+        "title": "Banjir Kota Bontang Tahun 2025",
+        "default_crs": "urn:ogc:def:crs:EPSG::32650",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.43635996697004,
+          0.029837203258404933,
+          117.51867607187972,
+          0.19744885843993534
+        ],
+        "keywords": [
+          "banjir_ar_25k_890c6bb9af555d3221c4e453f9f5e32e",
+          "features"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_area",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "akm",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "areat",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "con",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "dur",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "ele",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "fcode",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "indbr",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "koordx",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "koordy",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "matbr",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "metadata",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "namobj",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "refg",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "remark",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "srs_id",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "tfl",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "vel",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "vic",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiSurfacePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 201,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:batas_administrasi_kecamatan_13072026",
+        "title": "Batas Kecamatan Kota Bontang",
+        "default_crs": "urn:ogc:def:crs:EPSG::9480",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.38833524016448,
+          0.02249117320589242,
+          117.56586098338265,
+          0.20601442146879745
+        ],
+        "keywords": [
+          "batas_administrasi_kecamatan_13072026",
+          "Downloadable Data",
+          "batas wilayah",
+          "features",
+          "kelurahan",
+          "batas administrasi"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "metadata",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "tipadm",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "wadmkc",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "namobj",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "wadmkd",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kdcbps",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "wiadkd",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "srs_id",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kdpumkab",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "wadmpr",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "shape_area",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "kdpbps",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "fcode",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "wiadpr",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kdbbps",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "wiadkc",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "remark",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kdpumdes",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "wadmkk",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kdebps",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "wiadkk",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kdpumkec",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "luaswh",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "kdpumprov",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiSurfacePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 3,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:batas_administrasi_kelurahan_0906202604e2ca2ef6fa",
+        "title": "Batas Kelurahan Kota Bontang",
+        "default_crs": "urn:ogc:def:crs:EPSG::9480",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.38833380575332,
+          0.022490845506426015,
+          117.56585955847518,
+          0.2060140908657353
+        ],
+        "keywords": [
+          "Downloadable Data",
+          "batas_administrasi_kelurahan_0906202604e2ca2ef6fa",
+          "batas wilayah",
+          "features",
+          "kelurahan",
+          "batas administrasi"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "metadata",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "tipadm",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "wadmkc",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "namobj",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "wadmkd",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kdcbps",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "wiadkd",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "srs_id",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kdpumkab",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "wadmpr",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "shape_area",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "kdpbps",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "fcode",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "wiadpr",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kdbbps",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "wiadkc",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "remark",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kdpumdes",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "wadmkk",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kdebps",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "wiadkk",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kdpumkec",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "luaswh",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "kdpumprov",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiSurfacePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 15,
+        "padanan_lokal": {
+          "layer": "kelurahan",
+          "file": "raw/geojson/batas-kelurahan.json"
+        }
+      },
+      {
+        "name": "geonode:batas_administrasi_kelurahan_rt_08062026",
+        "title": "Batas RT Kota Bontang",
+        "default_crs": "urn:ogc:def:crs:EPSG::32650",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.38833237134192,
+          0.022490517807049498,
+          117.56585813356742,
+          0.2060137602627646
+        ],
+        "keywords": [
+          "batas_administrasi_kelurahan_rt_08062026",
+          "Downloadable Data",
+          "batas wilayah",
+          "features",
+          "batas administrasi"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "kecamatan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kelurahan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "rt",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "keterangan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "luas",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiSurfacePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 526,
+        "padanan_lokal": {
+          "layer": "rt",
+          "file": "raw/geojson/batas-rt.json"
+        }
+      },
+      {
+        "name": "geonode:kolam_pt_5k",
+        "title": "Peta Kolam Kota Bontang",
+        "default_crs": "urn:ogc:def:crs:EPSG::9480",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.43761664121662,
+          0.03151004561572283,
+          117.50072869984194,
+          0.18428962389715273
+        ],
+        "keywords": [
+          "Kolam; Hidrografi; Inland Water;",
+          "kolam_pt_5k",
+          "Downloadable Data",
+          "features"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid_1",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "namobj",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "fcode",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "remark",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "metadata",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "srs_id",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "lkolam",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:PointPropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 139,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:rwnbanjir_ar_25k",
+        "title": "Rawan Banjir",
+        "default_crs": "urn:ogc:def:crs:EPSG::9480",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.38834847006413,
+          0.021143347315220263,
+          117.56564870681028,
+          0.20733329331452313
+        ],
+        "keywords": [
+          "rwnbanjir_ar_25k",
+          "features"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "id",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "kode_bnjr",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "rwn_bb",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "rwn_bp",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "shape_area",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "namobj",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "srs_id",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "fcode",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "metadata",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "remark",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "rwn_bs",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "luash",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiSurfacePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 8297,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:kebakaranhutla_ar_10k",
+        "title": "Rawan Kebakaran Hutan dan Lahan",
+        "default_crs": "urn:ogc:def:crs:EPSG::9480",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.38833476473697,
+          0.021183324620999363,
+          117.56537896638505,
+          0.2060940866675314
+        ],
+        "keywords": [
+          "kebakaranhutla_ar_10k",
+          "features"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "fid_bahaya",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "fcode",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "ispa",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_area",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "fung",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "namobj",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "vic",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "metadata",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "tso",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "koordx",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "tlff",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "wet",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "dur",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "remark",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "koordy",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "hot",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "tlfp",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "srs_id",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "indkhl",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "luasha",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiSurfacePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 79167,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:tanahlongsor_ar_10k",
+        "title": "Rawan Tanah Longsor",
+        "default_crs": "urn:ogc:def:crs:EPSG::9480",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.38846024252162,
+          0.02253815099336314,
+          117.56535887681034,
+          0.20592505857296706
+        ],
+        "keywords": [
+          "tanahlongsor_ar_10k",
+          "features"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "id",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "tls",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "tipers",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "remark",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "typ",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "srs_id",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "intlgs",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "shape_area",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "indls",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "matls",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "koordy",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "fcode",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "vic",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "dur",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "refg",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "namobj",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "koordx",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "vel",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "metadata",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "luash",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiSurfacePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 6640,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:puskeswan_ar_5k",
+        "title": "Sebaran Bangunan Puskeswan Kota Bontang",
+        "default_crs": "urn:ogc:def:crs:EPSG::9480",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.45191604660359,
+          0.13934832843850387,
+          117.45212346778293,
+          0.13953592087491926
+        ],
+        "keywords": [
+          "Downloadable Data",
+          "Puskeswan; Bangunan Kesehatan; Fasilitas Kesehatan Hewan;",
+          "puskeswan_ar_5k",
+          "features"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "namobj",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "fcode",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "remark",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "metadata",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "srs_id",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "pkwlmt",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_le_1",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_area",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_ar_1",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiSurfacePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 1,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:klinik_pt_5k",
+        "title": "Sebaran Klinik di Kota Bontang",
+        "default_crs": "urn:ogc:def:crs:EPSG::9480",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.46228217971937,
+          0.12905725990241332,
+          117.49319804999062,
+          0.14012728431399
+        ],
+        "keywords": [
+          "klinik_pt_5k",
+          "Downloadable Data",
+          "features",
+          "fasilitas kesehatan",
+          "klinik"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "nama",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "jenis",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "alamat",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kontak",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "website",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kelas",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "status_blu",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "pemilik",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "direktur",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:PointPropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 6,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:posyandu_pt_5k",
+        "title": "Sebaran Posyandu di Kota Bontang",
+        "default_crs": "urn:ogc:def:crs:EPSG::9480",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.41349985191441,
+          0.031674828165131175,
+          117.5298697514331,
+          0.19211402359056357
+        ],
+        "keywords": [
+          "posyandu_pt_5k",
+          "kesehatan",
+          "fasilitas umum",
+          "Downloadable Data",
+          "features"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "globalid",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "creationda",
+            "type": "xsd:date",
+            "nillable": true
+          },
+          {
+            "name": "editdate",
+            "type": "xsd:date",
+            "nillable": true
+          },
+          {
+            "name": "kecamatan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kelurahan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "cakupan_sa",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "balita",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "baduta",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "ibu_hamil",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "kader_terl",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "kader_tida",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "peralatan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "gedung_pos",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "rt",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "ket_edt",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "nama_edt",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "strata_edt",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "alamat_edt",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "x",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "y",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:PointPropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 123,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:puskesmas_pt_5k",
+        "title": "Sebaran Puskesmas di Kota Bontang",
+        "default_crs": "urn:ogc:def:crs:EPSG::9480",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.4498925569966,
+          0.05156506231741912,
+          117.49015055068487,
+          0.16931479303341476
+        ],
+        "keywords": [
+          "puskesmas",
+          "Downloadable Data",
+          "features",
+          "fasilitas kesehatan",
+          "puskesmas_pt_5k"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "nama",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "jenis",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "alamat",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kontak",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "website",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kelas",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "status_blu",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "pemilik",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "direktur",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:PointPropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 6,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:rumahsakit_pt_5k",
+        "title": "Sebaran Rumah Sakit di Kota Bontang",
+        "default_crs": "urn:ogc:def:crs:EPSG::9480",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.45261550496181,
+          0.11757518539175278,
+          117.49116214897586,
+          0.1810495252362121
+        ],
+        "keywords": [
+          "Downloadable Data",
+          "rumahsakit_pt_5k",
+          "features",
+          "fasilitas kesehatan",
+          "rumah sakit"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "nama",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "jenis",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "alamat",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kontak",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "website",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "kelas",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "status_blu",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "pemilik",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "direktur",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:PointPropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 5,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:saranaibadah_pt_5k",
+        "title": "Sebaran Sarana Ibadah Kota Bontang",
+        "default_crs": "urn:ogc:def:crs:EPSG::9480",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.44945669509515,
+          0.03234785025784027,
+          117.51783670808904,
+          0.19346653278506992
+        ],
+        "keywords": [
+          "Sarana Ibadah; Lingkungan Terbangun",
+          "Downloadable Data",
+          "saranaibadah_pt_5k",
+          "features"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "namobj",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "fcode",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "remark",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "metadata",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "srs_id",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "fgsprp",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:PointPropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 101,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:unittransfusidarah_pt_5k",
+        "title": "Sebaran Unit Transfusi Darah Kota Bontang",
+        "default_crs": "urn:ogc:def:crs:EPSG::9480",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.47506932854282,
+          0.13294341766848852,
+          117.47508730180976,
+          0.1329615120168384
+        ],
+        "keywords": [
+          "unittransfusidarah_pt_5k",
+          "Unit Transfusi Darah; PMI; Kesehatan; Lingkungan Terbangun",
+          "Downloadable Data",
+          "features"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "namobj",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "fcode",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "remark",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "metadata",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "srs_id",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:PointPropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 1,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:jalan_ln_rdtr",
+        "title": "Status Jalan Kota Bontang",
+        "default_crs": "urn:ogc:def:crs:EPSG::32650",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.38774908546388,
+          0.01753498760735046,
+          117.53451725398897,
+          0.19902425839403295
+        ],
+        "keywords": [
+          "features",
+          "Downloadable Data",
+          "jalan",
+          "jalan_ln_rdtr",
+          "transportasi"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "objectid_1",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "objectid",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "id",
+            "type": "xsd:long",
+            "nillable": true
+          },
+          {
+            "name": "fungsi_jln",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "nama_jln",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "panjang",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "status_jln",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "status_pen",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "penjelasan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "keterangan",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "sumber",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "shape_leng",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "shape_le_1",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiCurvePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 4348,
+        "padanan_lokal": null
+      },
+      {
+        "name": "geonode:sungai_ln_5k",
+        "title": "Sungai Kota Bontang",
+        "default_crs": "urn:ogc:def:crs:EPSG::32650",
+        "other_crs": [],
+        "wgs84_bbox": [
+          117.42801366938922,
+          0.030857282455290257,
+          117.51735982177402,
+          0.20601335594676426
+        ],
+        "keywords": [
+          "Sungai",
+          "Downloadable Data",
+          "features",
+          "sungai_ln_5k"
+        ],
+        "attributes": [
+          {
+            "name": "fid",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "id",
+            "type": "xsd:int",
+            "nillable": true
+          },
+          {
+            "name": "nama",
+            "type": "xsd:string",
+            "nillable": true
+          },
+          {
+            "name": "panjang",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "panjang_m",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "panjang_km",
+            "type": "xsd:double",
+            "nillable": true
+          },
+          {
+            "name": "geom",
+            "type": "gml:MultiCurvePropertyType",
+            "nillable": true
+          }
+        ],
+        "hits": 5,
+        "padanan_lokal": {
+          "layer": "sungai",
+          "file": "raw/geojson/sungai_ln_5k.json"
+        }
+      }
+    ]
+  },
+  "csw": {
+    "raw_dir": "raw/remote/csw_geoportal/20261102T052952Z",
+    "total_record": 25,
+    "sampel": [
+      {
+        "id": "91f1748d-bbeb-46ee-95d7-0f602e8409ff",
+        "judul": "Banjir Kota Bontang Tahun 2023",
+        "abstrak": "Peta Banjir Kota Bontang Berdasarkan Pendataan Tahun 2023",
+        "tipe": "dataset",
+        "representasi": "vector",
+        "status": "completed",
+        "bbox_wgs84": [
+          117.43790301660383,
+          0.03467077744509319,
+          117.51880975400849,
+          0.19744881759645688
+        ],
+        "layer": [
+          "geonode:banjir_ar_25k_2023_final"
+        ],
+        "link_layer": [
+          {
+            "protocol": "OGC:WFS",
+            "name": "geonode:banjir_ar_25k_2023_final",
+            "url": "https://geoportal.bontangkota.go.id/geoserver/ows"
+          },
+          {
+            "protocol": "OGC:WMS",
+            "name": "geonode:banjir_ar_25k_2023_final",
+            "url": "https://geoportal.bontangkota.go.id/geoserver/ows"
+          }
+        ],
+        "jumlah_link": 15
+      },
+      {
+        "id": "531641b9-e35c-4ab9-ac44-331c1661a096",
+        "judul": "Batas RT Kota Bontang",
+        "abstrak": "Batas adminsitrasi RT Kota Bontang hasil perbaikan melalui proses delineasi citra LiDAR dari data sebelumnya yang bersumber dari RTRW Kota Bontang Tahun 20219",
+        "tipe": "dataset",
+        "representasi": "vector",
+        "status": "completed",
+        "bbox_wgs84": [
+          117.38833237134192,
+          0.022490517807049498,
+          117.56585813356742,
+          0.2060137602627646
+        ],
+        "layer": [
+          "geonode:batas_administrasi_kelurahan_rt_08062026"
+        ],
+        "link_layer": [
+          {
+            "protocol": "OGC:WFS",
+            "name": "geonode:batas_administrasi_kelurahan_rt_08062026",
+            "url": "https://geoportal.bontangkota.go.id/geoserver/ows"
+          },
+          {
+            "protocol": "OGC:WMS",
+            "name": "geonode:batas_administrasi_kelurahan_rt_08062026",
+            "url": "https://geoportal.bontangkota.go.id/geoserver/ows"
+          }
+        ],
+        "jumlah_link": 15
+      },
+      {
+        "id": "cbcda8fb-ae6f-4cf5-a8b9-d8f9b53d959a",
+        "judul": "Banjir Kota Bontang Tahun 2024",
+        "abstrak": "Peta Banjir Kota Bontang Berdasarkan Pendataan Tahun 2024",
+        "tipe": "dataset",
+        "representasi": "vector",
+        "status": "completed",
+        "bbox_wgs84": [
+          117.4476653145118,
+          0.03467077744509319,
+          117.51880975400849,
+          0.19744855585016072
+        ],
+        "layer": [
+          "geonode:banjir_ar_25k_2024_final"
+        ],
+        "link_layer": [
+          {
+            "protocol": "OGC:WFS",
+            "name": "geonode:banjir_ar_25k_2024_final",
+            "url": "https://geoportal.bontangkota.go.id/geoserver/ows"
+          },
+          {
+            "protocol": "OGC:WMS",
+            "name": "geonode:banjir_ar_25k_2024_final",
+            "url": "https://geoportal.bontangkota.go.id/geoserver/ows"
+          }
+        ],
+        "jumlah_link": 15
+      }
+    ]
+  }
+}

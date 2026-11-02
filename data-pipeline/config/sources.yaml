@@ -1,0 +1,74 @@
+# Daftar sumber data layer vektor (dibaca oleh scripts/fetch_sources.py).
+#
+# Kolom:
+#   id        : unik; juga nama folder raw/remote/<id>/ dan file processed/sources/<id>.geojson
+#   tipe      : geojson_lokal | wfs | csw
+#   url       : path relatif terhadap data-pipeline/ (geojson_lokal) atau endpoint layanan
+#   layer     : kelurahan | rt | sungai (kosong untuk csw)
+#   typename  : nama FeatureType WFS (hanya wfs)
+#   srs       : CRS koordinat sumber (geojson_lokal) atau srsName yang diminta (wfs)
+#   prioritas : 1 = diutamakan bila dua sumber untuk layer yang sama berbeda.
+#               Sementara GeoJSON lokal = 1 sampai diputuskan lain (lihat reports/fetch_sources.md).
+#   aktif     : false = dilewati
+#
+# Akses geoportal hanya-baca dan anonim; jangan menaruh kredensial atau token di file ini.
+
+sources:
+  - id: geojson_lokal_kelurahan
+    tipe: geojson_lokal
+    url: raw/geojson/batas-kelurahan.json
+    layer: kelurahan
+    srs: EPSG:4326
+    prioritas: 1
+    aktif: true
+
+  - id: geojson_lokal_rt
+    tipe: geojson_lokal
+    url: raw/geojson/batas-rt.json
+    layer: rt
+    srs: EPSG:4326
+    prioritas: 1
+    aktif: true
+
+  - id: geojson_lokal_sungai
+    tipe: geojson_lokal
+    url: raw/geojson/sungai_ln_5k.json
+    layer: sungai
+    srs: EPSG:32650
+    prioritas: 1
+    aktif: true
+
+  - id: wfs_kelurahan
+    tipe: wfs
+    url: https://geoportal.bontangkota.go.id/geoserver/ows
+    layer: kelurahan
+    typename: geonode:batas_administrasi_kelurahan_0906202604e2ca2ef6fa
+    srs: urn:ogc:def:crs:EPSG::4326
+    prioritas: 2
+    aktif: true
+
+  - id: wfs_rt
+    tipe: wfs
+    url: https://geoportal.bontangkota.go.id/geoserver/ows
+    layer: rt
+    typename: geonode:batas_administrasi_kelurahan_rt_08062026
+    srs: urn:ogc:def:crs:EPSG::4326
+    prioritas: 2
+    aktif: true
+
+  - id: wfs_sungai
+    tipe: wfs
+    url: https://geoportal.bontangkota.go.id/geoserver/ows
+    layer: sungai
+    typename: geonode:sungai_ln_5k
+    srs: urn:ogc:def:crs:EPSG::4326
+    prioritas: 2
+    aktif: true
+
+  - id: csw_geoportal
+    tipe: csw
+    url: https://geoportal.bontangkota.go.id/catalogue/csw
+    layer:
+    srs:
+    prioritas: 1
+    aktif: true
