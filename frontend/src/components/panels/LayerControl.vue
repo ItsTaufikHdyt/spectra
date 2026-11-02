@@ -30,10 +30,11 @@
     <div class="space-y-2">
       <span class="font-semibold text-slate-300 uppercase tracking-wider text-[10px]">Model & Medan 3D</span>
       <div class="space-y-1.5">
-        <label class="flex items-center justify-between p-2 rounded-lg bg-slate-800/80 border border-slate-700/60 cursor-pointer">
-          <span class="text-slate-200">DTM Terrain 3D</span>
-          <input type="checkbox" v-model="mapStore.isTerrainActive" class="rounded text-sky-500 focus:ring-0 w-4 h-4" />
-        </label>
+        <!-- Data DTM belum tersedia di proyek: tampilkan status, bukan toggle palsu. -->
+        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/40 border border-slate-700/60">
+          <span class="text-slate-400">DTM Terrain 3D</span>
+          <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-slate-700 text-slate-300">Segera hadir</span>
+        </div>
         <label class="flex items-center justify-between p-2 rounded-lg bg-slate-800/80 border border-slate-700/60 cursor-pointer">
           <span class="text-slate-200">Model 3D Tiles Bangunan</span>
           <input type="checkbox" v-model="mapStore.is3DTilesActive" class="rounded text-sky-500 focus:ring-0 w-4 h-4" />

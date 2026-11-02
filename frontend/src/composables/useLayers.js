@@ -3,6 +3,9 @@ import { viewer } from './useCesium';
 import { useMapStore } from '@/stores/mapStore';
 import { watch } from 'vue';
 
+// Terrain DTM belum tersambung: data quantized-mesh 1m belum ada di proyek.
+// Globe memakai EllipsoidTerrainProvider bawaan Viewer; UI menampilkan "Segera hadir".
+
 export function useLayers() {
   const mapStore = useMapStore();
   let arcgisLayer = null;
@@ -30,19 +33,6 @@ export function useLayers() {
     if (arcgisLayer && osmLayer) {
       arcgisLayer.show = newVal === 'arcgis';
       osmLayer.show = newVal === 'osm';
-    }
-  });
-
-  // Watcher Terrain ON / OFF
-  watch(() => mapStore.isTerrainActive, (isActive) => {
-    if (!viewer.value) return;
-    if (isActive) {
-      viewer.value.scene.globe.depthTestAgainstTerrain = true;
-      // Gunakan World Terrain bawaan Cesium Ion atau Terrain 1m lokal
-      viewer.value.scene.terrainProvider = new Cesium.EllipsoidTerrainProvider();
-    } else {
-      viewer.value.scene.terrainProvider = new Cesium.EllipsoidTerrainProvider();
-      viewer.value.scene.globe.depthTestAgainstTerrain = false;
     }
   });
 
