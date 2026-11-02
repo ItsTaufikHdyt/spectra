@@ -90,6 +90,9 @@
       </ul>
       <p v-else-if="!loadError" class="text-small text-bontang-muted">Daftar kelurahan muncul setelah model 3D dimuat.</p>
     </section>
+
+    <!-- Simulasi: daftar dari registry src/simulations/ -->
+    <SimulationPanel />
   </div>
 </template>
 
@@ -98,6 +101,7 @@ import { ref } from 'vue';
 import { useMapStore } from '@/stores/mapStore';
 import { use3DTiles } from '@/composables/use3DTiles';
 import { formatNumber } from '@/utils/format';
+import SimulationPanel from '@/components/simulation/SimulationPanel.vue';
 
 const BASEMAPS = [
   { id: 'arcgis', label: 'Citra satelit' },

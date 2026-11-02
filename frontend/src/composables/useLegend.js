@@ -1,6 +1,8 @@
 import { computed } from 'vue';
 import { useMapStore } from '@/stores/mapStore';
 import { MAP_COLORS } from '@/utils/mapColors';
+import { useSimulationStore } from '@/stores/simulationStore';
+import { getSimulation } from '@/simulations';
 
 /**
  * Bagian legenda (data biasa, dipakai bersama oleh layer dan simulasi):
@@ -28,7 +30,20 @@ export function useLegend() {
     ];
   });
 
-  const sections = computed(() => [...layerSections.value]);
+  // Legenda simulasi aktif: disediakan oleh definisi simulasi (kontrak `legend(params)`).
+  const simulationStore = useSimulationStore();
+  const simulationSections = computed(() => {
+    const def = simulationStore.status === 'active' ? getSimulation(simulationStore.activeId) : null;
+    if (!def || !simulationStore.visible) return [];
+    try {
+      return def.legend({ ...simulationStore.params }) ?? [];
+    } catch (err) {
+      console.warn(`[useLegend] Legenda simulasi ${def.id} gagal dibuat:`, err);
+      return [];
+    }
+  });
+
+  const sections = computed(() => [...simulationSections.value, ...layerSections.value]);
 
   return { sections };
 }

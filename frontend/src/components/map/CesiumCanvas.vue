@@ -34,6 +34,8 @@ import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useCesium } from '@/composables/useCesium';
 import { useLayers } from '@/composables/useLayers';
 import { use3DTiles } from '@/composables/use3DTiles';
+import { releaseSimulation } from '@/composables/useSimulation';
+import { useSimulationStore } from '@/stores/simulationStore';
 
 const status = ref('loading'); // 'loading' | 'ready' | 'error'
 const errorMessage = ref('');
@@ -42,11 +44,14 @@ const containerEl = ref(null); // elemen DOM biasa, bukan objek Cesium
 const { initViewer, destroyViewer } = useCesium();
 const { initBasemaps } = useLayers();
 const { load3DTiles, unload3DTiles, setupTilePicking, zoomToBontangKuala } = use3DTiles();
+const simulationStore = useSimulationStore();
 
 let disposed = false;
 
-/** Lepas resource Cesium: tileset dulu, viewer terakhir (WebGL context). */
+/** Lepas resource Cesium: layer simulasi, lalu tileset, viewer terakhir (WebGL context). */
 const teardown = () => {
+  releaseSimulation();
+  simulationStore.reset();
   unload3DTiles();
   destroyViewer();
 };
