@@ -1,6 +1,6 @@
 import * as Cesium from 'cesium';
 import { effectScope, shallowRef, watch } from 'vue';
-import { viewer } from './useCesium';
+import { requestRender, viewer } from './useCesium';
 import { useMapStore } from '@/stores/mapStore';
 import { MAP_COLORS } from '@/utils/mapColors';
 
@@ -134,11 +134,13 @@ const applyVisibility = async (layer, visible, store) => {
   if (!visible) {
     const source = sources.get(layer.key);
     if (source) source.show = false;
+    requestRender();
     return;
   }
   const source = await ensureLayer(layer);
   // Toggle bisa saja dimatikan lagi selama pemuatan.
   if (source) source.show = !!store[layer.flag];
+  requestRender(); // source baru / toggle tidak memicu render otomatis
 };
 
 /**
@@ -154,6 +156,7 @@ export const releaseVectorLayers = () => {
   }
   sources.clear();
   loading.clear();
+  requestRender();
   layerErrors.value = {};
 };
 

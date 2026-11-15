@@ -37,6 +37,8 @@ import { use3DTiles } from '@/composables/use3DTiles';
 import { releaseSimulation } from '@/composables/useSimulation';
 import { useVectorLayers } from '@/composables/useVectorLayers';
 import { useRemoteLayers } from '@/composables/useRemoteLayers';
+import { releasePerfDebug, setupPerfDebug } from '@/composables/usePerfDebug';
+import { releaseRenderQuality, startRenderQuality } from '@/composables/useRenderQuality';
 import { useSimulationStore } from '@/stores/simulationStore';
 
 const status = ref('loading'); // 'loading' | 'ready' | 'error'
@@ -54,6 +56,8 @@ let disposed = false;
 
 /** Lepas resource Cesium: layer simulasi, lalu tileset, viewer terakhir (WebGL context). */
 const teardown = () => {
+  releasePerfDebug();
+  releaseRenderQuality();
   releaseSimulation();
   simulationStore.reset();
   releaseVectorLayers();
@@ -69,6 +73,7 @@ const start = async () => {
     teardown(); // sisa percobaan sebelumnya (jika ada)
     containerEl.value?.replaceChildren(); // panel error/canvas parsial dari init yang gagal
     await initViewer(containerEl.value);
+    startRenderQuality(); // resolusi, anti-aliasing, efek sesuai Mode tampilan
   } catch (err) {
     console.error('[CesiumCanvas] Viewer gagal diinisialisasi:', err);
     teardown();
@@ -96,7 +101,9 @@ const start = async () => {
   const tileset = await load3DTiles();
   if (disposed) return;
 
+  startRenderQuality(tileset); // SSE tileset ikut Mode tampilan
   setupTilePicking();
+  setupPerfDebug(tileset); // no-op tanpa ?debug=perf
   // Awal: fokus ke Bontang Kuala (instan, tanpa animasi terbang).
   if (tileset) zoomToBontangKuala({ duration: 0 });
   status.value = 'ready';

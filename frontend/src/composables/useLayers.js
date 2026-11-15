@@ -1,5 +1,5 @@
 import * as Cesium from 'cesium';
-import { viewer } from './useCesium';
+import { requestRender, viewer } from './useCesium';
 import { useMapStore } from '@/stores/mapStore';
 import { watch } from 'vue';
 
@@ -26,6 +26,7 @@ export function useLayers() {
     });
     osmLayer = viewer.value.imageryLayers.addImageryProvider(osmProvider);
     osmLayer.show = false; // Default off
+    requestRender();
   };
 
   // Watcher ganti basemap
@@ -33,6 +34,7 @@ export function useLayers() {
     if (arcgisLayer && osmLayer) {
       arcgisLayer.show = newVal === 'arcgis';
       osmLayer.show = newVal === 'osm';
+      requestRender();
     }
   });
 

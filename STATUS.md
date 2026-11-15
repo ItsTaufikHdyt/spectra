@@ -61,6 +61,13 @@ Legenda: 🟢 selesai & terverifikasi · 🟡 sebagian · 🔴 belum ada · ⚪ 
 - Frontend: panel "Data geoportal" (`GeoportalPanel.vue`, `RemoteLayerItem.vue`), `stores/remoteLayerStore.js`, `composables/useRemoteLayers.js`, proxy Vite `/api` → `127.0.0.1:8100`. Klik fitur → atribut di panel info. Diuji end-to-end di Chromium headless (CDP, waktu nyata): banjir 2024 tambah/tampil/klik/nonaktif/aktif/warna/refresh/reload/hapus, CSW → posyandu, layer besar → WMS, 3× tambah-hapus tanpa DataSource/ImageryLayer tertinggal, tanpa error konsol.
 - **WMS belum bisa tampil**: GeoServer geoportal hanya mengizinkan CORS dari domainnya sendiri (request dengan `Origin` lain → 403). UI menampilkan pesan; perlu keputusan (CORS di GeoServer atau proxy GetMap lewat backend).
 
+### Optimasi render (2026-11-15, belum di-commit)
+- Penyebab GPU ±91% saat peta diam: `requestRenderMode` mati (render terus ±40 fps). Sekarang `requestRenderMode: true` + helper `requestRender()` (`useCesium.js`) dipanggil di semua perubahan visual (toggle layer, geoportal, highlight/penanda, simulasi, basemap, mode tampilan). Peta diam = 0 frame, GPU ±8% (idle sistem).
+- "Mode tampilan" Hemat/Seimbang (bawaan)/Kualitas di panel kiri (`utils/displayModes.js`, `settingsStore.js`, `useRenderQuality.js`, `DisplaySettings.vue`); tersimpan di localStorage `spectra.displayMode`; GPU terintegrasi / renderer software mulai di Hemat + pemberitahuan. Uji URL: `?mode=`, `?rs=`.
+- Mode debug `?debug=perf[,inspector]` (`usePerfDebug.js`): overlay FPS, `window.__spectraPerf()`.
+- Bug lama diperbaiki: `cartesian is not defined` di picking (regresi commit 220b2a9; penanda titik tidak muncul); penanda kini hilang saat pilihan ditutup dari panel.
+- `.glb` sudah memakai meshopt + kuantisasi dan tanpa tekstur: kompresi Draco/KTX2 tidak relevan.
+
 ### Verifikasi (2026-10-12)
 - `04_build_master.py`: 15 kelurahan, 125 konten, tidak ada file hilang; semua region anak berada di dalam region master; `--sync` kedua menyalin 0 file.
 - HTTP dev server: 141 file (125 `.glb` + 16 tileset JSON) **identik byte-per-byte** dengan disk (magic bytes `glTF`/`{` cocok).

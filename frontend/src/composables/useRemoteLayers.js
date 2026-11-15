@@ -1,6 +1,6 @@
 import * as Cesium from 'cesium';
 import { effectScope, watch } from 'vue';
-import { viewer } from './useCesium';
+import { requestRender, viewer } from './useCesium';
 import { useRemoteLayerStore } from '@/stores/remoteLayerStore';
 import { layerDataUrl } from '@/services/geoportalApi';
 
@@ -165,6 +165,7 @@ function sync(store) {
     const e = entries.get(layer.id);
     if (e?.kind === 'wms' && e.obj) viewer.value.imageryLayers.raiseToTop(e.obj);
   }
+  requestRender(); // tambah/hapus/show/warna/opasitas layer geoportal
 }
 
 /** Lepas semua resource. Idempoten; panggil sebelum destroyViewer(). */

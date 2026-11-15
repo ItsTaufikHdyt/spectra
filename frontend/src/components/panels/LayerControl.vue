@@ -22,6 +22,9 @@
       </div>
     </section>
 
+    <!-- Mode tampilan: Hemat / Seimbang / Kualitas -->
+    <DisplaySettings />
+
     <!-- Lapisan -->
     <section aria-labelledby="judul-lapisan" class="space-y-2">
       <h2 id="judul-lapisan" class="text-small font-semibold text-bontang-muted">Lapisan</h2>
@@ -107,6 +110,7 @@ import { useVectorLayers } from '@/composables/useVectorLayers';
 import { formatNumber } from '@/utils/format';
 import SimulationPanel from '@/components/simulation/SimulationPanel.vue';
 import GeoportalPanel from '@/components/panels/GeoportalPanel.vue';
+import DisplaySettings from '@/components/panels/DisplaySettings.vue';
 
 const BASEMAPS = [
   { id: 'arcgis', label: 'Citra satelit' },

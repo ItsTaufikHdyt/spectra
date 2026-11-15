@@ -1,5 +1,5 @@
 import * as Cesium from 'cesium';
-import { viewer } from './useCesium';
+import { requestRender, viewer } from './useCesium';
 import { useSimulationStore } from '@/stores/simulationStore';
 import { assertSimulationLayer } from '@/simulations/contract';
 import { getSimulation } from '@/simulations';
@@ -33,6 +33,7 @@ export function useSimulation() {
   const deactivate = () => {
     releaseSimulation();
     store.reset();
+    requestRender(); // hasil simulasi yang dilepas harus hilang dari frame
   };
 
   /** Aktifkan satu simulasi (hanya satu aktif pada satu waktu). */
@@ -57,6 +58,7 @@ export function useSimulation() {
       }
       activeLayer = layer;
       store.status = 'active';
+      requestRender();
     } catch (err) {
       if (gen !== generation) return;
       console.warn(`[useSimulation] Simulasi ${id} gagal dijalankan:`, err);
@@ -72,6 +74,7 @@ export function useSimulation() {
     const gen = generation;
     try {
       await activeLayer.update(plain(store.params));
+      requestRender(); // update() boleh async; render ulang setelah selesai
     } catch (err) {
       if (gen !== generation) return;
       store.error = err?.message ?? String(err);
@@ -82,6 +85,7 @@ export function useSimulation() {
   const setVisible = (visible) => {
     store.visible = visible;
     activeLayer?.setVisible(visible);
+    requestRender();
   };
 
   return { activate, deactivate, updateParams, setVisible };

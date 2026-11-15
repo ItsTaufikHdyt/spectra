@@ -4,6 +4,17 @@ import * as Cesium from 'cesium';
 // Instance Cesium Viewer disimpan di shallowRef agar tidak terkena deep proxy Vue
 export const viewer = shallowRef(null);
 
+/**
+ * Minta satu frame baru. Dengan requestRenderMode, Cesium hanya merender saat kamera bergerak,
+ * tile/imagery dimuat, atau ukuran canvas berubah. Panggil helper ini SETELAH setiap perubahan
+ * lain yang terlihat di peta: show/alpha/warna, entity & data source, highlight, imagery layer,
+ * layer simulasi. Aman dipanggil kapan saja (viewer belum ada / sudah dihancurkan = tidak apa-apa).
+ */
+export const requestRender = () => {
+  const v = viewer.value;
+  if (v && !v.isDestroyed()) v.scene.requestRender();
+};
+
 export function useCesium() {
   /** @param {string|HTMLElement} container id atau elemen DOM wadah viewer */
   const initViewer = async (container) => {
@@ -23,13 +34,20 @@ export function useCesium() {
       fullscreenButton: false,
       infoBox: false,
       selectionIndicator: false,
-      baseLayer: false
+      baseLayer: false,
+      // Render hanya saat ada perubahan (peta diam = GPU idle). Perubahan yang tidak memicu
+      // render otomatis WAJIB memanggil requestRender() di bawah. Tanpa jam dinamis di
+      // aplikasi ini, jadi perubahan waktu tidak perlu memicu render (Infinity).
+      requestRenderMode: true,
+      maximumRenderTimeChange: Number.POSITIVE_INFINITY,
+      // Render pada resolusi CSS; ketajaman diatur lewat resolutionScale (useRenderQuality.js).
+      useBrowserRecommendedResolution: true,
+      shadows: false
     });
     // Simpan segera agar destroyViewer() tetap bisa melepasnya bila langkah berikut gagal.
     viewer.value = v;
 
-    // Rendering optimization
-    v.resolutionScale = Math.min(window.devicePixelRatio, 1.5);
+    // Resolusi, anti-aliasing, dan efek visual diatur per "Mode tampilan" (useRenderQuality.js).
     v.scene.globe.depthTestAgainstTerrain = true;
     v.scene.globe.enableLighting = false;
 

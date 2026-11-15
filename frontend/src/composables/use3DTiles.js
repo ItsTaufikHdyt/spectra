@@ -1,9 +1,11 @@
 import * as Cesium from 'cesium';
 import { effectScope, shallowRef, watch } from 'vue';
-import { viewer } from './useCesium';
+import { requestRender, viewer } from './useCesium';
+import { currentProfile } from './useRenderQuality';
 import { useMapStore } from '@/stores/mapStore';
 import { useObjectStore } from '@/stores/objectStore';
 import { useRemoteLayerStore } from '@/stores/remoteLayerStore';
+import { useSettingsStore } from '@/stores/settingsStore';
 import { describeRemotePick } from './useRemoteLayers';
 import { parseContentUrl, pickFirst, slugToName } from '@/utils/tileMeta';
 import { MAP_COLORS } from '@/utils/mapColors';
@@ -19,7 +21,11 @@ const MB = 1024 * 1024;
  *    SUDAH default di 1.146; ditulis eksplisit agar tidak berubah diam-diam saat upgrade.
  *  - Yang benar-benar mengubah perilaku: maximumScreenSpaceError 24 (default 16),
  *    skipLevelOfDetail true (default false), maximumCacheOverflowBytes 256 MB (default 512 MB).
- *  - dynamicScreenSpaceError dibiarkan default (true): ikut menurunkan detail tile jauh/horizon.
+ *  - dynamicScreenSpaceError true (default, ditulis eksplisit): menurunkan detail tile jauh/horizon.
+ *  - preloadFlightDestinations false (default true): tidak memuat tile tujuan terbang saat kamera
+ *    bergerak; aplikasi ini hanya terbang ke kelurahan yang tilenya dimuat saat tiba.
+ *  - maximumScreenSpaceError di sini hanya nilai awal; nilai yang berlaku mengikuti "Mode tampilan"
+ *    (utils/displayModes.js -> useRenderQuality.js).
  */
 export const TILESET_OPTIONS = Object.freeze({
   maximumScreenSpaceError: 24,
@@ -28,6 +34,10 @@ export const TILESET_OPTIONS = Object.freeze({
   cullWithChildrenBounds: true,
   cullRequestsWhileMoving: true,
   foveatedScreenSpaceError: true,
+  dynamicScreenSpaceError: true,
+  preloadWhenHidden: false,
+  preloadFlightDestinations: false,
+  preferLeaves: false,
   skipLevelOfDetail: true
 });
 
@@ -76,6 +86,7 @@ const clearFeatureHighlight = () => {
   } catch {
     // Tile sudah di-unload dari cache; tidak ada yang perlu dipulihkan.
   }
+  requestRender();
 };
 
 const clearSelectionMarker = () => {
@@ -88,6 +99,7 @@ const clearSelectionMarker = () => {
 const clearSelectionVisuals = () => {
   clearFeatureHighlight();
   clearSelectionMarker();
+  requestRender();
 };
 
 const showSelectionMarker = (cartesian) => {
@@ -134,9 +146,8 @@ const readFeatureProperties = (feature) => {
   return props;
 };
 
-/** Lokasi titik klik (derajat + tinggi elipsoid), atau null. */
-const clickLocation = (scene, windowPosition) => {
-  const cartesian = getClickPosition(scene, windowPosition);
+/** Lokasi titik klik (derajat + tinggi elipsoid) dari posisi dunia, atau null. */
+const locationOf = (cartesian) => {
   if (!cartesian) return null;
   const c = Cesium.Cartographic.fromCartesian(cartesian);
   return {
@@ -188,9 +199,13 @@ const cameraFovy = (v) => {
   return Number.isFinite(f) && f > 0 ? f : Cesium.Math.toRadians(60);
 };
 
-const buildingsVisibleWithin = (geometricError, fovy) =>
-  (geometricError * NOMINAL_SCREEN_HEIGHT) /
-  (TILESET_OPTIONS.maximumScreenSpaceError * 2 * Math.tan(fovy / 2));
+// sse = maximumScreenSpaceError yang BERLAKU (ikut Mode tampilan), bukan nilai awal tileset.
+const buildingsVisibleWithin = (geometricError, fovy, sse) =>
+  (geometricError * NOMINAL_SCREEN_HEIGHT) / (sse * 2 * Math.tan(fovy / 2));
+
+// Muncul sedikit sebelum bangunan hilang (faktor 0,8) agar tidak ada jeda kosong.
+const overviewCondition = (k, fovy, sse) =>
+  new Cesium.DistanceDisplayCondition(buildingsVisibleWithin(k.geometricError, fovy, sse) * 0.8, Number.POSITIVE_INFINITY);
 
 /**
  * LOD kasar sisi klien: kotak region tiap kelurahan + label, hanya tampil saat kamera
@@ -203,13 +218,12 @@ const buildingsVisibleWithin = (geometricError, fovy) =>
 const buildKelurahanOverview = (v, list) => {
   const source = new Cesium.CustomDataSource('ikhtisar-kelurahan');
   const fovy = cameraFovy(v);
+  const sse = currentProfile().tilesetSSE;
 
   for (const k of list) {
     // geometricError 0 = root sudah berkonten (mis. bontang_lestari): bangunan selalu tampil.
     if (!(k.geometricError > 0)) continue;
-    // Muncul sedikit sebelum bangunan hilang (faktor 0,8) agar tidak ada jeda kosong.
-    const near = buildingsVisibleWithin(k.geometricError, fovy) * 0.8;
-    const showFar = new Cesium.DistanceDisplayCondition(near, Number.POSITIVE_INFINITY);
+    const showFar = overviewCondition(k, fovy, sse);
     const [w, s, e, n] = k.region;
     const rect = Cesium.Rectangle.fromRadians(w, s, e, n);
 
@@ -238,6 +252,21 @@ const buildKelurahanOverview = (v, list) => {
     });
   }
   return source;
+};
+
+/** Hitung ulang jarak tampil kotak ikhtisar saat Mode tampilan (SSE tileset) berubah. */
+const refreshOverviewThresholds = (v, list) => {
+  if (!overviewSource) return;
+  const fovy = cameraFovy(v);
+  const sse = currentProfile().tilesetSSE;
+  const bySlug = new Map(list.map((k) => [k.slug, k]));
+  for (const entity of overviewSource.entities.values) {
+    const k = bySlug.get(String(entity.id).slice(OVERVIEW_ID_PREFIX.length));
+    if (!k || !(k.geometricError > 0)) continue;
+    const cond = overviewCondition(k, fovy, sse);
+    entity.rectangle.distanceDisplayCondition = cond;
+    entity.label.distanceDisplayCondition = cond;
+  }
 };
 
 /** Slug kelurahan bila objek pick adalah entity ikhtisar; selain itu null. */
@@ -296,6 +325,7 @@ export function use3DTiles() {
   const mapStore = useMapStore();
   const objectStore = useObjectStore();
   const remoteLayerStore = useRemoteLayerStore();
+  const settingsStore = useSettingsStore();
 
   const startVisibilitySync = () => {
     if (visibilityScope) return;
@@ -303,6 +333,20 @@ export function use3DTiles() {
     // pemanggil (mis. LayerControl) di-unmount.
     visibilityScope = effectScope(true);
     visibilityScope.run(() => {
+      // Pilihan dikosongkan dari panel (tombol tutup) -> hapus penanda/highlight di peta juga.
+      watch(
+        () => objectStore.selectedObject,
+        (obj) => {
+          if (!obj) clearSelectionVisuals();
+        }
+      );
+      watch(
+        () => settingsStore.level,
+        () => {
+          if (isViewerAlive()) refreshOverviewThresholds(viewer.value, kelurahanList.value);
+          requestRender();
+        }
+      );
       watch(
         () => mapStore.is3DTilesActive,
         (isActive) => {
@@ -310,6 +354,7 @@ export function use3DTiles() {
             tilesetRef.value.show = isActive; // show=false menghentikan traversal & request tile
           }
           if (overviewSource) overviewSource.show = isActive;
+          requestRender();
           if (!isActive) {
             clearSelectionVisuals();
             objectStore.clearSelection();
@@ -334,7 +379,10 @@ export function use3DTiles() {
 
     loadingPromise = (async () => {
       try {
-        const tileset = await Cesium.Cesium3DTileset.fromUrl(url, { ...TILESET_OPTIONS });
+        const tileset = await Cesium.Cesium3DTileset.fromUrl(url, {
+          ...TILESET_OPTIONS,
+          maximumScreenSpaceError: currentProfile().tilesetSSE
+        });
 
         // Dibatalkan (release dipanggil) atau viewer sudah dihancurkan selama await.
         if (generation !== loadGeneration || v.isDestroyed()) {
@@ -362,6 +410,7 @@ export function use3DTiles() {
         overviewSource = buildKelurahanOverview(v, list);
         overviewSource.show = mapStore.is3DTilesActive;
         await v.dataSources.add(overviewSource);
+        requestRender();
         if (generation !== loadGeneration) return null; // release sudah melepas overviewSource
 
         console.log(`[use3DTiles] Master tileset dimuat (${list.length} kelurahan)`);
@@ -400,7 +449,7 @@ export function use3DTiles() {
     // Fitur layer geoportal (useRemoteLayers) -> atributnya tampil di panel info yang sama.
     const remote = describeRemotePick(picked, remoteLayerStore);
     if (remote) {
-      objectStore.selectObject({ ...remote, location: clickLocation(scene, movement.position) });
+      objectStore.selectObject({ ...remote, location: locationOf(getClickPosition(scene, movement.position)) });
       return;
     }
 
@@ -415,7 +464,8 @@ export function use3DTiles() {
     const kelurahan = slugToName(slug) || 'Tidak diketahui';
     const metadata = feature ? readFeatureProperties(feature) : {};
     const featureId = feature?.featureId;
-    const location = clickLocation(scene, movement.position);
+    const cartesian = getClickPosition(scene, movement.position); // juga dipakai penanda titik
+    const location = locationOf(cartesian);
 
     const baseId = slug ? `${slug}/${tile}` : tile || 'BTG-UNKNOWN';
     const id =
@@ -443,6 +493,7 @@ export function use3DTiles() {
       // Tanpa feature table, bangunan tidak bisa di-highlight per objek -> beri penanda titik.
       showSelectionMarker(cartesian);
     }
+    requestRender(); // highlight / penanda titik tidak memicu render otomatis
   };
 
   /** Pasang handler klik. Aman dipanggil ulang: handler lama di-destroy lebih dulu. */
@@ -495,7 +546,7 @@ export function use3DTiles() {
     if (item.geometricError > 0) {
       const fovy = cameraFovy(viewer.value);
       const fitRange = sphere.radius / Math.sin(fovy / 2);
-      range = Math.min(fitRange, buildingsVisibleWithin(item.geometricError, fovy) * 0.75);
+      range = Math.min(fitRange, buildingsVisibleWithin(item.geometricError, fovy, currentProfile().tilesetSSE) * 0.75);
       if (!Number.isFinite(range) || range <= 0) range = 0; // 0 = jarak otomatis Cesium
     }
     flyToSphere(sphere, { range, ...options });
