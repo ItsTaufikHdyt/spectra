@@ -15,6 +15,11 @@ Hanya library standar Python (>= 3.8). Contoh pemakaian:
     # Bangun master + salin/sinkronkan ke frontend/public/tiles/
     python3 data-pipeline/scripts/04_build_master.py --sync
 
+    # Pakai tile baru (3dtiles_v2) hanya untuk kelurahan tertentu; lainnya tetap dari 3dtiles.
+    # Master ditulis ke tempat lain agar processed/3dtiles/ tidak tersentuh.
+    python3 data-pipeline/scripts/04_build_master.py --v2 bontang_lestari \\
+        --master-out data-pipeline/processed/3dtiles_v2/master-tileset.json [--sync]
+
 Catatan teknis:
   * Semua tileset kelurahan memakai boundingVolume.region (radian: W, S, E, N, minH, maxH).
     Region master = gabungan (union) seluruh region kelurahan. Tipe box/sphere belum
@@ -52,6 +57,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SRC = REPO_ROOT / "data-pipeline" / "processed" / "3dtiles"
 DEFAULT_DEST = REPO_ROOT / "frontend" / "public" / "tiles"
+DEFAULT_SRC_V2 = REPO_ROOT / "data-pipeline" / "processed" / "3dtiles_v2"
 MASTER_NAME = "master-tileset.json"
 # File perantara tyler yang tidak dipakai saat runtime — tidak ikut disalin.
 SKIP_ON_SYNC = {"tileset_unpruned.json"}
@@ -134,6 +140,7 @@ def inspect_kelurahan(folder: Path) -> dict:
 
     return {
         "slug": slug,
+        "folder": folder,
         "name": slug.replace("_", " ").title(),
         "region": [float(v) for v in region],
         "geometricError": float(tileset.get("geometricError", root.get("geometricError", 0))),
@@ -253,15 +260,15 @@ def sync_folder(src_dir: Path, dst_dir: Path) -> tuple[int, int]:
     return copied, removed
 
 
-def sync_to_frontend(src: Path, dest: Path, entries: list[dict]) -> None:
+def sync_to_frontend(master_file: Path, dest: Path, entries: list[dict]) -> None:
     """Hanya menyentuh folder kelurahan yang dikenal + master; file lain di dest dibiarkan."""
     dest.mkdir(parents=True, exist_ok=True)
     total_copied = total_removed = 0
     for e in entries:
-        copied, removed = sync_folder(src / e["slug"], dest / e["slug"])
+        copied, removed = sync_folder(e["folder"], dest / e["slug"])
         total_copied += copied
         total_removed += removed
-    shutil.copy2(src / MASTER_NAME, dest / MASTER_NAME)
+    shutil.copy2(master_file, dest / MASTER_NAME)
     print(
         f"\nSync -> {dest}\n"
         f"  file disalin: {total_copied}, file basi dihapus: {total_removed}, "
@@ -281,6 +288,10 @@ def main() -> int:
     ap.add_argument("--src", type=Path, default=DEFAULT_SRC, help=f"folder 3dtiles (default: {DEFAULT_SRC})")
     ap.add_argument("--dest", type=Path, default=DEFAULT_DEST, help=f"tujuan sync (default: {DEFAULT_DEST})")
     ap.add_argument("--sync", action="store_true", help="salin hasil ke --dest (frontend/public/tiles)")
+    ap.add_argument("--v2", action="append", default=[], metavar="SLUG",
+                    help="pakai tile baru dari --src-v2/<SLUG> untuk kelurahan ini (boleh diulang); lainnya tetap dari --src")
+    ap.add_argument("--src-v2", type=Path, default=DEFAULT_SRC_V2, help=f"folder 3dtiles_v2 (default: {DEFAULT_SRC_V2})")
+    ap.add_argument("--master-out", type=Path, default=None, help="tulis master di sini (default: <--src>/master-tileset.json)")
     ap.add_argument("--refine", choices=["ADD", "REPLACE"], default="ADD", help="refine root master (default: ADD)")
     ap.add_argument("--root-error", type=float, default=None, help="geometricError root master (default: 4x error terbesar)")
     args = ap.parse_args()
@@ -295,6 +306,13 @@ def main() -> int:
         print(f"ERROR: tidak ada subfolder ber-tileset.json di {src}", file=sys.stderr)
         return 1
 
+    src_v2 = args.src_v2.resolve()
+    for slug in args.v2:
+        if not (src_v2 / slug / "tileset.json").is_file():
+            print(f"ERROR: --v2 {slug}: {src_v2 / slug / 'tileset.json'} tidak ada", file=sys.stderr)
+            return 1
+    folders = [src_v2 / f.name if f.name in args.v2 else f for f in folders]
+
     try:
         entries = [inspect_kelurahan(f) for f in folders]
         master = build_master(entries, args.refine, args.root_error)
@@ -302,7 +320,8 @@ def main() -> int:
         print(f"ERROR: {err}", file=sys.stderr)
         return 1
 
-    out = src / MASTER_NAME
+    out = args.master_out.resolve() if args.master_out else src / MASTER_NAME
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(master, indent=2) + "\n", encoding="utf-8")
 
     print(f"{'kelurahan':<20}{'tile':>6}{'konten':>8}{'ukuran':>12}   geometricError")
@@ -325,7 +344,7 @@ def main() -> int:
     print(f"Ditulis: {out}")
 
     if args.sync:
-        sync_to_frontend(src, args.dest.resolve(), entries)
+        sync_to_frontend(out, args.dest.resolve(), entries)
     else:
         print("\nUntuk menyalin ke frontend: tambahkan --sync")
     return 0
