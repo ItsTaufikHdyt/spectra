@@ -1,0 +1,85 @@
+{
+ "slug": "bontang_lestari",
+ "batch_id": 2,
+ "jenis": "uji_coba",
+ "bangunan_dibaca": 2219,
+ "per_berkas": [
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part I.gml",
+   "part": "I",
+   "versi": "2.0",
+   "bangunan": 212
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part II.gml",
+   "part": "II",
+   "versi": "2.0",
+   "bangunan": 262
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part III.gml",
+   "part": "III",
+   "versi": "2.0",
+   "bangunan": 5
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part IV.gml",
+   "part": "IV",
+   "versi": "2.0",
+   "bangunan": 162
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part V.gml",
+   "part": "V",
+   "versi": "2.0",
+   "bangunan": 342
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part VI.gml",
+   "part": "VI",
+   "versi": "2.0",
+   "bangunan": 290
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part VII.gml",
+   "part": "VII",
+   "versi": "2.0",
+   "bangunan": 774
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part VIII.gml",
+   "part": "VIII",
+   "versi": "2.0",
+   "bangunan": 172
+  }
+ ],
+ "poligon_sumber": 115274,
+ "poligon_bersih": 57507,
+ "salinan_terbalik_dibuang": 57634,
+ "duplikat_searah_dibuang": 133,
+ "label_sumber_beda_dari_klasifikasi": 4275,
+ "cocok_gml_id": 2213,
+ "cocok_posisi": 6,
+ "id_baru": 0,
+ "nonaktif": 0,
+ "tinjauan_manual": 0,
+ "diperbarui": 0,
+ "tidak_berubah": 2219,
+ "tinjauan_manual_detail": [],
+ "qc_flag": {
+  "footprint_diperbaiki": 1,
+  "footprint_kurang_2m2": 28,
+  "gml_id_bentrok": 6,
+  "tanpa_atap": 1,
+  "tinggi_kurang_0_1m": 4,
+  "tinggi_lebih_40m": 6
+ },
+ "tinggi_hitung_vs_measuredHeight": {
+  "n": 2219,
+  "median_selisih_abs": 0.003,
+  "maks_selisih_abs": 0.005,
+  "lebih_0_05m": 0
+ },
+ "nomor_deskripsi_unik": 774,
+ "detik": 6.8
+}

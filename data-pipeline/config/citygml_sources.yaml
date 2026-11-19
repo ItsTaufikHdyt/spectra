@@ -1,0 +1,62 @@
+# Sumber CityGML untuk pipeline bangunan (ADR-004). Dibaca oleh scripts/citygml/muat.py.
+#
+# Kolom:
+#   path            : relatif terhadap data-pipeline/ (berkas di raw/citygml/ READ-ONLY)
+#   slug            : kelurahan (sama dengan config/kelurahan_map.csv dan processed/3dtiles/)
+#   part            : 'I', 'II', ... atau null untuk berkas tunggal
+#   versi_citygml   : '2.0' atau '3.0'
+#   epsg_tercantum  : EPSG di srsName/envelope berkas
+#   epsg_dipakai    : EPSG yang dipakai pipeline (koreksi eksplisit, BUKAN tebakan otomatis)
+#   alasan_koreksi  : wajib bila epsg_dipakai != epsg_tercantum
+#   aktif           : false = belum diimpor pada tahap ini (hanya dicatat)
+#
+# Tahap uji coba: hanya bontang_lestari yang aktif.
+
+umum:
+  epsg_sasaran: 32650   # UTM 50N
+  # Warna model bangunan untuk tyler (--color-building). SENGAJA #B1BAC2, bukan #D9DEE2:
+  # tyler memperlakukan hex sebagai nilai LINEAR (baseColorFactor = hex/255, tanpa konversi sRGB), sehingga
+  # #D9DEE2 dirender ~9% lebih terang dari legenda. #B1BAC2 adalah #D9DEE2 dalam ruang linear, jadi tampil sebagai
+  # #D9DEE2 (sesuai legenda frontend, MAP_COLORS.building). Dipakai buat_tile.py. Tile uji coba Bontang Lestari
+  # (v2) masih dibuat dengan #D9DEE2; nilai ini berlaku untuk impor resmi.
+  warna_bangunan_tyler: "#B1BAC2"
+
+sumber:
+  # --- Bontang Lestari: 8 part, 2.219 bangunan (aktif untuk uji coba) ---
+  - {path: "raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part I.gml",    slug: bontang_lestari, part: I,    versi_citygml: "2.0", epsg_tercantum: 32650, epsg_dipakai: 32650, aktif: true}
+  - {path: "raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part II.gml",   slug: bontang_lestari, part: II,   versi_citygml: "2.0", epsg_tercantum: 32650, epsg_dipakai: 32650, aktif: true}
+  - {path: "raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part III.gml",  slug: bontang_lestari, part: III,  versi_citygml: "2.0", epsg_tercantum: 32650, epsg_dipakai: 32650, aktif: true}
+  - {path: "raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part IV.gml",   slug: bontang_lestari, part: IV,   versi_citygml: "2.0", epsg_tercantum: 32650, epsg_dipakai: 32650, aktif: true}
+  - {path: "raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part V.gml",    slug: bontang_lestari, part: V,    versi_citygml: "2.0", epsg_tercantum: 32650, epsg_dipakai: 32650, aktif: true}
+  - {path: "raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part VI.gml",   slug: bontang_lestari, part: VI,   versi_citygml: "2.0", epsg_tercantum: 32650, epsg_dipakai: 32650, aktif: true}
+  - {path: "raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part VII.gml",  slug: bontang_lestari, part: VII,  versi_citygml: "2.0", epsg_tercantum: 32650, epsg_dipakai: 32650, aktif: true}
+  - {path: "raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part VIII.gml", slug: bontang_lestari, part: VIII, versi_citygml: "2.0", epsg_tercantum: 32650, epsg_dipakai: 32650, aktif: true}
+
+  # --- Tiga berkas berlabel EPSG:32748 (UTM 48S) yang KOORDINATNYA EPSG:32650. Belum diimpor. ---
+  # Bukti (inventaris 2026-11-19, citygml_inventory.md): easting 549.767–557.024 dan northing 11.007–22.006 m
+  # tidak mungkin UTM selatan (northing ±10.000.000 m di belahan selatan); posisi bangunan identik (selisih ≤ 2 m)
+  # dengan CityJSON lama yang berlabel EPSG:32650.
+  - path: "raw/citygml/Kelurahan Guntung/Model 3D - Kelurahan Guntung - Part I.gml"
+    slug: guntung
+    part: I
+    versi_citygml: "2.0"
+    epsg_tercantum: 32748
+    epsg_dipakai: 32650
+    alasan_koreksi: "Label srsName EPSG:32748 salah; koordinat berskala UTM 50N (E 552.199–553.430, N 19.125–22.006)."
+    aktif: false
+  - path: "raw/citygml/Kelurahan Guntung/Model 3D - Kelurahan Guntung - Part II.gml"
+    slug: guntung
+    part: II
+    versi_citygml: "2.0"
+    epsg_tercantum: 32748
+    epsg_dipakai: 32650
+    alasan_koreksi: "Label srsName EPSG:32748 salah; koordinat berskala UTM 50N (E 556.717–557.024, N 21.006–21.201)."
+    aktif: false
+  - path: "raw/citygml/Kelurahan Satimpo/Model 3D - Kelurahan Satimpo.gml"
+    slug: satimpo
+    part: null
+    versi_citygml: "2.0"
+    epsg_tercantum: 32748
+    epsg_dipakai: 32650
+    alasan_koreksi: "Label srsName EPSG:32748 salah; koordinat berskala UTM 50N (E 549.767–555.242, N 11.007–14.497)."
+    aktif: false
