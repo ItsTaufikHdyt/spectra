@@ -16,7 +16,7 @@ Monorepo modular:
 ```
 spectra/
 ├── frontend/        # Vue 3 + Vite + CesiumJS + Pinia + Tailwind (SPA)
-├── data-pipeline/   # ETL offline. Sumber bangunan: CityGML (raw/citygml/). Pipeline baru (direncanakan, ADR-004):
+├── data-pipeline/   # ETL offline. Sumber bangunan: CityGML (raw/citygml/). Pipeline baru (ADR-004; teruji pada Bontang Lestari):
 │                    #   parser → PostGIS → CityJSONSeq → tyler (Docker) → processed/3dtiles_v2/ → 04_build_master.py
 ├── backend/         # FastAPI (ADR-005). Saat ini: layer geoportal (WFS/CSW). Atribut bangunan, PostGIS, simulasi: direncanakan
 ├── docs/            # remote-layers.md, simulation-contract.md, adr/ (ADR-001–006), audit/
@@ -58,17 +58,23 @@ Skrip yang ada: `04_build_master.py` (stdlib), serta skrip GeoJSON dan sumber da
 | `data-pipeline/.venv/bin/python data-pipeline/scripts/fetch_sources.py` | Jalankan sumber aktif di `config/sources.yaml` (GeoJSON lokal, WFS, CSW geoportal) → `processed/sources/`, `processed/catalog/`, laporan `reports/fetch_sources.md`. Akses geoportal **hanya baca**. |
 | `data-pipeline/.venv/bin/python data-pipeline/scripts/test_sources.py` | Uji mandiri adapter sumber data (tanpa jaringan). |
 
-**Perintah yang DIRENCANAKAN (belum ada; nama dan lokasi belum final):** pipeline bangunan baru per ADR-004.
+**Pipeline bangunan CityGML → PostGIS → 3D Tiles (ADR-004), teruji hanya pada Bontang Lestari.** Rincian dan urutan: `data-pipeline/README.md`.
 
-| Langkah (direncanakan) | Fungsi |
-|------------------------|--------|
-| Docker Compose PostGIS dev | PostGIS terpisah dari GeoNode; kredensial dari `.env` (ADR-001). |
-| Migrasi skema | Membuat skema `core`, `ref`, `elevasi`, `sim`, `staging` dari berkas migrasi di repo. |
-| Parser CityGML streaming | `raw/citygml/` → `staging` → `core` (pembersihan LOD2, normalisasi Z, QC, penerbitan ID `BTG-BLD-xxxxxx`). |
-| Ekspor CityJSONSeq per kelurahan | Dari PostGIS, bersih, atribut `id`, `gml_id`, `nama`, `tinggi`, `jumlah_lantai`, `luas_tapak`. |
-| `tyler` (Docker) | CityJSONSeq → `processed/3dtiles_v2/<slug>/` (3D Tiles 1.1 + `EXT_structural_metadata`). |
-| `04_build_master.py --sync` untuk `3dtiles_v2` | Skrip saat ini hanya membaca `processed/3dtiles/`; perlu disesuaikan. |
-| Ekspor registri ID ke CSV | `data-pipeline/config/` (di-commit); cadangan basis data dengan `pg_dump`. |
+> **ID di basis data dev saat ini berstatus `uji_coba` dan BUKAN ID resmi.** ID resmi belum diterbitkan (baru saat impor penuh 15 kelurahan).
+> Jangan mengekspor registri uji coba ke `data-pipeline/config/`, dan basis data dev boleh di-reset kapan saja.
+
+| Perintah (dari root repo) | Fungsi |
+|---------------------------|--------|
+| `data-pipeline/docker/db.sh naik` / `mati` / `status` / `psql` | PostGIS dev (`spectra-postgis-dev`, port 55432, terpisah dari GeoNode). Kredensial hanya di `data-pipeline/.env` (contoh: `.env.example`). `mati` menyimpan data di volume. |
+| `data-pipeline/docker/db.sh reset --ya` | **Hapus** kontainer + volume spectra (semua data dev hilang). `dump <berkas>` / `restore <berkas>` memakai `pg_dump`/`pg_restore` (belum diuji). |
+| `data-pipeline/.venv/bin/python data-pipeline/db/migrate.py` | Jalankan migrasi `db/migrations/NNNN_*.sql` (skema `core`, `ref`, `elevasi`, `sim`, `staging`); checksum dicatat, migrasi yang sudah jalan tidak boleh diubah. |
+| `data-pipeline/.venv/bin/python data-pipeline/scripts/citygml/muat.py --slug <slug> --jenis uji_coba` | Parser CityGML streaming (2.0 dan 3.0) → pembersihan LOD2 → registri ID (ADR-003) → `core.bangunan`; laporan di `reports/impor_<slug>_batch<id>.json`. Sumber di `config/citygml_sources.yaml`. |
+| `data-pipeline/.venv/bin/python data-pipeline/scripts/citygml/ekspor.py --slug <slug> [--validasi]` | PostGIS → `processed/buildings/<slug>.city.jsonl` (tinggi ≥ 0,1 m); `--validasi` menjalankan validasi skema CityJSON 2.0.2 (`validasi_cityjson.py`, skema lokal di `schemas/cityjson-2.0/`). |
+| `data-pipeline/.venv/bin/python data-pipeline/scripts/citygml/buat_tile.py --slug <slug>` | tyler (Docker) → `processed/3dtiles_v2/<slug>/`; folder kerja `processed/tyler_work/<slug>/`. Warna dari `config/citygml_sources.yaml` (`#B1BAC2`, lihat komentar di sana). |
+| `python3 data-pipeline/scripts/04_build_master.py --v2 <slug> --master-out data-pipeline/processed/3dtiles_v2/master-tileset.json [--sync]` | Master hibrida: tile baru untuk `<slug>`, tile lama untuk kelurahan lain, tanpa menyentuh `processed/3dtiles/`. **Sebelum `--sync`** buat cadangan `frontend/public/tiles/` dan uji perintah pengembaliannya (lihat `data-pipeline/README.md` §6). |
+| `data-pipeline/.venv/bin/python data-pipeline/scripts/citygml/test_citygml.py` / `test_registri.py` | Uji unit parser, pembersihan, dan aturan registri (tanpa jaringan/DB). |
+
+**Masih direncanakan (belum ada):** impor 15 kelurahan dan penerbitan ID resmi, ekspor registri ID ke CSV di `data-pipeline/config/` (di-commit; cadangan basis data dengan `pg_dump`), dan pemakaian tile v2 permanen oleh frontend.
 
 ### Backend (`backend/`, FastAPI)
 | Perintah (dari root repo) | Fungsi |
