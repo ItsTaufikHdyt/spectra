@@ -1,0 +1,75 @@
+{
+  "mode": "sesudah",
+  "konsol": [],
+  "galatHalaman": [],
+  "permintaanGagal": [],
+  "tampilan": {
+    "A_perumahan": {
+      "dipilih": 2,
+      "dimuat": 2,
+      "kontenSiap": 2
+    },
+    "B_pltu": {
+      "dipilih": 3,
+      "dimuat": 4,
+      "kontenSiap": 4
+    },
+    "C_atap_miring": {
+      "dipilih": 1,
+      "dimuat": 4,
+      "kontenSiap": 4
+    },
+    "D_atap_datar": {
+      "dipilih": 1,
+      "dimuat": 4,
+      "kontenSiap": 4
+    },
+    "E_bangunan_tinggi": {
+      "dipilih": 4,
+      "dimuat": 4,
+      "kontenSiap": 4
+    },
+    "F_atas_atap_datar": {
+      "dipilih": 1,
+      "dimuat": 4,
+      "kontenSiap": 4
+    }
+  },
+  "klik": {
+    "atap_miring": {
+      "diharapkan": "BTG-BLD-001072",
+      "klik": {
+        "x": 687.9999999963303,
+        "y": 430.94589819228287
+      },
+      "teksHalaman": "Digital Twin Bontang\n\nKota Bontang, Kalimantan Timur\n\n15 kelurahan dimuat\n\nTerrain dan atribut bangunan belum tersedia\n\nPeta dasar\nCitra satelit\nOpenStreetMap\nMode tampilan\nHemat\nSeimbang\nKualitas\n\nGPU terintegrasi atau baterai. Resolusi 75%, detail lebih kasar, 30 fps saat bergerak.\n\nPerangkat ini memakai renderer software (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver), jadi mode Hemat dipakai agar peta tetap lancar. Ubah kapan saja di Mode tampilan.\n\nLapisan\n\nBangunan 3D\n\nLOD2, 15 kelurahan. Dari jauh tampil sebagai kotak kelurahan.\n\nBatas kelurahan\n\nGaris putih tebal.\n\nBatas RT\n\nTermasuk RT di pulau. Dimuat saat dinyalakan.\n\nSungai dan drainase\n\nSungai biru; drainase hijau toska.\n\nTerrain DTM\n\nModel elevasi 1 m untuk medan 3D.\n\nSegera hadir\n\nOrthophoto\n\nFoto udara resolusi 5 cm.\n\nSegera hadir\nData geoportal\nLink WFS atau CSW\nPeriksa\n\nSebaran Puskesmas di Kota Bontang\n\n6 fitur, GeoJSON\n\nZoom\nRefresh\nAtur\nHapus\n\nSebaran Rumah Sakit di Kota Bontang\n\n5 fitur, GeoJSON\n\nZoom\nRefresh\nAtur\nHapus\n\nBanjir Kota Bontang Tahun 2023\n\n144 fitur, GeoJSON\n\nZoom\nRefresh\nAtur\nHapus\n\nRawan Banjir\n\n8.297 fitur, GeoJSON\n\nZoom\nRefresh\nAtur\nHapus\nNavigasi\n15 kelurahan\nTampilkan seluruh kota\nApi Api\nBelimbing\nBerebas Pantai\nBerebas Tengah\nBontang Baru\nBontang Kuala\nBontang Lestari\nGuntung\nGunung Elai\nGunung Telihan\nKanaan\nLoktuan\nSatimpo\nTanjung Laut\nTanjung Laut Indah\nSimulasi\n\nSimulasi banjir\n\nGenangan banjir dan rob berdasarkan ketinggian muka air.\n\nSegera hadir\nN/A MS\nN/A FPS\n(throttled)\nData attribution\nLegenda\nData geoportal\nSebaran Puskesmas di Kota Bontang\nSebaran Rumah Sakit di Kota Bontang\nBanjir Kota Bontang Tahun 2023\nBatas wilayah\nBatas kelurahan\nHidrologi\nSungai\nDrainase\nBangunan\nBangunan 3D (LOD2)\nKelurahan, saat kamera jauh\nTitik terpil"
+    },
+    "atap_datar": {
+      "diharapkan": "BTG-BLD-001082",
+      "klik": {
+        "x": 688.0000000036255,
+        "y": 443.12476362327357
+      },
+      "teksHalaman": "Digital Twin Bontang\n\nKota Bontang, Kalimantan Timur\n\n15 kelurahan dimuat\n\nTerrain dan atribut bangunan belum tersedia\n\nPeta dasar\nCitra satelit\nOpenStreetMap\nMode tampilan\nHemat\nSeimbang\nKualitas\n\nGPU terintegrasi atau baterai. Resolusi 75%, detail lebih kasar, 30 fps saat bergerak.\n\nPerangkat ini memakai renderer software (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver), jadi mode Hemat dipakai agar peta tetap lancar. Ubah kapan saja di Mode tampilan.\n\nLapisan\n\nBangunan 3D\n\nLOD2, 15 kelurahan. Dari jauh tampil sebagai kotak kelurahan.\n\nBatas kelurahan\n\nGaris putih tebal.\n\nBatas RT\n\nTermasuk RT di pulau. Dimuat saat dinyalakan.\n\nSungai dan drainase\n\nSungai biru; drainase hijau toska.\n\nTerrain DTM\n\nModel elevasi 1 m untuk medan 3D.\n\nSegera hadir\n\nOrthophoto\n\nFoto udara resolusi 5 cm.\n\nSegera hadir\nData geoportal\nLink WFS atau CSW\nPeriksa\n\nSebaran Puskesmas di Kota Bontang\n\n6 fitur, GeoJSON\n\nZoom\nRefresh\nAtur\nHapus\n\nSebaran Rumah Sakit di Kota Bontang\n\n5 fitur, GeoJSON\n\nZoom\nRefresh\nAtur\nHapus\n\nBanjir Kota Bontang Tahun 2023\n\n144 fitur, GeoJSON\n\nZoom\nRefresh\nAtur\nHapus\n\nRawan Banjir\n\n8.297 fitur, GeoJSON\n\nZoom\nRefresh\nAtur\nHapus\nNavigasi\n15 kelurahan\nTampilkan seluruh kota\nApi Api\nBelimbing\nBerebas Pantai\nBerebas Tengah\nBontang Baru\nBontang Kuala\nBontang Lestari\nGuntung\nGunung Elai\nGunung Telihan\nKanaan\nLoktuan\nSatimpo\nTanjung Laut\nTanjung Laut Indah\nSimulasi\n\nSimulasi banjir\n\nGenangan banjir dan rob berdasarkan ketinggian muka air.\n\nSegera hadir\nN/A MS\n5 FPS\n(throttled)\nData attribution\nLegenda\nData geoportal\nSebaran Puskesmas di Kota Bontang\nSebaran Rumah Sakit di Kota Bontang\nBanjir Kota Bontang Tahun 2023\nBatas wilayah\nBatas kelurahan\nHidrologi\nSungai\nDrainase\nBangunan\nBangunan 3D (LOD2)\nKelurahan, saat kamera jauh\nTitik terpilih"
+    },
+    "tinggi_lebih_40m": {
+      "diharapkan": "BTG-BLD-000700",
+      "klik": {
+        "x": 687.9999999999998,
+        "y": 359.5142681237758
+      },
+      "teksHalaman": "Digital Twin Bontang\n\nKota Bontang, Kalimantan Timur\n\n15 kelurahan dimuat\n\nTerrain dan atribut bangunan belum tersedia\n\nPeta dasar\nCitra satelit\nOpenStreetMap\nMode tampilan\nHemat\nSeimbang\nKualitas\n\nGPU terintegrasi atau baterai. Resolusi 75%, detail lebih kasar, 30 fps saat bergerak.\n\nPerangkat ini memakai renderer software (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver), jadi mode Hemat dipakai agar peta tetap lancar. Ubah kapan saja di Mode tampilan.\n\nLapisan\n\nBangunan 3D\n\nLOD2, 15 kelurahan. Dari jauh tampil sebagai kotak kelurahan.\n\nBatas kelurahan\n\nGaris putih tebal.\n\nBatas RT\n\nTermasuk RT di pulau. Dimuat saat dinyalakan.\n\nSungai dan drainase\n\nSungai biru; drainase hijau toska.\n\nTerrain DTM\n\nModel elevasi 1 m untuk medan 3D.\n\nSegera hadir\n\nOrthophoto\n\nFoto udara resolusi 5 cm.\n\nSegera hadir\nData geoportal\nLink WFS atau CSW\nPeriksa\n\nSebaran Puskesmas di Kota Bontang\n\n6 fitur, GeoJSON\n\nZoom\nRefresh\nAtur\nHapus\n\nSebaran Rumah Sakit di Kota Bontang\n\n5 fitur, GeoJSON\n\nZoom\nRefresh\nAtur\nHapus\n\nBanjir Kota Bontang Tahun 2023\n\n144 fitur, GeoJSON\n\nZoom\nRefresh\nAtur\nHapus\n\nRawan Banjir\n\n8.297 fitur, GeoJSON\n\nZoom\nRefresh\nAtur\nHapus\nNavigasi\n15 kelurahan\nTampilkan seluruh kota\nApi Api\nBelimbing\nBerebas Pantai\nBerebas Tengah\nBontang Baru\nBontang Kuala\nBontang Lestari\nGuntung\nGunung Elai\nGunung Telihan\nKanaan\nLoktuan\nSatimpo\nTanjung Laut\nTanjung Laut Indah\nSimulasi\n\nSimulasi banjir\n\nGenangan banjir dan rob berdasarkan ketinggian muka air.\n\nSegera hadir\n782.55 MS\n1 FPS\n(throttled)\nData attribution\nLegenda\nData geoportal\nSebaran Puskesmas di Kota Bontang\nSebaran Rumah Sakit di Kota Bontang\nBanjir Kota Bontang Tahun 2023\nBatas wilayah\nBatas kelurahan\nHidrologi\nSungai\nDrainase\nBangunan\nBangunan 3D (LOD2)\nKelurahan, saat kamera jauh\nTitik terpi"
+    }
+  },
+  "warna": {
+    "titik": [
+      392,
+      399
+    ],
+    "rgbRataRata": [
+      0,
+      0,
+      0
+    ]
+  }
+}

@@ -16,6 +16,8 @@ data-pipeline/raw/*
 !data-pipeline/raw/.gitkeep
 data-pipeline/processed/*
 !data-pipeline/processed/.gitkeep
+# Tangkapan layar uji tampil (log JSON dan README folder tetap dilacak)
+data-pipeline/reports/uji_tampil_bontang_lestari/*.png
 
 # --- Aset 3D salinan untuk dev (sumber kebenaran: data-pipeline/processed/) ---
 frontend/public/tiles/*

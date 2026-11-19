@@ -1,0 +1,8 @@
+83800c53749d5e0a9184f7b5b3ea81db50232c6149e76b0582bd791f716c0590  data-pipeline/raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part I.gml
+799e8decd9de62fd31f41bd38ff959dbc400f592a8dbab4e080c4e1f777e75d8  data-pipeline/raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part II.gml
+06ba8db369ac6b3503ad49cf23b73800bd81c5a5d3902933f923548ef70478ba  data-pipeline/raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part III.gml
+4a0a855c54265a9ff3b570db6a0415b01cf8a6a25722af04986b6d5d9b1cbead  data-pipeline/raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part IV.gml
+e2f157c4b19a63be7767aeb44f8cf1f26a09a3ef7dd9cf6e172a65d532c4f88c  data-pipeline/raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part V.gml
+b53a970bede375ac652f65d2f0253ba7113add2374f396bbbea6ba687db69456  data-pipeline/raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part VI.gml
+7a49514a9cdb10e830be920380c02b21dd8fb2a43bd905bead0c28c9b30bf877  data-pipeline/raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part VII.gml
+a999536fe8f84e6827a27f1d16f2bfdccc3701e1025d2f229d9813f3fa4d1a3f  data-pipeline/raw/citygml/Kelurahan Bontang Lestari/Model 3D - Kelurahan Bontang Lestari - Part VIII.gml

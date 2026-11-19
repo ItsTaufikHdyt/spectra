@@ -1,0 +1,50 @@
+{
+  "mode": "sebelum",
+  "konsol": [],
+  "galatHalaman": [],
+  "permintaanGagal": [],
+  "tampilan": {
+    "A_perumahan": {
+      "dipilih": 2,
+      "dimuat": 2,
+      "kontenSiap": 2
+    },
+    "B_pltu": {
+      "dipilih": 1,
+      "dimuat": 2,
+      "kontenSiap": 2
+    },
+    "C_atap_miring": {
+      "dipilih": 1,
+      "dimuat": 2,
+      "kontenSiap": 2
+    },
+    "D_atap_datar": {
+      "dipilih": 1,
+      "dimuat": 2,
+      "kontenSiap": 2
+    },
+    "E_bangunan_tinggi": {
+      "dipilih": 2,
+      "dimuat": 2,
+      "kontenSiap": 2
+    },
+    "F_atas_atap_datar": {
+      "dipilih": 1,
+      "dimuat": 2,
+      "kontenSiap": 2
+    }
+  },
+  "klik": {},
+  "warna": {
+    "titik": [
+      392,
+      399
+    ],
+    "rgbRataRata": [
+      0,
+      0,
+      0
+    ]
+  }
+}
