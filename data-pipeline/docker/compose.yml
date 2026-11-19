@@ -1,0 +1,28 @@
+# PostGIS pengembangan untuk pipeline bangunan spectra (ADR-001).
+# TERPISAH dari GeoNode: kontainer, volume, dan jaringan sendiri (nama berawalan "spectra").
+# Jangan menaruh kredensial di sini: dibaca dari data-pipeline/.env (di-ignore git).
+# Pakai lewat data-pipeline/docker/db.sh (naik | mati | reset | status | psql | dump | restore).
+name: spectra-dev
+
+services:
+  postgis:
+    image: geonode/postgis:15-3.5-latest   # image lokal yang sudah ada (PostgreSQL 15, PostGIS 3.5)
+    container_name: spectra-postgis-dev
+    environment:
+      POSTGRES_USER: ${SPECTRA_DB_USER}
+      POSTGRES_PASSWORD: ${SPECTRA_DB_PASSWORD}
+      POSTGRES_DB: ${SPECTRA_DB_NAME}
+    ports:
+      - "127.0.0.1:${SPECTRA_DB_PORT:-55432}:5432"   # hanya localhost; 5432 dipakai GeoNode
+    volumes:
+      - spectra_pgdata_dev:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${SPECTRA_DB_USER} -d ${SPECTRA_DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: "no"
+
+volumes:
+  spectra_pgdata_dev:
+    name: spectra_pgdata_dev
