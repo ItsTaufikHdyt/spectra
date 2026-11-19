@@ -16,12 +16,19 @@ Monorepo modular:
 ```
 spectra/
 ├── frontend/        # Vue 3 + Vite + CesiumJS + Pinia + Tailwind (SPA)
-├── data-pipeline/   # ETL offline: CityJSON → 3D Tiles v1.1 (cjio, 3dgi/tyler)
-├── backend/         # FastAPI kecil: layer geoportal (WFS/CSW) untuk frontend (docs/remote-layers.md)
+├── data-pipeline/   # ETL offline. Sumber bangunan: CityGML (raw/citygml/). Pipeline baru (direncanakan, ADR-004):
+│                    #   parser → PostGIS → CityJSONSeq → tyler (Docker) → processed/3dtiles_v2/ → 04_build_master.py
+├── backend/         # FastAPI (ADR-005). Saat ini: layer geoportal (WFS/CSW). Atribut bangunan, PostGIS, simulasi: direncanakan
+├── docs/            # remote-layers.md, simulation-contract.md, adr/ (ADR-001–006), audit/
 ├── STATUS.md        # Status implementasi (sumber kebenaran)
 ├── AGENTS.md        # Dokumen ini
-└── PRD.md   # PRD & arsitektur
+└── PRD.md           # PRD & arsitektur
 ```
+
+> **Arsitektur target (direncanakan, belum terimplementasi):** PostGIS (Docker, terpisah dari GeoNode) menjadi sumber
+> kebenaran data bangunan; tile 3D bersifat statis dan diturunkan dari basis data; hasil simulasi disimpan sebagai data
+> yang dirujuk dengan ID bangunan. Lihat ADR-001 s.d. ADR-006 di `docs/adr/` dan PRD §5, §6, §9.
+> Tile yang dipakai frontend hari ini (`processed/3dtiles/`, 47.108 fitur) masih berasal dari CityJSON lama.
 
 ---
 
@@ -35,17 +42,33 @@ spectra/
 | `npm run build` | Build produksi ke `dist/`. **Jalankan untuk verifikasi.** |
 | `npm run preview` | Pratinjau hasil build. |
 
-> Belum ada test runner maupun linter yang terkonfigurasi. Verifikasi utama = `npm run build` sukses + cek akses HTTP aset.
+Tes frontend: `npm test` (`node --test`, 17 tes untuk helper murni, kontrak simulasi, mode tampilan, deteksi GPU). Linter belum ada.
+Verifikasi utama = `npm run build` + `npm test` + cek akses HTTP aset.
 
 ### Data Pipeline
-Tooling: `cjio` (Python) untuk merge/clean CityJSON, `3dgi/tyler` (Rust) untuk konversi 3D Tiles v1.1.
-Hanya `04_build_master.py` yang ada di repo (stdlib Python, tanpa dependensi):
+Tooling yang **tersedia**: `data-pipeline/.venv` (shapely, pyproj, geopandas, pyogrio; lihat `requirements.txt`), `cjio` (hanya CityJSON), dan `3dgi/tyler`
+lewat image Docker lokal (`docker run --rm 3dgi/tyler:latest tyler …`, versi 1.0.0-alpha1; input harus CityJSON/CityJSONSeq).
+Skrip yang ada: `04_build_master.py` (stdlib), serta skrip GeoJSON dan sumber data di `scripts/` (QC geometri, normalisasi nama, reproyeksi sungai,
+`fetch_sources.py`, `test_sources.py`).
 
 | Perintah (dari root repo) | Fungsi |
 |---------------------------|--------|
 | `python3 data-pipeline/scripts/04_build_master.py` | Validasi 15 kelurahan + tulis `processed/3dtiles/master-tileset.json`. |
 | `python3 data-pipeline/scripts/04_build_master.py --sync` | Idem + salin inkremental ke `frontend/public/tiles/`. **Jalankan ulang setiap data kelurahan berubah.** |
 | `data-pipeline/.venv/bin/python data-pipeline/scripts/fetch_sources.py` | Jalankan sumber aktif di `config/sources.yaml` (GeoJSON lokal, WFS, CSW geoportal) → `processed/sources/`, `processed/catalog/`, laporan `reports/fetch_sources.md`. Akses geoportal **hanya baca**. |
+| `data-pipeline/.venv/bin/python data-pipeline/scripts/test_sources.py` | Uji mandiri adapter sumber data (tanpa jaringan). |
+
+**Perintah yang DIRENCANAKAN (belum ada; nama dan lokasi belum final):** pipeline bangunan baru per ADR-004.
+
+| Langkah (direncanakan) | Fungsi |
+|------------------------|--------|
+| Docker Compose PostGIS dev | PostGIS terpisah dari GeoNode; kredensial dari `.env` (ADR-001). |
+| Migrasi skema | Membuat skema `core`, `ref`, `elevasi`, `sim`, `staging` dari berkas migrasi di repo. |
+| Parser CityGML streaming | `raw/citygml/` → `staging` → `core` (pembersihan LOD2, normalisasi Z, QC, penerbitan ID `BTG-BLD-xxxxxx`). |
+| Ekspor CityJSONSeq per kelurahan | Dari PostGIS, bersih, atribut `id`, `gml_id`, `nama`, `tinggi`, `jumlah_lantai`, `luas_tapak`. |
+| `tyler` (Docker) | CityJSONSeq → `processed/3dtiles_v2/<slug>/` (3D Tiles 1.1 + `EXT_structural_metadata`). |
+| `04_build_master.py --sync` untuk `3dtiles_v2` | Skrip saat ini hanya membaca `processed/3dtiles/`; perlu disesuaikan. |
+| Ekspor registri ID ke CSV | `data-pipeline/config/` (di-commit); cadangan basis data dengan `pg_dump`. |
 
 ### Backend (`backend/`, FastAPI)
 | Perintah (dari root repo) | Fungsi |
@@ -71,13 +94,30 @@ Hanya `04_build_master.py` yang ada di repo (stdlib Python, tanpa dependensi):
 
 4. **Pemisahan tanggung jawab:**
    - MinIO/Storage → aset biner statis (3D Tiles, terrain, orthophoto).
-   - PostGIS → master data spasial relasional.
+   - PostGIS → sumber kebenaran data bangunan dan master data spasial relasional (ADR-001; **direncanakan**, belum ada).
    - GeoServer → layanan OGC (WMS/WFS/Vector Tiles).
-   - Backend API → auth, agregasi, business logic, IoT.
+   - Backend API (FastAPI, ADR-005) → auth, agregasi, business logic, IoT.
    - Frontend → rendering & interaksi saja.
 
 5. **State objek terpilih mengalir lewat Pinia**, bukan prop drilling.
    Picking → `objectStore.selectObject(...)` → `ObjectInfoPanel.vue`.
+
+6. **Sumber data bangunan tunggal = CityGML** di `data-pipeline/raw/citygml/` (ADR-004). `raw/3d/` (CityJSON) adalah
+   **arsip**: jangan dipakai sebagai sumber, jangan digabung ulang, jangan diubah. `raw/citygml/` **read-only** (jangan
+   ubah, pindahkan, atau ganti nama berkas; baca secara streaming).
+
+7. **PostGIS adalah sumber kebenaran** data bangunan (ADR-001, **direncanakan**). Setelah ada: berjalan di Docker
+   terpisah dari basis data GeoNode, skema berubah **hanya lewat migrasi di repo** (bukan perubahan manual), cadangan
+   dengan `pg_dump`, kredensial hanya dari `.env`. Tile dan ekspor adalah turunan yang dapat dibangun ulang.
+
+8. **ID bangunan** berformat `BTG-BLD-xxxxxx`, **dibuat sekali** di registri (`core.registri_id`) dan **tidak pernah dibuat
+   ulang** (ADR-003, **direncanakan**). `gml_id` asli hanya rujukan dan boleh tidak unik. Registri diekspor ke CSV di
+   `data-pipeline/config/` dan di-commit sebagai jaring pengaman; jangan hapus atau regenerasi ID.
+
+9. **Z dasar bangunan di tile = 0 per bangunan** (ADR-002, **direncanakan**), karena frontend belum punya terrain; Z dasar
+   asli disimpan di basis data sebagai `z_dasar_sumber`. Jangan menaruh bangunan ber-Z absolut/negatif ke tile tanpa terrain.
+
+> Aturan 7–9 berlaku untuk pipeline baru. Tile yang ada hari ini belum memenuhinya (ID = path tile + `featureId`, tanpa atribut).
 
 ---
 
@@ -106,6 +146,16 @@ Hanya `04_build_master.py` yang ada di repo (stdlib Python, tanpa dependensi):
   `Cesium3DTileFeature` **hanya jika tile punya property table**; untuk `.glb` tanpa
   `EXT_structural_metadata` (kondisi data saat ini) hasilnya objek biasa `{content, primitive: tileset}`.
   Jangan hanya mengandalkan `instanceof Cesium3DTileFeature`.
+- **Metadata pada tile baru (direncanakan, ADR-004):** tile `3dtiles_v2` membawa `EXT_structural_metadata` yang terhubung ke
+  `EXT_mesh_features`, sehingga `scene.pick()` mengembalikan `Cesium3DTileFeature` dan `getPropertyIds()` bekerja
+  (`readFeatureProperties` di `use3DTiles.js`). Properti yang dikenal frontend tanpa diubah: ID di `id` / `gml_id` / `gmlId` /
+  `identifier` / `objectid` (`ID_KEYS`), nama di `name` / `nama`, tinggi di `measuredHeight` / `height` / `tinggi`
+  (`ATTRIBUTE_KEYS`). Properti tile baru: `id`, `gml_id`, `nama`, `tinggi`, `jumlah_lantai`, `luas_tapak`. **Semua** properti
+  ditampilkan di panel apa adanya (tanpa daftar putih), nilai harus skalar. Perilaku ini belum pernah diuji di browser karena
+  tile saat ini tidak punya metadata; uji di viewer sebelum tile lama diganti.
+- **Render (`requestRenderMode`):** perubahan visual yang tidak memicu render otomatis (toggle layer, warna/opasitas, highlight,
+  layer geoportal, simulasi) WAJIB memanggil `requestRender()` dari `useCesium.js`. Mode tampilan (Hemat/Seimbang/Kualitas)
+  diatur di `utils/displayModes.js` dan diterapkan oleh `useRenderQuality.js`.
 - **Nama kelurahan** diturunkan dari slug folder di URL konten (`/tiles/<slug>/...`) lewat `utils/tileMeta.js`.
 
 ---
@@ -120,7 +170,13 @@ Hanya `04_build_master.py` yang ada di repo (stdlib Python, tanpa dependensi):
 - Output ETL kanonikal ada di `data-pipeline/processed/`; `frontend/public/tiles/` hanya
   salinan untuk dev. Jangan jadikan `public/tiles/` sumber kebenaran.
 - `data-pipeline/raw/`, `data-pipeline/processed/`, dan `frontend/public/tiles/` berisi data besar →
-  **jangan commit** (sudah di-ignore di `.gitignore`; hanya `.gitkeep` dan `scripts/` yang dilacak).
+  **jangan commit** (sudah di-ignore di `.gitignore`). Yang dilacak: `scripts/`, `config/` (termasuk ekspor registri ID, saat ada),
+  `reports/`, dan `.gitkeep`.
+- **Status folder data bangunan:**
+  - `raw/citygml/` — sumber tunggal, **read-only** (31 berkas `.gml`, 51.888 bangunan; 30 CityGML 2.0, 1 CityGML 3.0).
+  - `raw/3d/` — **arsip** CityJSON lama; tidak dipakai lagi (ADR-004).
+  - `processed/3dtiles/` — tile lama (47.108 fitur), dipertahankan sebagai **cadangan**; yang dipakai frontend hari ini.
+  - `processed/3dtiles_v2/<slug>/` — tile baru, **direncanakan**; belum ada. Keluarkan ke folder baru, jangan menimpa `processed/3dtiles/`.
 - GeoJSON batas wilayah & sungai: sumber kebenaran `data-pipeline/processed/geojson/` (hasil
   `normalize_names.py` / `reproject_sungai.py`, sudah WGS84). Salinan dev di `frontend/public/geojson/`
   diisi lewat `python3 data-pipeline/scripts/sync_geojson.py`, bukan disalin manual. Memuatnya di browser
