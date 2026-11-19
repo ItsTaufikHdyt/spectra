@@ -194,7 +194,17 @@ spectra/                              # root repositori (Digital Twin Bontang)
 | `qc_flag` | kode/daftar kode | Mis. tinggi < 0,1 m (tidak masuk tile), footprint < 2 m², tanpa footprint, komponen tidak valid. |
 | geometri | PostGIS | Footprint (EPSG:32650) dan geometri LOD2 yang dibersihkan; bentuk simpan ditentukan saat desain skema. |
 
-`core.registri_id` menyimpan ID yang pernah diterbitkan beserta kunci pencocokan sumbernya (aturan pencocokan belum diputuskan); diekspor ke CSV di `data-pipeline/config/`.
+`core.registri_id` menyimpan ID yang pernah diterbitkan beserta `gml_id`, kelurahan, dan pusat footprint sumbernya; diekspor ke CSV di `data-pipeline/config/`. Aturan (ADR-003, **direncanakan**):
+
+**Pencocokan tiap impor**, berurutan:
+1. `gml_id` sama, kelurahan sama, `gml_id` unik di batch, dan pusat footprint bergeser ≤ 2 m.
+2. Jika tidak: pusat footprint ≤ 2 m dan IoU footprint ≥ 0,5.
+3. Lebih dari satu kandidat: pilih IoU tertinggi; bila selisih IoU < 0,1, masuk daftar tinjauan manual tanpa ID.
+4. Tidak ada kecocokan: terbitkan ID baru dengan nomor berikutnya.
+
+**Footprint kosong** di salah satu sisi: dianggap sama bila jarak pusat bounding box 3D ≤ 2 m dan selisih tinggi ≤ 0,5 m; lebih dari satu kandidat masuk tinjauan manual tanpa ID. Footprint kosong tidak pernah dianggap IoU 1,0.
+
+**Aturan tetap:** nomor ID tidak pernah dipakai ulang; bangunan yang hilang dari impor baru ditandai nonaktif dengan tanggal berakhir (tidak dihapus); perubahan geometri atau tinggi pada bangunan yang sama memakai ID yang sama dengan versi baru di riwayat; penomoran pertama deterministik (urut slug, `gml_id`, lalu koordinat pusat footprint); setiap impor menghasilkan laporan jumlah cocok lewat `gml_id`, cocok lewat posisi, ID baru, nonaktif, dan tinjauan manual.
 
 ### 6.2. Properti di tile (direncanakan)
 Dibaca frontend lewat `EXT_structural_metadata` (nilai skalar saja):
