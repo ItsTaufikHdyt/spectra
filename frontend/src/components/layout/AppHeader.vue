@@ -18,13 +18,13 @@
         <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z" />
         <path d="M4 7.5l8 4.5 8-4.5M12 12v9" />
       </svg>
-      <span class="hidden sm:inline text-title font-bold tracking-tight">spectra</span>
+      <span class="text-title font-bold tracking-tight">spectra</span>
     </div>
 
     <!-- Judul aplikasi + status: di tengah, menggantikan pil navigasi pada referensi -->
     <div class="flex-1 min-w-0 flex flex-col items-center text-center leading-tight">
-      <h1 class="text-title md:text-display font-bold tracking-tight truncate max-w-full">Digital Twin Kota Bontang</h1>
-      <p class="flex items-center gap-1.5 text-caption text-bontang-muted" role="status">
+      <h1 class="sr-only sm:not-sr-only text-title md:text-display font-bold tracking-tight truncate max-w-full">Digital Twin Kota Bontang</h1>
+      <p class="hidden sm:flex items-center gap-1.5 text-caption text-bontang-muted" role="status">
         <span class="w-1.5 h-1.5 rounded-full" :class="statusDotClass" aria-hidden="true"></span>
         <span class="truncate">{{ statusText }}</span>
       </p>

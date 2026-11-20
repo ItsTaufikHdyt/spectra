@@ -7,12 +7,16 @@ Menguji tema terang/gelap/sistem dan basemap di Chromium headless dengan GPU sun
 - `frontend/public/tiles/` terisi (`04_build_master.py --sync`) agar model 3D termuat.
 - Playwright dan Chromium. Atur `PLAYWRIGHT_DIR` dan `CHROME_PATH` bila bukan lokasi bawaan skrip. `GPU_ARGS=swiftshader` untuk perender perangkat lunak.
 
-## Menjalankan
+## Menjalankan (uji tema)
 ```
 node frontend/tests/browser/uji_tema.cjs
 SHOT_DIR=/tmp/x node frontend/tests/browser/uji_tema.cjs   # + tangkapan layar
 ```
 Kode keluar 1 bila ada uji gagal.
+
+**Semua uji sekaligus:** `cd frontend && npm run test:browser` (menjalankan `uji_tema.cjs` lalu `uji_tata_letak.cjs`; backend tidak perlu, `/api` dipalsukan 500).
+
+Pengukuran (bukan lulus/gagal): `ukur_performa.cjs` (FPS/GPU, env `TEMA`, `MODE`, `VIEWPORT`, `APP_URL`; `--keluar x.json`) dan `ukur_kontras.cjs` (kontras bangunan vs basemap per kandidat).
 
 ## Yang diuji
 1. Kontras `edge` terhadap ink/panel/raised, kedua tema, >= 3:1 (dihitung dari `src/assets/main.css`).
