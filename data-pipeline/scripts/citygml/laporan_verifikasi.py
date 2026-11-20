@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Laporan verifikasi tile v2 seluruh kota (Langkah 6 impor resmi): PostGIS vs tile v2 vs tile lama.
+"""Laporan verifikasi tile seluruh kota (Langkah 6 impor resmi): PostGIS vs tile vs tile lama (riwayat).
 
 Prasyarat (hasil perintah lain; keluaran antara di processed/analisis/, tidak di-commit):
-  node scripts/citygml/verifikasi_tile.cjs processed/3dtiles_v2/<slug> processed/analisis/tile/<slug>.json
-  node scripts/citygml/fitur_glb.cjs processed/3dtiles[_v2]/<slug> processed/analisis/fitur/{lama,v2}_<slug>.json   (segitiga + pusat ECEF per fitur)
+  node scripts/citygml/verifikasi_tile.cjs processed/3dtiles/<slug> processed/analisis/tile/<slug>.json
+  node scripts/citygml/fitur_glb.cjs processed/3dtiles/<slug> processed/analisis/fitur/v2_<slug>.json   (segitiga + pusat ECEF per fitur)
+  processed/analisis/fitur/lama_<slug>.json = data tile lama CityJSON yang disimpan 2026-11-20 sebelum tile lama dihapus (riwayat; tidak bisa dibuat ulang).
 Keluaran: reports/impor_resmi_verifikasi.json dan .md.
 """
 

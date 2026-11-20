@@ -22,7 +22,7 @@ from shapely.ops import transform
 
 DP = Path(__file__).resolve().parents[1]  # data-pipeline/
 RAW_GEOJSON = DP / "raw" / "geojson"
-RAW_3D = DP / "raw" / "3d"
+RAW_CITYGML = DP / "raw" / "citygml"
 MASTER_TILESET = DP / "processed" / "3dtiles" / "master-tileset.json"
 OUT_GEOJSON = DP / "processed" / "geojson"
 REPORTS = DP / "reports"

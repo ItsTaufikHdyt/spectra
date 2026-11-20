@@ -1,6 +1,6 @@
 # data-pipeline — pipeline bangunan
 
-CityGML (`raw/citygml/`, read-only) → PostGIS dev → CityJSONSeq → `tyler` → 3D Tiles (`processed/3dtiles_v2/`).
+CityGML (`raw/citygml/`, read-only) → PostGIS dev → CityJSONSeq → `tyler` → 3D Tiles (`processed/3dtiles/`).
 Status: **impor resmi seluruh 15 kelurahan selesai (2026-11-20)**: 51.873 bangunan ber-ID resmi `BTG-BLD-000001`..`BTG-BLD-051873`.
 Registri: `config/registri_id.csv` (+ `.sha256`). **ID resmi tidak boleh diterbitkan ulang atau diedit.** Lihat ADR-001..007 di `docs/adr/`.
 Bagian 1–6 di bawah menjelaskan tiap langkah; bagian **Impor penuh (resmi)** merangkum urutannya. `scripts/citygml/muat.py` adalah jalur uji coba
@@ -22,8 +22,8 @@ Semua perintah dari root repo, dengan `PY=data-pipeline/.venv/bin/python`. **Lan
 6. **Ekspor dan validasi (per kelurahan):** `$PY data-pipeline/scripts/citygml/ekspor.py --slug <slug> [--validasi]`
    (validasi skema CityJSON; ±50 detik per 2.000 bangunan, bisa paralel per berkas dengan `validasi_cityjson.py`).
 7. **Tile:** `$PY data-pipeline/scripts/citygml/buat_tile.py --slug <slug>` (warna dari `config/citygml_sources.yaml`, `#B1BAC2`); master:
-   `python3 data-pipeline/scripts/04_build_master.py --v2 <slug> … (semua slug) --master-out data-pipeline/processed/3dtiles_v2/master-tileset.json`.
-8. **Verifikasi:** `node data-pipeline/scripts/citygml/verifikasi_tile.cjs <folder> <json>` per kelurahan, `node data-pipeline/scripts/citygml/fitur_glb.cjs` (segitiga per fitur, tile lama dan v2),
+   `python3 data-pipeline/scripts/04_build_master.py` (master di `processed/3dtiles/master-tileset.json`).
+8. **Verifikasi:** `node data-pipeline/scripts/citygml/verifikasi_tile.cjs <folder> <json>` per kelurahan, `node data-pipeline/scripts/citygml/fitur_glb.cjs` (segitiga per fitur),
    lalu `$PY data-pipeline/scripts/citygml/laporan_verifikasi.py` → `reports/impor_resmi_verifikasi.{md,json}`.
 9. **Uji tampil dan sinkron ke frontend:** bagian 6 di bawah; `node data-pipeline/scripts/citygml/uji_impor_resmi.cjs klik|fps`
    (hasil: `reports/uji_tampil_impor_resmi/README.md`).
@@ -72,7 +72,7 @@ tidak dipakai/kembar) hanya dihitung. Bontang Lestari (2026-11-20): 0 galat skem
 data-pipeline/.venv/bin/python data-pipeline/scripts/citygml/buat_tile.py --slug bontang_lestari
 ```
 Menyalin `processed/buildings/<slug>.city.jsonl` ke folder kerja `processed/tyler_work/<slug>/` (di-ignore git; tyler menulis indeks
-sqlite di sana), mengosongkan lalu mengisi `processed/3dtiles_v2/<slug>/`, dan mencatat perintah, versi tyler, dan image di
+sqlite di sana), mengosongkan lalu mengisi `processed/3dtiles/<slug>/`, dan mencatat perintah, versi tyler, dan image di
 `tileset.json` → `asset.extras.spectra`. Tidak bergantung pada `/tmp`. Perintah tyler yang dijalankan:
 `tyler --object-type Building --object-attributes id:string,gml_id:string,nama:string,tinggi:float,jumlah_lantai:int,luas_tapak:float --color-building <warna> --3dtiles-metadata-class bangunan`.
 
@@ -80,24 +80,20 @@ sqlite di sana), mengosongkan lalu mengisi `processed/3dtiles_v2/<slug>/`, dan m
 linear (`baseColorFactor` = hex/255), jadi #B1BAC2 tampil sebagai #D9DEE2, sesuai legenda frontend. Tile uji coba Bontang Lestari yang ada
 sekarang masih dibuat dengan #D9DEE2 (≈9% lebih terang dari legenda); nilai baru dipakai saat impor resmi.
 
-## 6. Master hibrida dan uji tampil
+## 6. Master, sinkron ke frontend, dan uji tampil
 ```
-python3 data-pipeline/scripts/04_build_master.py --v2 bontang_lestari --master-out data-pipeline/processed/3dtiles_v2/master-tileset.json
+python3 data-pipeline/scripts/04_build_master.py          # bangun processed/3dtiles/master-tileset.json (validasi 15 kelurahan)
+python3 data-pipeline/scripts/04_build_master.py --sync   # + salin inkremental ke frontend/public/tiles/ (tanpa tileset_unpruned.json)
+(cd frontend/public/tiles && sha256sum -c --quiet ../../../data-pipeline/reports/hash_baseline_public_tiles_v2.txt)   # isi harus identik dengan baseline
 ```
-Tambahkan `--sync` untuk menyalin ke `frontend/public/tiles/`. **Sebelum `--sync`**, buat cadangan dan uji pengembalian:
-```
-rsync -a frontend/public/tiles/ data-pipeline/processed/backup_public_tiles/            # cadangan (di-ignore git)
-rsync -a --delete data-pipeline/processed/backup_public_tiles/ frontend/public/tiles/   # PENGEMBALIAN
-(cd frontend/public/tiles && sha256sum -c --quiet ../../../data-pipeline/reports/hash_baseline_public_tiles.txt)
-```
-Uji tampil di Chromium headless (frontend `npm run dev` di :3000 harus jalan; `sebelum` memakai tile lama dari cadangan lewat
-page.route, `sesudah` memakai isi `public/tiles`): `node data-pipeline/scripts/citygml/uji_tampil.cjs sebelum|sesudah`.
-Hasil (PNG + log JSON) ke `reports/uji_tampil_bontang_lestari/`.
+`frontend/public/tiles/` hanya salinan dev (ter-ignore git); sumbernya `processed/3dtiles/`. Tidak ada lagi cadangan tile lama: bila `public/tiles` rusak,
+jalankan `--sync` ulang (atau bangun ulang tile dari PostGIS dengan `ekspor.py` + `buat_tile.py`).
+Uji tampil di Chromium headless (frontend `npm run dev` di :3000 dan backend harus jalan): `node data-pipeline/scripts/citygml/uji_impor_resmi.cjs klik|fps`;
+hasil di `reports/uji_tampil_impor_resmi/`.
 
 ## Baseline hash (reports/)
-Hash berkas yang tidak boleh berubah disimpan di `reports/hash_baseline_*.txt` (bukan `/tmp`): `raw_bontang_lestari` (8 berkas CityGML),
-`3dtiles_lama` (`processed/3dtiles/`), `public_tiles` (`frontend/public/tiles/`). Bandingkan dengan
-`sha256sum -c` dari root repo (untuk `3dtiles_lama` dan `public_tiles`: dari dalam folder masing-masing). Catatan: baseline
+Hash berkas yang tidak boleh berubah disimpan di `reports/hash_baseline_*.txt` (bukan `/tmp`): `raw_citygml` (31 berkas CityGML) dan `public_tiles_v2` (`frontend/public/tiles/`, 156 berkas). Bandingkan dengan
+`sha256sum -c` dari root repo (untuk `public_tiles_v2`: dari dalam `frontend/public/tiles/`). Baseline lain (`raw_bontang_lestari`, `3dtiles_lama`, `public_tiles`) adalah riwayat uji coba; datanya sudah tidak ada. Catatan: baseline
 pertama dibuat 2026-11-20 setelah baseline awal di `/tmp` hilang; untuk tahap berikutnya buat baseline **sebelum** mulai bekerja.
 
 ## Cadangan dan pemulihan database (`backups/`, di-ignore git)
@@ -120,8 +116,8 @@ Registri ID juga ada di `config/registri_id.csv` (+ `.sha256`, di-commit) sebaga
   (Zmaks − Zmin; selisih dengan `measuredHeight` sumber ≤ 0,005 m), tetapi nilainya tetap hanya sebaik modelnya.
 - `jumlah_lantai` (`storeysAboveGround`) tidak selalu bermakna. Contoh: **BTG-BLD-000700** (tinggi 49,1 m, 9 lantai, luas tapak 18 m²)
   kemungkinan **cerobong**, bukan gedung; jumlah lantainya tidak bermakna. Jangan dipakai untuk statistik hunian tanpa penyaringan.
-- Bangunan Berebas Tengah (CityGML 3.0) tidak punya `jumlah_lantai`; tile lama dan uji coba ini belum menguji berkas itu.
-- ID `BTG-BLD-xxxxxx` pada basis data dev berstatus `uji_coba` dan **bukan** ID resmi.
+- Bangunan Berebas Tengah (CityGML 3.0) tidak punya `jumlah_lantai` (NULL, bukan 0; tile menyimpannya sebagai `noData`).
+- ID `BTG-BLD-xxxxxx` di basis data dev adalah ID **resmi** (batch 1, 2026-11-20); jalur `muat.py` (uji coba) memakai status `uji_coba` dan tidak boleh dipakai pada registri resmi.
 
 ## Flag QC (`qc_flag` di `core.bangunan`)
 Dipasang oleh pipeline (parser/pembersihan `citygml/bangunan.py`, `impor_resmi.py keputusan`); bukan perubahan manual. Jumlah pada impor resmi (51.873 bangunan) di `reports/impor_resmi_verifikasi.md`.

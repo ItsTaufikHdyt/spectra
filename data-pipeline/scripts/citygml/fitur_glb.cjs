@@ -1,4 +1,4 @@
-// Per fitur: segitiga, tinggi, pusat ECEF (untuk membandingkan tile lama vs v2). Pakai: node fitur_glb.cjs <dir tileset> <keluaran.json>
+// Per fitur: segitiga, tinggi, pusat ECEF (untuk membandingkan dua versi tile). Pakai: node fitur_glb.cjs <dir tileset> <keluaran.json>
 // Dekoder meshopt dari frontend/node_modules (hanya dibaca).
 const fs=require('fs'),path=require('path');
 const {MeshoptDecoder:D}=require(path.join(__dirname, '../../../frontend/node_modules/meshoptimizer'));

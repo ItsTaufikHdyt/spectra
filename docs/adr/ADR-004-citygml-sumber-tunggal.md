@@ -4,7 +4,7 @@
 - **Tanggal:** 2026-11-19
 - **Terkait:** ADR-001, ADR-002, ADR-003, ADR-006
 
-> Seluruh pipeline pada bagian "Keputusan" **direncanakan** dan belum ada di repo. Tile saat ini (`processed/3dtiles/`, 47.108 fitur) masih berasal dari CityJSON lama.
+> **Terlaksana (2026-11-20):** pipeline pada bagian "Keputusan" sudah berjalan untuk seluruh 15 kelurahan; tile ada di `processed/3dtiles/` (51.816 fitur). CityJSON lama sudah diarsipkan di luar repo dan tile lamanya dihapus.
 
 ## Konteks
 - `data-pipeline/raw/citygml/` berisi 31 file CityGML (30 versi 2.0, 1 versi 3.0 untuk Berebas Tengah; 3,5 GB), memuat **51.888 bangunan** (51.887 unik berdasarkan posisi) di 15 kelurahan. Semua XML valid.
@@ -14,8 +14,8 @@
 - Peralatan tersedia: `cjio` hanya membaca CityJSON; `citygml-tools` tidak ada; GDAL tidak memiliki driver CityGML; `tyler` tersedia lewat Docker (`3dgi/tyler:latest`, 1.0.0-alpha1) dan menerima CityJSON/CityJSONSeq.
 
 ## Keputusan
-1. **CityGML di `data-pipeline/raw/citygml/` adalah sumber data bangunan tunggal.** `raw/3d/` (CityJSON) menjadi **arsip** dan tidak dipakai lagi. `raw/citygml/` read-only.
-2. **Pipeline (direncanakan):** parser streaming milik sendiri → PostGIS (sumber kebenaran, ADR-001) → ekspor CityJSONSeq yang bersih per kelurahan → `tyler` (Docker `3dgi/tyler`) → `processed/3dtiles_v2/<slug>/` → `04_build_master.py --sync`. **Tile lama (`processed/3dtiles/`) tetap sebagai cadangan** sampai tile baru diverifikasi.
+1. **CityGML di `data-pipeline/raw/citygml/` adalah sumber data bangunan tunggal.** `raw/3d/` (CityJSON) diarsipkan di luar repo dan tidak dipakai lagi. `raw/citygml/` read-only.
+2. **Pipeline:** parser streaming milik sendiri → PostGIS (sumber kebenaran, ADR-001) → ekspor CityJSONSeq yang bersih per kelurahan → `tyler` (Docker `3dgi/tyler`) → `processed/3dtiles/<slug>/` → `04_build_master.py --sync`. Tile lama dihapus setelah tile baru terverifikasi (2026-11-20).
 3. **Semua part per kelurahan disatukan** (termasuk Loktuan Part II–IV), bukan ditimpa berdasarkan ID.
 4. **Label EPSG:32748 dikoreksi menjadi EPSG:32650 lewat konfigurasi eksplisit per file** (tiga file di atas), bukan lewat tebakan otomatis.
 5. **Atribut di tile:** `id`, `gml_id`, `nama` ("Bangunan BTG-BLD-xxxxxx"), `tinggi`, `jumlah_lantai`, `luas_tapak`. Nilai bawaan CityGML (class, function, usage, roofType, yearOfConstruction, GrossPlannedArea, dst.) **tidak dibawa** ke tile. Berebas Tengah: `tinggi` dari geometri, `jumlah_lantai` kosong.
@@ -29,6 +29,6 @@
 
 ## Konsekuensi
 - Perlu parser CityGML 2.0 dan 3.0, konfigurasi per berkas (koreksi CRS), dan skrip ekspor CityJSONSeq (**direncanakan**).
-- `04_build_master.py` saat ini membaca `processed/3dtiles/`; dukungan `3dtiles_v2` perlu disesuaikan (**direncanakan**, kode belum diubah).
+- `04_build_master.py` membaca `processed/3dtiles/` (hasil pipeline ini); opsi `--v2` sempat ada dan sudah dihapus.
 - Frontend tidak berubah: kontrak tile (slug, `boundingVolume.region`, properti `id`/`gml_id`/`nama`/`tinggi`) dijaga (AGENTS.md §4).
-- Struktur tile baru perlu diuji di viewer (picking `Cesium3DTileFeature`) sebelum menggantikan tile lama.
+- Struktur tile baru sudah diuji di viewer (picking `Cesium3DTileFeature`, atribut di panel) sebelum tile lama dihapus.

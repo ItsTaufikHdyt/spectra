@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""CityJSONSeq -> 3D Tiles v2 lewat tyler (Docker). Dapat diulang; tidak memakai /tmp.
+"""CityJSONSeq -> 3D Tiles lewat tyler (Docker). Dapat diulang; tidak memakai /tmp.
 
   data-pipeline/.venv/bin/python data-pipeline/scripts/citygml/buat_tile.py --slug bontang_lestari
 
 Masukan : processed/buildings/<slug>.city.jsonl           (dari ekspor.py)
 Kerja   : processed/tyler_work/<slug>/                    (salinan masukan; tyler menulis indeks sqlite di sini; di-ignore git)
-Keluaran: processed/3dtiles_v2/<slug>/                    (dikosongkan dulu; tile lama processed/3dtiles/ tidak disentuh)
+Keluaran: processed/3dtiles/<slug>/                       (dikosongkan dulu; lalu 04_build_master.py [--sync])
 Asal-usul (perintah, image, status) dicatat di tileset.json -> asset.extras.spectra.
 """
 
@@ -37,7 +37,7 @@ def main(argv=None) -> int:
     if not sumber.exists():
         raise SystemExit(f"Belum ada {sumber}; jalankan ekspor.py dulu.")
     kerja = DP / "processed" / "tyler_work" / a.slug
-    keluar = DP / "processed" / "3dtiles_v2" / a.slug
+    keluar = DP / "processed" / "3dtiles" / a.slug
     for d in (kerja, keluar):
         shutil.rmtree(d, ignore_errors=True)
         d.mkdir(parents=True)

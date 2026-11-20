@@ -2,7 +2,7 @@
 """
 normalize_names.py — Pemetaan nama kelurahan GeoJSON ke slug 3D Tiles + normalisasi RT.
 
-Sumber kebenaran slug: processed/3dtiles/master-tileset.json (fallback: folder raw/3d/).
+Sumber kebenaran slug: processed/3dtiles/master-tileset.json (fallback: folder raw/citygml/).
 Input (read-only) : raw/geojson/batas-kelurahan.json, raw/geojson/batas-rt.json
 Output            : config/kelurahan_map.csv
                     processed/geojson/batas-kelurahan.norm.geojson
@@ -28,7 +28,7 @@ from geo_common import (
     KELURAHAN_FILE,
     MASTER_TILESET,
     OUT_GEOJSON,
-    RAW_3D,
+    RAW_CITYGML,
     RT_FILE,
     geom,
     norm_key,
@@ -74,20 +74,20 @@ KETERANGAN_DARATAN = frozenset({None, "Bontang Kuala", "Bontang Lestari", "Guntu
 
 
 def load_slugs() -> tuple[list[str], str]:
-    """Slug kelurahan dari master-tileset.json; fallback ke nama folder raw/3d/."""
+    """Slug kelurahan dari master-tileset.json; fallback ke nama folder raw/citygml/."""
     try:
         master = read_geojson(MASTER_TILESET)  # JSON biasa, dibaca read-only
         slugs = sorted({c["content"]["uri"].split("/")[0] for c in master["root"]["children"]})
         if slugs:
             return slugs, str(MASTER_TILESET.relative_to(MASTER_TILESET.parents[2]))
     except (OSError, KeyError, ValueError) as err:
-        print(f"PERINGATAN: master-tileset.json tidak terbaca ({err}); memakai folder raw/3d/", file=sys.stderr)
+        print(f"PERINGATAN: master-tileset.json tidak terbaca ({err}); memakai folder raw/citygml/", file=sys.stderr)
     slugs = sorted(
         p.name.removeprefix("Kelurahan ").strip().lower().replace(" ", "_")
-        for p in RAW_3D.iterdir()
+        for p in RAW_CITYGML.iterdir()
         if p.is_dir() and p.name.startswith("Kelurahan ")
     )
-    return slugs, "raw/3d/ (fallback)"
+    return slugs, "raw/citygml/ (fallback)"
 
 
 def to_slug(name: str) -> str:

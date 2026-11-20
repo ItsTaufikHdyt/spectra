@@ -15,7 +15,7 @@ Tahap Proof of Concept (POC) di kawasan **Kantor Walikota Bontang** telah sukses
 - Orthophoto resolusi 5cm (XYZ imagery tiles PNG, EPSG:32650).
 - Ekstrusi bangunan 3D dari GeoJSON (8 bangunan) dengan sampling elevasi terrain bertingkat.
 
-Tahap selanjutnya adalah **Scale-Up Skala Kota (15 Kelurahan)** dengan data bangunan **LOD2** berformat **CityGML** (31 berkas, 3,5 GB, 51.888 bangunan) sebagai sumber tunggal (ADR-004). CityJSON lama (~281 MB) menjadi arsip.
+Tahap selanjutnya adalah **Scale-Up Skala Kota (15 Kelurahan)** dengan data bangunan **LOD2** berformat **CityGML** (31 berkas, 3,5 GB, 51.888 bangunan) sebagai sumber tunggal (ADR-004). CityJSON lama (~281 MB) sudah diarsipkan di luar repo (STATUS.md).
 
 ---
 
@@ -30,14 +30,14 @@ keputusan arsitektur di `docs/adr/` (ADR-001 s.d. ADR-006). Hal yang belum diimp
 | Modul | Status | Keterangan |
 |-------|--------|------------|
 | `frontend/` | 🟡 **Berjalan** | Vue 3 + Vite 5 + Cesium **1.146.0** (di-pin) + Pinia + Tailwind. UI tiga area, master tileset 15 kelurahan, picking `LEFT_CLICK`, layer batas kelurahan/RT/sungai, panel Data geoportal, `requestRenderMode` dengan Mode tampilan (Hemat/Seimbang/Kualitas), registri simulasi (kosong). 17 tes (`npm test`). Terrain dan orthophoto belum ada ("Segera hadir"). Tile belum membawa atribut. Render diuji di Chromium headless (GPU AMD iGPU dan renderer software), belum di GPU lain. |
-| `data-pipeline/` | 🟡 **Sebagian** | 3D Tiles v1.1 untuk 15 kelurahan ada (`processed/3dtiles/`, 125 `.glb`, **47.108 fitur**) tetapi berasal dari CityJSON lama dan **±4.779 bangunan hilang**. Ada skrip QC/normalisasi GeoJSON dan adapter sumber data (GeoJSON lokal, WFS, CSW). **CityGML** (`raw/citygml/`, 31 berkas, 51.888 bangunan) menjadi sumber tunggal baru; inventarisnya selesai. **Pipeline baru direncanakan** (bagian 5); skrip ETL 01–03 lama tidak ada di repo. |
+| `data-pipeline/` | 🟢 **Impor resmi selesai (dev)** | CityGML (`raw/citygml/`, 31 berkas, 51.888 bangunan) → PostGIS → CityJSONSeq → tyler → `processed/3dtiles/` (15 kelurahan, 51.816 fitur). Registri ID resmi di `config/registri_id.csv`. Jalur lama CityJSON diarsipkan di luar repo. Skrip QC/normalisasi GeoJSON dan adapter sumber data (GeoJSON lokal, WFS, CSW) tetap ada. Lihat `STATUS.md`. |
 | `backend/` | 🟡 **FastAPI kecil** | Layer geoportal (inspect WFS/CSW, kelola layer, cache); 20 tes pytest; pencegahan SSRF. **Belum ada** autentikasi, akses PostGIS, dan endpoint atribut bangunan (direncanakan, ADR-005). |
 | PostGIS / basis data | ⚪ **Direncanakan** | Sumber kebenaran data bangunan (ADR-001); belum ada kontainer, migrasi, maupun skema. |
 | Git / Versioning | 🟡 **Lokal** | Branch `master` + `feat/perbaikan-dan-redesign-ui`; **belum ada remote** (tidak ada cadangan di luar mesin ini). Data besar (`raw/`, `processed/`, `public/tiles/`) di-ignore. |
 | Docker / Orkestrasi | 🔴 **Belum ada** | `docker-compose.yml` (PostGIS dev, tyler) direncanakan. Image lokal `3dgi/tyler` dan `geonode/postgis` sudah ada di mesin pengembangan. |
 
 ### 2.2. Keputusan Arsitektur (diterima 2026-11-19; implementasi direncanakan)
-1. **Sumber bangunan tunggal = CityGML**; CityJSON di `raw/3d/` menjadi arsip (ADR-004).
+1. **Sumber bangunan tunggal = CityGML**; CityJSON lama (`raw/3d/`) sudah diarsipkan di luar repo (ADR-004).
 2. **PostGIS** (Docker, terpisah dari GeoNode) = sumber kebenaran; skema lewat migrasi; cadangan `pg_dump` (ADR-001).
 3. **ID bangunan** `BTG-BLD-xxxxxx` dari registri `core.registri_id`, tidak pernah dibuat ulang; `gml_id` hanya rujukan (ADR-003).
 4. **Geometri:** bersihkan LOD2 asli (76,4% atap miring), bukan ekstrusi LOD1; Z dasar tile = 0, `z_dasar_sumber` disimpan (ADR-002).
@@ -85,15 +85,13 @@ keputusan arsitektur di `docs/adr/` (ADR-001 s.d. ADR-006). Hal yang belum diimp
 spectra/                              # root repositori (Digital Twin Bontang)
 ├── data-pipeline/                    # ETL, tiling, dan konversi geospasial offline (✓ ada)
 │   ├── raw/                          # Data mentah (.gitignore)
-│   │   ├── citygml/                  # CityGML per kelurahan: SUMBER TUNGGAL, read-only (✓ 15 kelurahan, 31 .gml)
-│   │   └── 3d/                       # CityJSON lama: ARSIP, tidak dipakai lagi (✓ 15 kelurahan)
+│   │   └── citygml/                  # CityGML per kelurahan: SUMBER TUNGGAL, read-only (✓ 15 kelurahan, 31 .gml)
 │   ├── scripts/                      # (✓ sebagian) QC/normalisasi GeoJSON, sources/, fetch_sources.py, 04_build_master.py
 │   │   └── (direncanakan)            # parser CityGML, ekspor CityJSONSeq, tyler (Docker), registri ID — nama belum final
 │   ├── config/                       # (✓) sources.yaml, kelurahan_map.csv; ekspor registri ID (direncanakan, di-commit)
 │   ├── reports/                      # (✓) laporan QC dan inventaris (citygml_inventory.md)
 │   ├── processed/                    # Output lokal (.gitignore)
-│   │   ├── 3dtiles/                  # (✓) tile lama 15 kelurahan, 47.108 fitur: dipakai frontend, dipertahankan sebagai cadangan
-│   │   ├── 3dtiles_v2/               # (direncanakan) tile baru dari pipeline CityGML
+│   │   ├── 3dtiles/                  # (✓) tile 15 kelurahan, 51.816 fitur, hasil pipeline CityGML; master-tileset.json; sumber `frontend/public/tiles`
 │   │   ├── terrain-tiles/            # (belum) Quantized-mesh terrain
 │   │   └── ortho-tiles/              # (belum) XYZ tiles PNG
 │   └── docker/                       # (belum) toolchain; tyler kini lewat image lokal 3dgi/tyler
@@ -140,29 +138,29 @@ spectra/                              # root repositori (Digital Twin Bontang)
 ## 5. Pipeline Pengolahan Data 3D Bangunan (CityGML -> PostGIS -> 3D Tiles)
 
 > **Status:** bagian 5.3 s.d. 5.5 menjelaskan pipeline yang **direncanakan** (ADR-001 s.d. ADR-004). Belum ada skripnya di repo; nama perintah belum final.
-> Tile yang dipakai frontend hari ini dibuat dari CityJSON lama dan tidak mengikuti pipeline ini.
+> Tile yang dipakai frontend berasal dari pipeline ini (impor resmi 2026-11-20).
 
 ### 5.1. Tool
 - **Parser streaming milik sendiri (direncanakan):** Python (stdlib + shapely) untuk CityGML 2.0 dan 3.0. Alasan: `citygml-tools` tidak ada, `cjio` hanya membaca CityJSON, dan GDAL tidak punya driver CityGML. Berkas dibaca per `cityObjectMember` (tanpa memuat 3,5 GB ke memori).
 - **PostGIS (direncanakan):** sumber kebenaran, Docker terpisah dari GeoNode (ADR-001).
 - **Konverter 3D Tiles: `3dgi/tyler`** lewat image Docker lokal `3dgi/tyler:latest` (tyler 1.0.0-alpha1). Input harus CityJSON/CityJSONSeq. Opsi relevan: `--object-attributes <nama:tipe,...>` (atribut → `EXT_structural_metadata`), `--3dtiles-metadata-class`, `--object-type Building`, `--color-building #RRGGBB`, `--grid-cellsize`, `--qtree-capacity`.
-- **`cjio`:** hanya untuk CityJSON lama (arsip); tidak dipakai di pipeline baru.
+- **`cjio`:** tidak dipakai di pipeline; hanya untuk ringkasan CityJSON (`cjio info`).
 
 ### 5.2. Spesifikasi Data Mentah Aktual
 - **Sumber tunggal: `data-pipeline/raw/citygml/`** (read-only): 31 berkas `.gml` (3,5 GB) + 1 `.gfs` (skema GDAL). 30 berkas CityGML 2.0 dan 1 berkas **CityGML 3.0** (Berebas Tengah). **51.888 bangunan** (51.887 unik berdasarkan posisi), tanpa `BuildingPart`, LOD2, 15 dari 15 kelurahan, semua XML valid. Multi-part: Belimbing (3), Bontang Lestari (8), Guntung (3), Gunung Elai (3), Loktuan (4).
 - **CRS:** EPSG:32650 (UTM 50N). **Tiga berkas berlabel EPSG:32748** (Guntung Part I, Guntung Part II, Satimpo) padahal koordinatnya EPSG:32650; dikoreksi lewat konfigurasi eksplisit per berkas.
 - **Atribut:** `measuredHeight` (= tinggi geometri, dibulatkan) dan `storeysAboveGround` informatif; sebelas atribut lain bernilai bawaan sama untuk semua bangunan. Berebas Tengah (3.0) tanpa atribut.
 - **Masalah sumber:** 99,86% poligon punya salinan terbalik (label atap/lantai tertukar); Z dasar bervariasi di 5 berkas (median −15,4 m s.d. +5,4 m; berkas lain 0,001 m); ±103 `gml:id` bentrok dalam berkas dan 2 antarberkas; 22 bangunan ber-`measuredHeight` 0 dan 57 setinggi < 0,1 m.
-- **Arsip:** `data-pipeline/raw/3d/` (CityJSON v2.0, 37 berkas, ±281 MB) tidak dipakai lagi.
+- **Arsip:** CityJSON lama (37 berkas, ±281 MB) sudah diarsipkan di luar repo; bukan sumber lagi.
 
 ### 5.3. Alur Eksekusi (direncanakan)
 1. **Impor ke `staging`:** parser streaming membaca `raw/citygml/` (semua part per kelurahan disatukan, termasuk Loktuan Part II–IV); CRS berkas berlabel 32748 dikoreksi lewat konfigurasi eksplisit.
 2. **Normalisasi ke `core.bangunan`:** buang salinan terbalik dan duplikat searah, perbaiki label permukaan, hitung footprint/tinggi/`luas_tapak`, normalkan Z dasar ke 0 (simpan `z_dasar_sumber`), beri `qc_flag` (ADR-002).
 3. **Penerbitan ID:** `BTG-BLD-xxxxxx` dari `core.registri_id`; `gml_id` asli disimpan sebagai rujukan (ADR-003). Ekspor registri ke CSV di `data-pipeline/config/` (di-commit).
 4. **Ekspor CityJSONSeq bersih per kelurahan** dari PostGIS (tanpa bangunan setinggi < 0,1 m).
-5. **tyler (Docker):** CityJSONSeq → `data-pipeline/processed/3dtiles_v2/<slug>/` dengan metadata dan warna `#D9DEE2`.
-6. **Master tileset:** `04_build_master.py --sync` untuk `3dtiles_v2` (skrip saat ini hanya membaca `processed/3dtiles/`; perlu disesuaikan). Tile lama tetap sebagai cadangan.
-7. **Verifikasi di frontend** (picking `Cesium3DTileFeature`, atribut di panel, kotak ikhtisar) sebelum tile lama diganti.
+5. **tyler (Docker):** CityJSONSeq → `data-pipeline/processed/3dtiles/<slug>/` dengan metadata dan warna `#B1BAC2` (tyler menganggap hex linear, sehingga tampil `#D9DEE2`).
+6. **Master tileset:** `04_build_master.py --sync` (membaca `processed/3dtiles/`, mengisi `frontend/public/tiles/`).
+7. **Verifikasi di frontend** (picking `Cesium3DTileFeature`, atribut di panel, kotak ikhtisar) (selesai; tile lama sudah dihapus).
 
 ### 5.4. Aturan Data Bangunan (direncanakan)
 - Atribut di tile: `id`, `gml_id`, `nama` ("Bangunan BTG-BLD-xxxxxx"), `tinggi`, `jumlah_lantai`, `luas_tapak`. Nilai bawaan CityGML tidak dibawa. Berebas Tengah: `tinggi` dari geometri, `jumlah_lantai` kosong.
@@ -170,7 +168,7 @@ spectra/                              # root repositori (Digital Twin Bontang)
 - LOD1 boleh diturunkan hanya untuk analisis; tampilan memakai LOD2 yang dibersihkan.
 
 ### 5.5. Kontrak Tile dengan Frontend (frontend tidak diubah)
-- Tile di `processed/3dtiles_v2/<slug>/tileset.json` dengan 15 slug yang sama seperti sekarang; `boundingVolume.region`; 3D Tiles 1.1 + `3DTILES_content_gltf`; `.glb` di `<slug>/…`.
+- Tile di `processed/3dtiles/<slug>/tileset.json` dengan 15 slug yang sama seperti sekarang; `boundingVolume.region`; 3D Tiles 1.1 + `3DTILES_content_gltf`; `.glb` di `<slug>/…`.
 - `EXT_structural_metadata` terhubung ke `EXT_mesh_features`, sehingga picking mengembalikan `Cesium3DTileFeature`. Frontend mencari ID di `id`/`gml_id`, nama di `name`/`nama`, tinggi di `measuredHeight`/`height`/`tinggi`; semua properti ditampilkan apa adanya (nilai skalar saja).
 - Bangunan berbasis Z = 0 (globe tanpa terrain). Root kelurahan tanpa konten memunculkan kotak ikhtisar; `geometricError` root master tidak diperkecil.
 - Warna model `#D9DEE2` (sama dengan `MAP_COLORS.building`). Konten `.glb` ≤ ±3 MB per tile.
@@ -272,7 +270,7 @@ Skema `elevasi` akan menyimpan elevasi tanah, lantai, dan atap per bangunan (mis
 ### 8.1. Milestone Fungsional
 - [ ] **Milestone 1 — Fondasi data:** PostGIS dev di Docker (terpisah dari GeoNode), migrasi skema `core`/`ref`/`elevasi`/`sim`/`staging`, jadwal `pg_dump` (ADR-001).
 - [ ] **Milestone 2 — Impor CityGML:** parser streaming (2.0 dan 3.0) → `staging` → `core`; koreksi CRS per berkas; penyatuan semua part; pembersihan LOD2, normalisasi Z, `qc_flag`; registri ID `BTG-BLD-xxxxxx` dan ekspor CSV (ADR-002/003/004).
-- [ ] **Milestone 3 — Tile v2:** ekspor CityJSONSeq per kelurahan → `tyler` (Docker) → `processed/3dtiles_v2/`; sesuaikan `04_build_master.py`; verifikasi picking, atribut, dan kotak ikhtisar di viewer; ganti tile lama hanya setelah lolos (tile lama tetap cadangan).
+- [x] **Milestone 3 — Tile:** ekspor CityJSONSeq per kelurahan → `tyler` (Docker) → `processed/3dtiles/`; `04_build_master.py` disederhanakan; verifikasi picking dan atribut di viewer (selesai 2026-11-20; tile lama dihapus).
 - [ ] **Milestone 4 — Backend data bangunan:** akses PostGIS, endpoint `GET /buildings/{id}/attributes`, autentikasi dan hak tambah/hapus layer, keputusan WMS (CORS atau proxy) (ADR-005).
 - [ ] **Milestone 5 — Terrain dan elevasi:** DTM (quantized-mesh), skema `elevasi`, elevasi dasar bangunan; orthophoto.
 - [ ] **Milestone 6 — Simulasi banjir/rob:** skema `sim`, endpoint hasil, styling per fitur di frontend melalui kontrak simulasi (ADR-006; `docs/simulation-contract.md`).
@@ -292,7 +290,7 @@ Skema `elevasi` akan menyimpan elevasi tanah, lantai, dan atap per bangunan (mis
 > **Status: direncanakan.** Tidak ada bagian di bawah yang sudah ada. Alasan dan alternatif: ADR-001 s.d. ADR-006 di `docs/adr/`.
 
 ```text
-raw/citygml/ (read-only) --parser--> PostGIS [staging -> core] --ekspor--> CityJSONSeq --tyler--> processed/3dtiles_v2/
+raw/citygml/ (read-only) --parser--> PostGIS [staging -> core] --ekspor--> CityJSONSeq --tyler--> processed/3dtiles/
                                         |  ref  elevasi  sim                                         |
                                         |                                                             v
                                    Backend FastAPI  <-- atribut, hasil simulasi -->  Frontend (Cesium; tile statis + styling per fitur)

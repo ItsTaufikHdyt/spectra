@@ -1,7 +1,7 @@
 # STATUS PROYEK — Digital Twin Kota Bontang (`spectra`)
 
 > **Terakhir diperbarui:** 2026-11-20 (impor resmi)
-> **Fase:** Scale-Up Skala Kota — impor resmi seluruh CityGML selesai: **51.873 bangunan ber-ID resmi `BTG-BLD-xxxxxx`** di PostGIS dev, tile v2 untuk 15 kelurahan (51.816 fitur dengan enam atribut) teruji di Chromium headless (SwiftShader dan GPU AMD). `frontend/public/tiles/` (dev, ter-ignore git) memakai tile v2; tile lama (`processed/3dtiles/`) tetap cadangan. Belum dipakai: backend (atribut bangunan), terrain, simulasi.
+> **Fase:** Scale-Up Skala Kota — impor resmi seluruh CityGML selesai: **51.873 bangunan ber-ID resmi `BTG-BLD-xxxxxx`** di PostGIS dev, tile untuk 15 kelurahan (51.816 fitur dengan enam atribut) teruji di Chromium headless (SwiftShader dan GPU AMD). **Hanya ada satu jalur data bangunan: CityGML → PostGIS → 3D Tiles** (`processed/3dtiles/`); jalur lama CityJSON sudah diarsipkan di luar repo dan tile lamanya dihapus (2026-11-20). Belum dipakai: backend (atribut bangunan), terrain, simulasi.
 > Dokumen ini adalah sumber kebenaran status implementasi. Perbarui setiap kali ada perubahan berarti.
 
 ---
@@ -11,7 +11,7 @@
 | Modul | Status | Keterangan |
 |-------|:------:|------------|
 | `frontend/` | 🟡 **Berjalan** | Master tileset + ikhtisar kelurahan, UI tiga area, layer batas/sungai, panel Data geoportal, `requestRenderMode` + Mode tampilan (Hemat/Seimbang/Kualitas), registry simulasi (kosong). 19 tes `npm test`. Tile v2 (di `public/tiles/` dev) membawa atribut dan teruji klik; atribut kosong (`noData`/kolom hilang) tidak tampil di panel (perbaikan `readFeatureProperties`, hutang #30 selesai); terrain/orthophoto belum ada. Diuji di Chromium headless (SwiftShader dan GPU AMD iGPU). |
-| `data-pipeline/` | 🟢 **Impor resmi selesai (dev)** | CityGML (`raw/citygml/`, 31 berkas, 51.888 bangunan) → PostGIS → CityJSONSeq → tyler → `processed/3dtiles_v2/` untuk **15 kelurahan** (139 `.glb`, 72,9 MB, 51.816 fitur; validasi skema CityJSON 0 galat). Registri resmi: `config/registri_id.csv` (+ `.sha256`, di-commit). Tile lama (`processed/3dtiles/`, 47.108 fitur, ±4.779 bangunan hilang) tetap cadangan. Cara menjalankan: `data-pipeline/README.md`. Belum: validasi geometri (hutang #23), pembaruan inkremental/riwayat versi. |
+| `data-pipeline/` | 🟢 **Impor resmi selesai (dev)** | CityGML (`raw/citygml/`, 31 berkas, 51.888 bangunan) → PostGIS → CityJSONSeq → tyler → `processed/3dtiles/` untuk **15 kelurahan** (139 `.glb`, 72,9 MB, 51.816 fitur; validasi skema CityJSON 0 galat). Registri resmi: `config/registri_id.csv` (+ `.sha256`, di-commit). Jalur lama CityJSON diarsipkan di luar repo; tile lamanya dihapus. Cara menjalankan: `data-pipeline/README.md`. Belum: validasi geometri (hutang #23), pembaruan inkremental/riwayat versi. |
 | `backend/` | 🟡 **FastAPI kecil** | Layer geoportal (inspect WFS/CSW, kelola layer), pencegahan SSRF, 20 tes pytest. **Belum ada** autentikasi, akses PostGIS, dan endpoint atribut bangunan (direncanakan, ADR-005). Dokumentasi: `docs/remote-layers.md`. |
 | PostGIS / basis data | 🟡 **Dev (data resmi)** | Kontainer `spectra-postgis-dev` (port 55432, terpisah dari GeoNode), 5 migrasi, **51.873 bangunan dan 51.873 ID resmi** (batch 1, 2026-11-20), 51.888 baris staging (15 salinan dikecualikan, ADR-007). Cadangan `pg_dump` di `data-pipeline/backups/` (ter-ignore git; pemulihan teruji). Basis data dev bukan produksi: tanpa replikasi; belum dipakai backend. |
 | Git | 🟡 **Lokal saja** | `master` (baseline `ae7ed67`) + branch kerja `feat/perbaikan-dan-redesign-ui`; **belum ada remote** (tidak ada cadangan di luar mesin ini). Data besar di-ignore sehingga tidak ada salinan data di git. |
@@ -24,7 +24,7 @@ Legenda: 🟢 selesai & terverifikasi · 🟡 sebagian · 🔴 belum ada · ⚪ 
 ## 2. Yang Sudah Selesai
 
 ### Data Pipeline
-- 3D Tiles v1.1 untuk **15 kelurahan** di `data-pipeline/processed/3dtiles/<slug>/` (125 file `.glb`, ±125 MB, 47.108 feature).
+- 3D Tiles v1.1 untuk **15 kelurahan** di `data-pipeline/processed/3dtiles/<slug>/` (139 file `.glb`, 72,9 MB, 51.816 fitur), hasil pipeline CityGML (`buat_tile.py`); `frontend/public/tiles/` = salinan dev (156 berkas).
 - `data-pipeline/scripts/04_build_master.py`: membaca seluruh kelurahan, memvalidasi (region + keberadaan tiap file konten), menggabungkan region (union), menulis `master-tileset.json` (15 anak, external tileset), dan `--sync` ke `frontend/public/tiles/` (inkremental, idempoten, tidak menyalin `tileset_unpruned.json`).
 
   ```bash
@@ -76,9 +76,9 @@ Legenda: 🟢 selesai & terverifikasi · 🟡 sebagian · 🔴 belum ada · ⚪ 
 
 ### Keputusan arsitektur (2026-11-19) — direncanakan, belum diimplementasikan
 - Diterima: ADR-001 (PostGIS sumber kebenaran), ADR-002 (bersihkan LOD2, bukan ekstrusi LOD1), ADR-003 (ID `BTG-BLD-xxxxxx` + registri), ADR-004 (CityGML sumber tunggal, CityJSON diarsipkan), ADR-005 (backend FastAPI), ADR-006 (tile statis, hasil simulasi sebagai data). Lihat `docs/adr/`.
-- Pipeline baru (parser streaming → staging → keputusan duplikat → ID resmi → CityJSONSeq → tyler Docker → `processed/3dtiles_v2/` → `04_build_master.py --v2 … --sync`) sudah dijalankan untuk **seluruh 15 kelurahan** (lihat bagian berikut). Ditambah ADR-007 (duplikat dalam batch dan `kelurahan_administratif`).
+- Pipeline (parser streaming → staging → keputusan duplikat → ID resmi → CityJSONSeq → tyler Docker → `processed/3dtiles/` → `04_build_master.py --sync`) sudah dijalankan untuk **seluruh 15 kelurahan** (lihat bagian berikut). Ditambah ADR-007 (duplikat dalam batch dan `kelurahan_administratif`).
 
-### Pipeline CityGML → PostGIS → 3D Tiles teruji pada Bontang Lestari (2026-11-20) — UJI COBA, ID belum resmi
+### Pipeline CityGML → PostGIS → 3D Tiles teruji pada Bontang Lestari (2026-11-20) — UJI COBA (riwayat; digantikan impor resmi)
 Dokumentasi menjalankan: `data-pipeline/README.md`. Ringkasan uji: `data-pipeline/reports/uji_tampil_bontang_lestari/README.md`.
 - **Impor:** 8 part = 2.219 bangunan (212+262+5+162+342+290+774+172), tidak ada yang hilang. 2.215 masuk tile; 4 dikeluarkan (tinggi < 0,1 m: `BTG-BLD-000182/000405/000457/002140`, tetap di PostGIS dengan `qc_flag`). `qc_flag`: `footprint_kurang_2m2` 28, `gml_id_bentrok` 6, `tinggi_lebih_40m` 6, `tinggi_kurang_0_1m` 4, `footprint_diperbaiki` 1, `tanpa_atap` 1. Tinggi hitung vs `measuredHeight` sumber: selisih maks 0,005 m.
 - **Registri (uji coba):** impor pertama menerbitkan 2.219 ID; impor identik kedua 0 ID baru (2.213 cocok lewat `gml_id`, 6 lewat posisi), 0 tinjauan manual. Aturan footprint kosong (ADR-003: pusat bbox 3D ≤ 2 m, selisih tinggi ≤ 0,5 m) hanya teruji lewat uji unit.
@@ -100,10 +100,18 @@ Rincian dan laporan: `data-pipeline/reports/impor_resmi_*.{json,md}`; cara menja
 - **Nilai kosong di tile:** `jumlah_lantai`/`luas_tapak` kosong disimpan tyler sebagai `noData` (bukan 0); kolom dihilangkan dari tile yang tidak punya satu nilai pun. Sebelum perbaikan panel menampilkan `noData` sebagai `undefined`; sesudah perbaikan (lihat bawah) baris kosong tidak tampil.
 - **Satu-satunya perubahan frontend dalam pekerjaan pipeline ini:** `readFeatureProperties` (dipindah ke `frontend/src/utils/tileMeta.js`, dipakai `use3DTiles.js`) melewati properti `undefined`/`null`. Alasan: tile v2 pertama kali membawa atribut dengan nilai kosong (`noData`), dan panel menampilkan teks `undefined` yang menyesatkan serta tidak konsisten antar tile. Diverifikasi: `npm test` 19 lulus, `npm run build` sukses, klik `BTG-BLD-014435` dan `BTG-BLD-000490` tidak lagi menampilkan barisnya.
 - **Uji tampil (Chromium headless, GPU AMD Radeon Renoir via ANGLE dan SwiftShader):** 14 klik di 12 kategori (Satimpo, Berebas Tengah ×3, tanpa footprint, Gunung Elai, Guntung, Kanaan, 2 duplikat berkepercayaan rendah, 4 di luar batas) semuanya mengenai ID yang benar; konsol 0 galat. Hasil dan tangkapan layar: `data-pipeline/reports/uji_tampil_impor_resmi/README.md`. FPS/GPU (Seimbang, memutar kamera): lama 56,7 FPS/GPU 68,5% vs v2 58,1 FPS/65,3%; Hemat 30 FPS/20,1% vs 30 FPS/19,2%; kamera diam 0 frame, GPU 1%.
-- **Pengaman:** `raw/citygml` (31 hash), `processed/3dtiles/` (156) tidak berubah; tidak ada perubahan di `frontend/` dan `backend/`.
+- **Pengaman:** `raw/citygml` (31 hash) tidak berubah; tidak ada perubahan di `frontend/` dan `backend/` selain perbaikan `readFeatureProperties` (di bawah).
 
 
-### Verifikasi (2026-10-12)
+### Pembersihan jalur data lama (2026-11-20)
+Tujuan (ADR-004): satu jalur data bangunan, CityGML → PostGIS → 3D Tiles.
+- **CityJSON lama (`raw/3d/`, 37 berkas, ±281 MB): diarsipkan oleh pemilik proyek di luar repo.** Folder itu sudah tidak ada di `data-pipeline/raw/` dan tidak ada di mesin pengembangan ini; **lokasi arsip sengaja tidak dicatat di repo** (disimpan di penyimpanan lain milik pemilik proyek; tidak ada manifest hash di repo). Jangan dipulihkan sebagai sumber.
+- **Dihapus (disetujui pemilik, permanen):** `processed/3dtiles/` tile lama (126 MB, 156 berkas; **tidak dapat dibuat ulang**, skrip ETL lama tidak ada di repo), `processed/backup_public_tiles/` (126 MB), `processed/tyler_work/` (136 MB; dibuat ulang oleh `buat_tile.py`). Total 388 MB. Hash tile lama hanya tersisa sebagai riwayat di `reports/hash_baseline_3dtiles_lama.txt`.
+- **Diganti nama:** `processed/3dtiles_v2/` → `processed/3dtiles/` (tile hasil pipeline CityGML, termasuk `master-tileset.json`).
+- **Kode:** `04_build_master.py` disederhanakan (opsi `--v2` dan `--master-out` dihapus; `processed/3dtiles/` satu-satunya sumber; `--sync` tidak menyalin `tileset_unpruned.json`); `buat_tile.py` menulis ke `processed/3dtiles/`; `normalize_names.py` memakai fallback `raw/citygml/` (bukan `raw/3d/`); `uji_tampil.cjs` (uji Bontang Lestari yang bergantung pada tile lama) dihapus, digantikan `uji_impor_resmi.cjs` (mode `fps` kini hanya mengukur tile saat ini).
+- **Verifikasi:** `frontend/public/tiles/` setelah `--sync` ulang identik dengan baseline `hash_baseline_public_tiles_v2.txt` (156 berkas, 0 disalin); uji klik 14/14 cocok di 9 kelurahan, konsol 0 galat (52 peringatan WebGL yang sama dengan hutang #31); `raw/citygml` 31 hash cocok sebelum dan sesudah. Dokumen bertanggal (`reports/`, `docs/audit/`, bagian riwayat di STATUS) dibiarkan.
+
+### Verifikasi (2026-10-12) — riwayat (tile lama, sudah dihapus)
 - `04_build_master.py`: 15 kelurahan, 125 konten, tidak ada file hilang; semua region anak berada di dalam region master; `--sync` kedua menyalin 0 file.
 - HTTP dev server: 141 file (125 `.glb` + 16 tileset JSON) **identik byte-per-byte** dengan disk (magic bytes `glTF`/`{` cocok).
 - Cesium 1.146.0 (Node): `Cesium3DTileset.fromUrl()` sukses untuk master dan ke-15 child; opsi terbaca (SSE 24, cache 512 MB, overflow 256 MB, skipLOD true).
@@ -122,17 +130,17 @@ Rincian dan laporan: `data-pipeline/reports/impor_resmi_*.{json,md}`; cara menja
 
 | # | Isu | Prioritas | Lokasi |
 |---|-----|:---------:|--------|
-| 1 | **Tile lama tidak membawa atribut bangunan** (125 `.glb` hanya `EXT_mesh_features`). **Teratasi di tile v2** (15 kelurahan; enam atribut; teruji klik di Chromium headless); tile lama tetap cadangan. | Selesai | ETL / data |
+| 1 | **Tile lama tidak membawa atribut bangunan.** **Selesai:** tile dari pipeline CityGML membawa enam atribut (teruji klik di Chromium headless); tile lama sudah dihapus (ADR-004). | Selesai | ETL / data |
 | 2 | **Bangunan hilang bila kamera jauh.** Root tiap kelurahan (kecuali `bontang_lestari`) tidak punya konten; Cesium baru menelusurinya bila SSE root > batas. Perkiraan (asumsi layar 16:9, 1080 px): ambang ±2–7 km pada SSE 24 (median ±4 km; Guntung ±17 km); pada SSE 16 lebih jauh. Tombol "Seluruh Kota" menampilkan peta tanpa bangunan sampai pengguna mendekat. Perlu perilaku yang diinginkan + kemungkinan tile kasar di ETL. | Tinggi | ETL / `TILESET_OPTIONS` |
 | 3 | Toggle per kelurahan tidak mungkin dengan satu master tileset (satu objek `Cesium3DTileset`). Bila dibutuhkan: muat per kelurahan (Opsi B). | Sedang | `use3DTiles.js` |
 | 4 | Terrain DTM belum ada di proyek (toggle disembunyikan, UI "Segera hadir"). Butuh sumber quantized-mesh 1m. | Tinggi | data / `useLayers.js` |
 | 5 | Orthophoto belum ada (UI "Segera hadir"; state lama dihapus dari `mapStore`). | Sedang | data / `useLayers.js` |
-| 6 | Skrip ETL `01`–`03` lama (merge, clean, tyler) tidak ada di repo; hasil konversi tidak reproducible. Digantikan pipeline baru CityGML → PostGIS → tyler yang **direncanakan** (ADR-004). | Tinggi | `data-pipeline/scripts/` |
-| 7 | **±4.779 bangunan hilang di tile lama** (CityGML 51.888 vs 47.108): penyebab ID numerik CityJSON yang saling menimpa antarpart. **Teratasi di tile v2**: 51.816 fitur (51.873 ID − 57 bangunan < 0,1 m); Bontang Lestari 2.215 (vs 774), Gunung Elai 4.462 (vs 2.571), Belimbing 4.644 (vs 3.296), Loktuan 5.005 (vs 4.923). | Selesai | tile |
+| 6 | Skrip ETL `01`–`03` lama (merge, clean, tyler) tidak ada di repo; hasil konversi tidak reproducible. **Selesai:** digantikan pipeline CityGML → PostGIS → tyler yang reproducible (ADR-004; `data-pipeline/README.md`); tile lama dan CityJSON lama dihapus/diarsipkan sehingga jalur lama tidak ada lagi. | Selesai | `data-pipeline/scripts/` |
+| 7 | **±4.779 bangunan hilang di tile lama** (CityGML 51.888 vs 47.108; ID numerik CityJSON saling menimpa antarpart). **Selesai:** pipeline CityGML menghasilkan 51.816 fitur (51.873 ID − 57 bangunan < 0,1 m; ADR-004, impor resmi). Nama berkas lama `gabungan_kanaan.city.json` yang salah ikut diarsipkan. | Selesai | tile |
 | 8 | `PRD.md` §4, §5.2, §7–§8 masih usang (§2 sudah diperbarui). | Rendah | `PRD.md` |
-| 9 | `frontend/public/tiles/` (126 MB) ikut tersalin ke `dist/` saat `npm run build`; produksi seharusnya dari MinIO/storage. | Sedang | deploy |
+| 9 | `frontend/public/tiles/` (74 MB) ikut tersalin ke `dist/` saat `npm run build`; produksi seharusnya dari MinIO/storage. | Sedang | deploy |
 | 10 | Backend FastAPI kecil sudah ada (layer geoportal); PostGIS dev (51.873 bangunan resmi) dan 5 migrasi ada, belum dipakai backend; endpoint atribut bangunan, autentikasi, dan Docker untuk aplikasi belum ada. | Sedang | `backend/` |
-| 11 | ID bangunan di tile lama tidak permanen (path tile + `featureId`). **Teratasi untuk data baru:** registri ID resmi `BTG-BLD-xxxxxx` (ADR-003) terbit 2026-11-20 dan ada di tile v2 (`id`) serta `config/registri_id.csv`; lookup atribut backend belum dibuat. | Sedang | ETL / backend |
+| 11 | ID bangunan di tile lama tidak permanen. **Selesai:** registri ID resmi `BTG-BLD-xxxxxx` (ADR-003) terbit 2026-11-20, ada di tile (`id`) dan `config/registri_id.csv`; lookup atribut backend belum dibuat. | Sedang | ETL / backend |
 | 12 | Belum ada linter. Tes: `npm test` (19), `pytest backend` (20), `test_sources.py`; belum ada tes otomatis untuk `use3DTiles.js` dan `useRemoteLayers.js`. | Rendah | `frontend/` |
 | 13 | GeoJSON batas & sungai dimuat utuh di browser (±2,9 MB) — pengecualian sementara AGENTS §3.2; pindah ke GeoServer WMS/WFS atau vector tiles saat backend ada. `public/geojson/` ikut ke `dist/`. | Sedang | `useVectorLayers.js` |
 | 14 | Kotak ikhtisar kelurahan (bounding box) bertumpuk dengan batas kelurahan asli saat kamera jauh. Usulan: sembunyikan kotak bila layer batas kelurahan aktif (label tetap). | Rendah | `use3DTiles.js` |
@@ -157,7 +165,7 @@ Rincian dan laporan: `data-pipeline/reports/impor_resmi_*.{json,md}`; cara menja
 | 33 | **183 bangunan di luar semua batas kelurahan** (`kelurahan_administratif` NULL; 108 Loktuan, 23 Bontang Lestari, 20 Bontang Kuala, selebihnya lain-lain). Empat sampel tampak wajar (tepi permukiman, rumah panggung di atas air/tepi laut, koridor jalan area PLTU). | Rendah | `core.bangunan` |
 | 34 | **Keputusan duplikat berkepercayaan rendah** (Gunung Elai Part III; Api Api `BTG-BLD-000046`): dapat ditinjau ulang; salinan yang dikecualikan masih ada di staging. Perubahan setelah ID terbit memakai mekanisme ADR-003. | Rendah | `config/keputusan_duplikat.yaml` |
 | 35 | **tyler menghilangkan kolom properti** dari tile yang tidak punya satu nilai pun (mis. `jumlah_lantai` di 6 dari 7 tile Berebas Tengah) dan memakai `noData` bila tile punya sebagian nilai. Konsumen atribut (backend/frontend) harus menangani kolom hilang dan `noData`. | Rendah | tile v2 |
-| 36 | `frontend/public/tiles/` kini berisi tile v2 (ter-ignore git; hanya salinan dev) dan cadangan tile lama ada di `processed/backup_public_tiles/` (126 MB) sampai diputuskan. Hutang #9 (salinan ke `dist/`) tetap berlaku. | Rendah | `frontend/public/tiles/` |
+| 36 | `frontend/public/tiles/` adalah salinan dev dari `processed/3dtiles/` (ter-ignore git; hash di `reports/hash_baseline_public_tiles_v2.txt`). Cadangan tile lama dihapus bersama tile lama (2026-11-20). Hutang #9 tetap berlaku. | Selesai | `frontend/public/tiles/` |
 
 ---
 
@@ -168,7 +176,7 @@ Selaras dengan `PRD.md` §8. M1–M3 selesai dan terverifikasi untuk seluruh 15 
 - [x] **M0:** Scaffolding frontend + integrasi 3D Tiles.
 - [x] **M1 — Fondasi data:** PostGIS dev (Docker, terpisah dari GeoNode), migrasi skema, `pg_dump` (ADR-001). *Selesai: 5 migrasi; `pg_dump` dan pemulihan teruji.*
 - [x] **M2 — Impor CityGML:** parser streaming (2.0 dan 3.0) → `staging` → `core`; koreksi CRS per berkas; penyatuan semua part; pembersihan LOD2, normalisasi Z, `qc_flag`; registri ID (ADR-002/003/004/007). *Selesai: 51.888 bangunan dibaca, 51.873 ID resmi, impor kedua stabil (0 ID baru).*
-- [x] **M3 — Tile v2:** CityJSONSeq → tyler (Docker) → `processed/3dtiles_v2/` + master; verifikasi picking dan atribut di viewer; tile lama tetap cadangan. *Selesai untuk 15 kelurahan (Chromium headless, SwiftShader dan GPU AMD); frontend dev memakai tile v2.*
+- [x] **M3 — Tile:** CityJSONSeq → tyler (Docker) → `processed/3dtiles/` + master; verifikasi picking dan atribut di viewer. *Selesai untuk 15 kelurahan (Chromium headless, SwiftShader dan GPU AMD); jalur lama dihapus.*
 - [ ] **M4 — Backend data bangunan:** PostGIS, `GET /buildings/{id}/attributes`, autentikasi, keputusan WMS (ADR-005). *Direncanakan.*
 - [ ] **M5 — Terrain dan elevasi:** DTM 1 m, skema `elevasi`, orthophoto. *Direncanakan.*
 - [ ] **M6 — Simulasi banjir/rob:** skema `sim`, endpoint hasil, styling per fitur (ADR-006); fondasi registry simulasi sudah ada (`docs/simulation-contract.md`). *Direncanakan.*

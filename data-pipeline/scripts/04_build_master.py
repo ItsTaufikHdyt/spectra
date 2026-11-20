@@ -2,8 +2,8 @@
 """
 04_build_master.py — Bangun master-tileset.json untuk 15 kelurahan Kota Bontang.
 
-Membaca setiap subfolder di data-pipeline/processed/3dtiles/<kelurahan>/tileset.json,
-memvalidasi (bounding region + keberadaan file konten .glb), lalu menulis satu
+Membaca setiap subfolder di data-pipeline/processed/3dtiles/<kelurahan>/tileset.json
+(hasil pipeline CityGML -> PostGIS -> tyler; lihat scripts/citygml/buat_tile.py), memvalidasi (bounding region + keberadaan file konten .glb), lalu menulis satu
 master-tileset.json hierarkis. Setiap kelurahan menjadi tile anak yang mereferensikan
 tileset.json kelurahan sebagai *external tileset* (content.uri relatif).
 
@@ -15,10 +15,7 @@ Hanya library standar Python (>= 3.8). Contoh pemakaian:
     # Bangun master + salin/sinkronkan ke frontend/public/tiles/
     python3 data-pipeline/scripts/04_build_master.py --sync
 
-    # Pakai tile baru (3dtiles_v2) hanya untuk kelurahan tertentu; lainnya tetap dari 3dtiles.
-    # Master ditulis ke tempat lain agar processed/3dtiles/ tidak tersentuh.
-    python3 data-pipeline/scripts/04_build_master.py --v2 bontang_lestari \\
-        --master-out data-pipeline/processed/3dtiles_v2/master-tileset.json [--sync]
+    # --sync tidak menyalin tileset_unpruned.json (file perantara tyler, tidak dipakai saat runtime).
 
 Catatan teknis:
   * Semua tileset kelurahan memakai boundingVolume.region (radian: W, S, E, N, minH, maxH).
@@ -28,18 +25,11 @@ Catatan teknis:
   * geometricError root master sengaja besar (default 4x error terbesar kelurahan).
     Root master tidak punya konten; Cesium hanya menelusuri anaknya bila SSE root
     melebihi batas. Error kecil membuat seluruh kota "hilang" saat kamera menjauh.
-  * TODO(ETL) — bangunan hilang saat kamera jauh. Root tileset 14 dari 15 kelurahan
-    (semua kecuali bontang_lestari) TIDAK punya konten, refine REPLACE, geometricError
-    28–247 m. Cesium baru memuat anaknya bila SSE root > maximumScreenSpaceError,
-    jadi dari jauh tidak ada yang dirender. Frontend sementara menampilkan kotak
-    ikhtisar per kelurahan (use3DTiles.js: buildKelurahanOverview). Perbaikan permanen
-    di tahap konversi (03_run_tyler, belum ada di repo), bukan di skrip ini:
-      1. Per kelurahan, buat mesh kasar: ekstrusi footprint LOD1 (atau LOD2 yang
-         didesimasi) seluruh bangunan, digabung jadi satu root.glb kecil (< 1–2 MB).
-      2. Pasang sebagai root.content di <slug>/tileset.json, pertahankan refine
-         REPLACE dan geometricError root (anak menggantikan root saat mendekat).
-      3. Jalankan ulang skrip ini (+ --sync); inspect_kelurahan sudah memvalidasi
-         keberadaan konten root. Setelah itu ikhtisar sisi klien boleh dihapus.
+  * Root tileset ke-15 kelurahan TIDAK punya konten (refine REPLACE); Cesium baru memuat anaknya
+    bila SSE root > maximumScreenSpaceError, jadi dari jauh bangunan tidak dirender. Frontend
+    menampilkan kotak ikhtisar per kelurahan (use3DTiles.js: buildKelurahanOverview). Perbaikan
+    permanen (direncanakan) ada di tahap tyler, bukan di skrip ini: mesh kasar per kelurahan sebagai
+    root.content (< 1-2 MB), lalu jalankan ulang skrip ini (+ --sync).
   * Tile yang kontennya tileset eksternal SELALU ditelusuri Cesium, jadi refine pada
     root master ("ADD") tidak mengubah tampilan (root tanpa konten); disediakan
     sesuai spesifikasi dan dapat diganti lewat --refine.
@@ -57,7 +47,6 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SRC = REPO_ROOT / "data-pipeline" / "processed" / "3dtiles"
 DEFAULT_DEST = REPO_ROOT / "frontend" / "public" / "tiles"
-DEFAULT_SRC_V2 = REPO_ROOT / "data-pipeline" / "processed" / "3dtiles_v2"
 MASTER_NAME = "master-tileset.json"
 # File perantara tyler yang tidak dipakai saat runtime — tidak ikut disalin.
 SKIP_ON_SYNC = {"tileset_unpruned.json"}
@@ -288,10 +277,6 @@ def main() -> int:
     ap.add_argument("--src", type=Path, default=DEFAULT_SRC, help=f"folder 3dtiles (default: {DEFAULT_SRC})")
     ap.add_argument("--dest", type=Path, default=DEFAULT_DEST, help=f"tujuan sync (default: {DEFAULT_DEST})")
     ap.add_argument("--sync", action="store_true", help="salin hasil ke --dest (frontend/public/tiles)")
-    ap.add_argument("--v2", action="append", default=[], metavar="SLUG",
-                    help="pakai tile baru dari --src-v2/<SLUG> untuk kelurahan ini (boleh diulang); lainnya tetap dari --src")
-    ap.add_argument("--src-v2", type=Path, default=DEFAULT_SRC_V2, help=f"folder 3dtiles_v2 (default: {DEFAULT_SRC_V2})")
-    ap.add_argument("--master-out", type=Path, default=None, help="tulis master di sini (default: <--src>/master-tileset.json)")
     ap.add_argument("--refine", choices=["ADD", "REPLACE"], default="ADD", help="refine root master (default: ADD)")
     ap.add_argument("--root-error", type=float, default=None, help="geometricError root master (default: 4x error terbesar)")
     args = ap.parse_args()
@@ -306,13 +291,6 @@ def main() -> int:
         print(f"ERROR: tidak ada subfolder ber-tileset.json di {src}", file=sys.stderr)
         return 1
 
-    src_v2 = args.src_v2.resolve()
-    for slug in args.v2:
-        if not (src_v2 / slug / "tileset.json").is_file():
-            print(f"ERROR: --v2 {slug}: {src_v2 / slug / 'tileset.json'} tidak ada", file=sys.stderr)
-            return 1
-    folders = [src_v2 / f.name if f.name in args.v2 else f for f in folders]
-
     try:
         entries = [inspect_kelurahan(f) for f in folders]
         master = build_master(entries, args.refine, args.root_error)
@@ -320,8 +298,7 @@ def main() -> int:
         print(f"ERROR: {err}", file=sys.stderr)
         return 1
 
-    out = args.master_out.resolve() if args.master_out else src / MASTER_NAME
-    out.parent.mkdir(parents=True, exist_ok=True)
+    out = src / MASTER_NAME
     out.write_text(json.dumps(master, indent=2) + "\n", encoding="utf-8")
 
     print(f"{'kelurahan':<20}{'tile':>6}{'konten':>8}{'ukuran':>12}   geometricError")

@@ -1,8 +1,7 @@
-// Uji tampil impor resmi (15 kelurahan v2) di Chromium headless dengan GPU sungguhan, tanpa mengubah kode frontend.
+// Uji tampil tile hasil pipeline CityGML (15 kelurahan) di Chromium headless dengan GPU sungguhan, tanpa mengubah kode frontend.
 //   node data-pipeline/scripts/citygml/uji_impor_resmi.cjs klik   # klik bangunan per kategori (nilai kosong, duplikat, luar batas, ...)
-//   node data-pipeline/scripts/citygml/uji_impor_resmi.cjs fps     # FPS dan beban GPU: tile lama (cadangan) vs v2, mode Hemat/Seimbang
-// Frontend :3000 harus jalan dan frontend/public/tiles berisi master v2. Mode `fps` menyajikan tile LAMA dari
-// data-pipeline/processed/backup_public_tiles lewat page.route (tidak mengubah berkas). Beban GPU = sysfs gpu_busy_percent (AMD).
+//   node data-pipeline/scripts/citygml/uji_impor_resmi.cjs fps     # FPS dan beban GPU, mode Hemat/Seimbang (kamera diam dan memutar)
+// Frontend :3000 harus jalan dan frontend/public/tiles berisi master hasil `04_build_master.py --sync`. Beban GPU = sysfs gpu_busy_percent (AMD).
 // Env: PLAYWRIGHT_DIR, CHROME_PATH, GPU_BUSY (default /sys/class/drm/card1/device/gpu_busy_percent), GPU_ARGS=swiftshader untuk software.
 const fs = require('fs');
 const path = require('path');
@@ -12,7 +11,6 @@ const CHROME = process.env.CHROME_PATH || `${HOME}/.cache/ms-playwright/chromium
 const GPU_BUSY = process.env.GPU_BUSY || '/sys/class/drm/card1/device/gpu_busy_percent';
 const { chromium } = require(PW);
 const ROOT = path.resolve(__dirname, '../../..');
-const BACKUP = path.join(ROOT, 'data-pipeline/processed/backup_public_tiles');
 const OUT = path.join(ROOT, 'data-pipeline/reports/uji_tampil_impor_resmi');
 const mode = process.argv[2];
 const ARGS = process.env.GPU_ARGS === 'swiftshader' ? ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] : ['--use-gl=angle', '--use-angle=gl-egl'];
@@ -20,21 +18,13 @@ const T = JSON.parse(fs.readFileSync(path.join(OUT, 'targets.json'))).target;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const gpu = () => { try { return Number(fs.readFileSync(GPU_BUSY, 'utf8')); } catch { return null; } };
 
-async function buka(url, lama) {
+async function buka(url) {
   const browser = await chromium.launch({ executablePath: CHROME, headless: true, args: ['--no-sandbox', '--ignore-gpu-blocklist', ...ARGS] });
   const page = await browser.newPage({ viewport: { width: 1400, height: 850 } });
   const log = { konsol: [], galat: [], gagal: [] };
   page.on('console', (m) => { if (['error', 'warning'].includes(m.type())) log.konsol.push(`${m.type()}: ${m.text()}`); });
   page.on('pageerror', (e) => log.galat.push(String(e)));
   page.on('response', (r) => { if (r.status() >= 400) log.gagal.push(`${r.status()} ${r.url()}`); });
-  if (lama) {
-    await page.route('**/tiles/**', (route) => {
-      const rel = decodeURIComponent(new URL(route.request().url()).pathname.replace(/^\/tiles\//, ''));
-      const f = path.join(BACKUP, rel);
-      if (!f.startsWith(BACKUP) || !fs.existsSync(f)) return route.continue();
-      return route.fulfill({ status: 200, contentType: f.endsWith('.json') ? 'application/json' : 'model/gltf-binary', body: fs.readFileSync(f) });
-    });
-  }
   await page.goto(url, { waitUntil: 'load' });
   await page.waitForFunction(() => !!window.__spectra, null, { timeout: 90000 });
   return { browser, page, log };
@@ -51,7 +41,7 @@ const tunggu = async (page) => {
 };
 
 async function klik() {
-  const { browser, page, log } = await buka('http://localhost:3000/?debug=perf&mode=seimbang', false);
+  const { browser, page, log } = await buka('http://localhost:3000/?debug=perf&mode=seimbang');
   log.renderer = await page.evaluate(() => window.__spectraPerf().renderer);
   log.klik = {};
   for (const [key, k] of Object.entries(T)) {
@@ -83,8 +73,8 @@ async function fps() {
   const base = []; for (let i = 0; i < 12; i++) { base.push(gpu()); await sleep(500); }
   hasil.gpu_idle_sistem = { mean: +(base.reduce((s, x) => s + x, 0) / base.length).toFixed(1), min: Math.min(...base), maks: Math.max(...base) };
   const view = { lon: T.luar_batas_loktuan.lon, lat: T.luar_batas_loktuan.lat, R: 700, pitch: -35 };
-  for (const [tile, md] of [['lama', 'hemat'], ['lama', 'seimbang'], ['v2', 'hemat'], ['v2', 'seimbang']]) {
-    const { browser, page, log } = await buka(`http://localhost:3000/?debug=perf&mode=${md}`, tile === 'lama');
+  for (const md of ['hemat', 'seimbang']) {
+    const { browser, page, log } = await buka(`http://localhost:3000/?debug=perf&mode=${md}`);
     hasil.renderer = await page.evaluate(() => window.__spectraPerf().renderer);
     await pasang(page, view); await tunggu(page);
     const ukur = async (aksi) => {
@@ -101,8 +91,8 @@ async function fps() {
     await sleep(3000);
     const diam = await ukur('diam'); const putar = await ukur('putar');
     const st = await page.evaluate(() => window.__spectraPerf().tileset);
-    hasil.pengukuran.push({ tile, mode: md, diam, putar, tileset: st, konsol: log.konsol.length });
-    console.log(tile, md, 'diam', JSON.stringify(diam), 'putar', JSON.stringify(putar));
+    hasil.pengukuran.push({ mode: md, diam, putar, tileset: st, konsol: log.konsol.length });
+    console.log(md, 'diam', JSON.stringify(diam), 'putar', JSON.stringify(putar));
     await browser.close();
   }
   fs.writeFileSync(path.join(OUT, 'log_fps.json'), JSON.stringify(hasil, null, 2));

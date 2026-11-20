@@ -1,4 +1,4 @@
-// Periksa tile v2 satu kelurahan: tileset.json, ukuran/ekstensi .glb, tabel properti (noData dikenali), segitiga.
+// Periksa tile satu kelurahan (hasil pipeline CityGML): tileset.json, ukuran/ekstensi .glb, tabel properti (noData dikenali), segitiga.
 //   node data-pipeline/scripts/citygml/verifikasi_tile.cjs <folder tileset> <keluaran.json>
 // Dekoder meshopt diambil dari frontend/node_modules (hanya dibaca; tidak mengubah frontend).
 const fs = require('fs');
