@@ -1,0 +1,74 @@
+{
+ "batch": 1,
+ "dikecualikan": 15,
+ "diharapkan_diterbitkan": 51873,
+ "tandai": 4,
+ "atribut_dari_duplikat": 2,
+ "dipertahankan_keduanya": 2,
+ "kelurahan_administratif_tumpang_tindih_batas": 0,
+ "kombinasi_kelurahan": [
+  {
+   "dipertahankan": true,
+   "tanpa_footprint": false,
+   "kategori": "beda",
+   "jumlah": 30
+  },
+  {
+   "dipertahankan": true,
+   "tanpa_footprint": false,
+   "kategori": "di_luar_batas",
+   "jumlah": 183
+  },
+  {
+   "dipertahankan": true,
+   "tanpa_footprint": false,
+   "kategori": "sama",
+   "jumlah": 51587
+  },
+  {
+   "dipertahankan": true,
+   "tanpa_footprint": true,
+   "kategori": "sama",
+   "jumlah": 73
+  },
+  {
+   "dipertahankan": false,
+   "tanpa_footprint": false,
+   "kategori": "beda",
+   "jumlah": 13
+  },
+  {
+   "dipertahankan": false,
+   "tanpa_footprint": false,
+   "kategori": "sama",
+   "jumlah": 2
+  }
+ ],
+ "beda_per_pasangan": [
+  {
+   "slug_sumber": "bontang_baru",
+   "kelurahan_administratif": "bontang_kuala",
+   "jumlah": 11
+  },
+  {
+   "slug_sumber": "berebas_pantai",
+   "kelurahan_administratif": "berebas_tengah",
+   "jumlah": 10
+  },
+  {
+   "slug_sumber": "guntung",
+   "kelurahan_administratif": "satimpo",
+   "jumlah": 7
+  },
+  {
+   "slug_sumber": "tanjung_laut",
+   "kelurahan_administratif": "satimpo",
+   "jumlah": 1
+  },
+  {
+   "slug_sumber": "berebas_tengah",
+   "kelurahan_administratif": "berebas_pantai",
+   "jumlah": 1
+  }
+ ]
+}

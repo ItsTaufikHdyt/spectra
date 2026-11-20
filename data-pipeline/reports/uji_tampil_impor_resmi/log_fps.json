@@ -1,0 +1,126 @@
+{
+  "renderer": "ANGLE (AMD, AMD Radeon Graphics (radeonsi renoir ACO), OpenGL ES 3.2)",
+  "gpu_idle_sistem": {
+    "mean": 1.3,
+    "min": 1,
+    "maks": 3
+  },
+  "pengukuran": [
+    {
+      "tile": "lama",
+      "mode": "hemat",
+      "diam": {
+        "fps": 0,
+        "gpu_mean": 1,
+        "gpu_min": 1,
+        "gpu_maks": 1
+      },
+      "putar": {
+        "fps": 30,
+        "gpu_mean": 20.1,
+        "gpu_min": 1,
+        "gpu_maks": 28
+      },
+      "tileset": {
+        "memoriBytes": 54820588,
+        "tileSiapKonten": 12,
+        "tileDimuatTotal": 12,
+        "tileTerpilih": 5,
+        "tileDikunjungi": 16,
+        "segitigaTerpilih": 347276,
+        "permintaanTertunda": 0,
+        "geometriBytes": 54820588,
+        "teksturBytes": 0,
+        "tileLengkap": true
+      },
+      "konsol": 0
+    },
+    {
+      "tile": "lama",
+      "mode": "seimbang",
+      "diam": {
+        "fps": 0,
+        "gpu_mean": 1,
+        "gpu_min": 1,
+        "gpu_maks": 1
+      },
+      "putar": {
+        "fps": 56.7,
+        "gpu_mean": 68.5,
+        "gpu_min": 1,
+        "gpu_maks": 87
+      },
+      "tileset": {
+        "memoriBytes": 77547132,
+        "tileSiapKonten": 16,
+        "tileDimuatTotal": 16,
+        "tileTerpilih": 7,
+        "tileDikunjungi": 16,
+        "segitigaTerpilih": 466238,
+        "permintaanTertunda": 0,
+        "geometriBytes": 77547132,
+        "teksturBytes": 0,
+        "tileLengkap": true
+      },
+      "konsol": 0
+    },
+    {
+      "tile": "v2",
+      "mode": "hemat",
+      "diam": {
+        "fps": 0,
+        "gpu_mean": 1,
+        "gpu_min": 1,
+        "gpu_maks": 1
+      },
+      "putar": {
+        "fps": 30,
+        "gpu_mean": 19.2,
+        "gpu_min": 1,
+        "gpu_maks": 27
+      },
+      "tileset": {
+        "memoriBytes": 19081262,
+        "tileSiapKonten": 9,
+        "tileDimuatTotal": 9,
+        "tileTerpilih": 5,
+        "tileDikunjungi": 16,
+        "segitigaTerpilih": 211848,
+        "permintaanTertunda": 0,
+        "geometriBytes": 18697130,
+        "teksturBytes": 0,
+        "tileLengkap": true
+      },
+      "konsol": 0
+    },
+    {
+      "tile": "v2",
+      "mode": "seimbang",
+      "diam": {
+        "fps": 0,
+        "gpu_mean": 1,
+        "gpu_min": 1,
+        "gpu_maks": 1
+      },
+      "putar": {
+        "fps": 58.1,
+        "gpu_mean": 65.3,
+        "gpu_min": 1,
+        "gpu_maks": 86
+      },
+      "tileset": {
+        "memoriBytes": 27215954,
+        "tileSiapKonten": 13,
+        "tileDimuatTotal": 13,
+        "tileTerpilih": 7,
+        "tileDikunjungi": 16,
+        "segitigaTerpilih": 270677,
+        "permintaanTertunda": 0,
+        "geometriBytes": 26676830,
+        "teksturBytes": 0,
+        "tileLengkap": true
+      },
+      "konsol": 0
+    }
+  ]
+}

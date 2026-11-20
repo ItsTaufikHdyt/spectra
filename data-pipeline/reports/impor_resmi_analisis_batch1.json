@@ -1,0 +1,1624 @@
+{
+ "batch": 1,
+ "per_berkas": [
+  {
+   "berkas": "Model 3D - Kelurahan Api Api.gml",
+   "slug": "api_api",
+   "staging": 5142,
+   "inventaris": 5142,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Belimbing - Part I.gml",
+   "slug": "belimbing",
+   "staging": 832,
+   "inventaris": 832,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Belimbing - Part II.gml",
+   "slug": "belimbing",
+   "staging": 515,
+   "inventaris": 515,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Belimbing - Part III.gml",
+   "slug": "belimbing",
+   "staging": 3298,
+   "inventaris": 3298,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Berebas Pantai.gml",
+   "slug": "berebas_pantai",
+   "staging": 2022,
+   "inventaris": 2022,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Berebas Tengah.gml",
+   "slug": "berebas_tengah",
+   "staging": 3390,
+   "inventaris": 3390,
+   "selisih": 0
+  },
+  {
+   "berkas": "GABUNGAN BONTANG BARU.gml",
+   "slug": "bontang_baru",
+   "staging": 4147,
+   "inventaris": 4147,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Kuala.gml",
+   "slug": "bontang_kuala",
+   "staging": 2366,
+   "inventaris": 2366,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part I.gml",
+   "slug": "bontang_lestari",
+   "staging": 212,
+   "inventaris": 212,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part II.gml",
+   "slug": "bontang_lestari",
+   "staging": 262,
+   "inventaris": 262,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part III.gml",
+   "slug": "bontang_lestari",
+   "staging": 5,
+   "inventaris": 5,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part IV.gml",
+   "slug": "bontang_lestari",
+   "staging": 162,
+   "inventaris": 162,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part V.gml",
+   "slug": "bontang_lestari",
+   "staging": 342,
+   "inventaris": 342,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part VI.gml",
+   "slug": "bontang_lestari",
+   "staging": 290,
+   "inventaris": 290,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part VII.gml",
+   "slug": "bontang_lestari",
+   "staging": 774,
+   "inventaris": 774,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part VIII.gml",
+   "slug": "bontang_lestari",
+   "staging": 172,
+   "inventaris": 172,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Guntung - Part I.gml",
+   "slug": "guntung",
+   "staging": 1725,
+   "inventaris": 1725,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Guntung - Part II.gml",
+   "slug": "guntung",
+   "staging": 108,
+   "inventaris": 108,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Guntung - Part III.gml",
+   "slug": "guntung",
+   "staging": 226,
+   "inventaris": 226,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Gunung Elai - Part I.gml",
+   "slug": "gunung_elai",
+   "staging": 1167,
+   "inventaris": 1167,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Gunung Elai - Part II.gml",
+   "slug": "gunung_elai",
+   "staging": 2571,
+   "inventaris": 2571,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Gunung Elai - Part III.gml",
+   "slug": "gunung_elai",
+   "staging": 731,
+   "inventaris": 731,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Gunung Telihan.gml",
+   "slug": "gunung_telihan",
+   "staging": 3989,
+   "inventaris": 3989,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Kanaan.gml",
+   "slug": "kanaan",
+   "staging": 1837,
+   "inventaris": 1837,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Loktuan - Part I.gml",
+   "slug": "loktuan",
+   "staging": 4923,
+   "inventaris": 4923,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Loktuan - Part II.gml",
+   "slug": "loktuan",
+   "staging": 55,
+   "inventaris": 55,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Loktuan - Part III.gml",
+   "slug": "loktuan",
+   "staging": 26,
+   "inventaris": 26,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Loktuan - Part IV.gml",
+   "slug": "loktuan",
+   "staging": 6,
+   "inventaris": 6,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Satimpo.gml",
+   "slug": "satimpo",
+   "staging": 2502,
+   "inventaris": 2502,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Tanjung Laut.gml",
+   "slug": "tanjung_laut",
+   "staging": 4340,
+   "inventaris": 4340,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Tanjung Laut Indah.gml",
+   "slug": "tanjung_laut_indah",
+   "staging": 3751,
+   "inventaris": 3751,
+   "selisih": 0
+  }
+ ],
+ "total_staging": 51888,
+ "duplikat_dalam_batch": [
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    1023,
+    4000
+   ],
+   "slug": [
+    "api_api",
+    "api_api"
+   ],
+   "berkas": [
+    "Model 3D - Kelurahan Api Api.gml",
+    "Model 3D - Kelurahan Api Api.gml"
+   ],
+   "part": [
+    null,
+    null
+   ],
+   "gml_id": [
+    "AA_13082025-AAAA-00047-GEOAIBTG01-0765762",
+    "AA_13082025-AAAA-00047-GEOAIBTG01-0765762"
+   ],
+   "jarak_pusat_m": 0.307,
+   "iou": 0.979,
+   "tinggi": [
+    6.366,
+    8.278
+   ],
+   "luas_tapak": [
+    559.9,
+    571.81
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    1,
+    1
+   ],
+   "kategori": "berkas sama"
+  },
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    18799,
+    19465
+   ],
+   "slug": [
+    "bontang_baru",
+    "bontang_kuala"
+   ],
+   "berkas": [
+    "GABUNGAN BONTANG BARU.gml",
+    "Model 3D - Kelurahan Bontang Kuala.gml"
+   ],
+   "part": [
+    null,
+    null
+   ],
+   "gml_id": [
+    "BB_15062025-AAAA-00507-GeoAI02-91C74BD",
+    "BK_14082025-AAAA-01327-GEOAIT01-7580705"
+   ],
+   "jarak_pusat_m": 0.064,
+   "iou": 0.954,
+   "tinggi": [
+    9.569,
+    9.783
+   ],
+   "luas_tapak": [
+    52.11,
+    50.23
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    1,
+    1
+   ],
+   "kategori": "antar kelurahan"
+  },
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    18800,
+    19464
+   ],
+   "slug": [
+    "bontang_baru",
+    "bontang_kuala"
+   ],
+   "berkas": [
+    "GABUNGAN BONTANG BARU.gml",
+    "Model 3D - Kelurahan Bontang Kuala.gml"
+   ],
+   "part": [
+    null,
+    null
+   ],
+   "gml_id": [
+    "BB_15062025-AAAA-00508-GeoAI02-BEFDAD1",
+    "BK_14082025-AAAA-01104-GEOAIT01-8499682"
+   ],
+   "jarak_pusat_m": 0.051,
+   "iou": 0.978,
+   "tinggi": [
+    8.168,
+    10.457
+   ],
+   "luas_tapak": [
+    48.7,
+    49.15
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    1,
+    2
+   ],
+   "kategori": "antar kelurahan"
+  },
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    25873,
+    43028
+   ],
+   "slug": [
+    "guntung",
+    "satimpo"
+   ],
+   "berkas": [
+    "Model 3D - Kelurahan Guntung - Part III.gml",
+    "Model 3D - Kelurahan Satimpo.gml"
+   ],
+   "part": [
+    "III",
+    null
+   ],
+   "gml_id": [
+    "LK_14082025-AAAA-00198-GeoAI09-57C305F",
+    "ST_14062025-AAAA-00292-GeoAI02-91DC09F"
+   ],
+   "jarak_pusat_m": 0.174,
+   "iou": 0.973,
+   "tinggi": [
+    10.407,
+    10.479
+   ],
+   "luas_tapak": [
+    342.55,
+    334.61
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    2,
+    2
+   ],
+   "kategori": "antar kelurahan"
+  },
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    25874,
+    43029
+   ],
+   "slug": [
+    "guntung",
+    "satimpo"
+   ],
+   "berkas": [
+    "Model 3D - Kelurahan Guntung - Part III.gml",
+    "Model 3D - Kelurahan Satimpo.gml"
+   ],
+   "part": [
+    "III",
+    null
+   ],
+   "gml_id": [
+    "LK_14082025-AAAA-00199-GeoAI09-252DBFA",
+    "ST_14062025-AAAA-00293-GeoAI02-3E2D131"
+   ],
+   "jarak_pusat_m": 0.133,
+   "iou": 0.947,
+   "tinggi": [
+    8.37,
+    8.296
+   ],
+   "luas_tapak": [
+    176.8,
+    168.11
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    1,
+    1
+   ],
+   "kategori": "antar kelurahan"
+  },
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    25878,
+    43030
+   ],
+   "slug": [
+    "guntung",
+    "satimpo"
+   ],
+   "berkas": [
+    "Model 3D - Kelurahan Guntung - Part III.gml",
+    "Model 3D - Kelurahan Satimpo.gml"
+   ],
+   "part": [
+    "III",
+    null
+   ],
+   "gml_id": [
+    "LK_14082025-AAAA-00201-GeoAI09-18D0483",
+    "ST_14062025-AAAA-00294-GeoAI02-889139B"
+   ],
+   "jarak_pusat_m": 0.16,
+   "iou": 0.954,
+   "tinggi": [
+    6.49,
+    6.471
+   ],
+   "luas_tapak": [
+    153.75,
+    147.36
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    1,
+    1
+   ],
+   "kategori": "antar kelurahan"
+  },
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    25883,
+    42613
+   ],
+   "slug": [
+    "guntung",
+    "satimpo"
+   ],
+   "berkas": [
+    "Model 3D - Kelurahan Guntung - Part III.gml",
+    "Model 3D - Kelurahan Satimpo.gml"
+   ],
+   "part": [
+    "III",
+    null
+   ],
+   "gml_id": [
+    "LK_14082025-AAAA-00206-GeoAI09-F9F25CD",
+    "ST_14062025-AAAA-00220-GeoAI02-E2364A5"
+   ],
+   "jarak_pusat_m": 0.52,
+   "iou": 0.952,
+   "tinggi": [
+    8.287,
+    7.899
+   ],
+   "luas_tapak": [
+    1045.38,
+    1032.98
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    1,
+    1
+   ],
+   "kategori": "antar kelurahan"
+  },
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    25884,
+    43025
+   ],
+   "slug": [
+    "guntung",
+    "satimpo"
+   ],
+   "berkas": [
+    "Model 3D - Kelurahan Guntung - Part III.gml",
+    "Model 3D - Kelurahan Satimpo.gml"
+   ],
+   "part": [
+    "III",
+    null
+   ],
+   "gml_id": [
+    "LK_14082025-AAAA-00207-GeoAI09-A1F0419",
+    "ST_14062025-AAAA-00290-GeoAI02-68EBAA4"
+   ],
+   "jarak_pusat_m": 0.3,
+   "iou": 0.965,
+   "tinggi": [
+    7.176,
+    6.989
+   ],
+   "luas_tapak": [
+    846.37,
+    823.4
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    1,
+    1
+   ],
+   "kategori": "antar kelurahan"
+  },
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    25885,
+    43024
+   ],
+   "slug": [
+    "guntung",
+    "satimpo"
+   ],
+   "berkas": [
+    "Model 3D - Kelurahan Guntung - Part III.gml",
+    "Model 3D - Kelurahan Satimpo.gml"
+   ],
+   "part": [
+    "III",
+    null
+   ],
+   "gml_id": [
+    "LK_14082025-AAAA-00208-GeoAI09-C1F09E3",
+    "ST_14062025-AAAA-00289-GeoAI02-5A828DB"
+   ],
+   "jarak_pusat_m": 0.155,
+   "iou": 0.875,
+   "tinggi": [
+    4.812,
+    4.362
+   ],
+   "luas_tapak": [
+    74.99,
+    65.6
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    1,
+    1
+   ],
+   "kategori": "antar kelurahan"
+  },
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    25888,
+    42602
+   ],
+   "slug": [
+    "guntung",
+    "satimpo"
+   ],
+   "berkas": [
+    "Model 3D - Kelurahan Guntung - Part III.gml",
+    "Model 3D - Kelurahan Satimpo.gml"
+   ],
+   "part": [
+    "III",
+    null
+   ],
+   "gml_id": [
+    "LK_14082025-AAAA-00210-GeoAI09-F1C2551",
+    "ST_14062025-AAAA-00219-GeoAI02-D8C7D3B"
+   ],
+   "jarak_pusat_m": 0.257,
+   "iou": 0.972,
+   "tinggi": [
+    8.861,
+    9.027
+   ],
+   "luas_tapak": [
+    2644.03,
+    2617.14
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    1,
+    1
+   ],
+   "kategori": "antar kelurahan"
+  },
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    25890,
+    43022
+   ],
+   "slug": [
+    "guntung",
+    "satimpo"
+   ],
+   "berkas": [
+    "Model 3D - Kelurahan Guntung - Part III.gml",
+    "Model 3D - Kelurahan Satimpo.gml"
+   ],
+   "part": [
+    "III",
+    null
+   ],
+   "gml_id": [
+    "LK_14082025-AAAA-00212-GeoAI09-E8ABE9E",
+    "ST_14062025-AAAA-00287-GeoAI02-F707A56"
+   ],
+   "jarak_pusat_m": 0.133,
+   "iou": 0.949,
+   "tinggi": [
+    5.099,
+    4.767
+   ],
+   "luas_tapak": [
+    160.44,
+    159.46
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    1,
+    1
+   ],
+   "kategori": "antar kelurahan"
+  },
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    10524,
+    14444
+   ],
+   "slug": [
+    "berebas_pantai",
+    "berebas_tengah"
+   ],
+   "berkas": [
+    "Model 3D - Kelurahan Berebas Pantai.gml",
+    "Model 3D - Kelurahan Berebas Tengah.gml"
+   ],
+   "part": [
+    null,
+    null
+   ],
+   "gml_id": [
+    "BP_27052025-AAAA-00168-GeoAI01-9E58453",
+    "BT_27052025-AAAA-02717-GeoAI01-511877C"
+   ],
+   "jarak_pusat_m": 1.727,
+   "iou": 0.604,
+   "tinggi": [
+    5.888,
+    6.81
+   ],
+   "luas_tapak": [
+    46.14,
+    76.42
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    1,
+    null
+   ],
+   "kategori": "antar kelurahan"
+  },
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    18808,
+    19419
+   ],
+   "slug": [
+    "bontang_baru",
+    "bontang_kuala"
+   ],
+   "berkas": [
+    "GABUNGAN BONTANG BARU.gml",
+    "Model 3D - Kelurahan Bontang Kuala.gml"
+   ],
+   "part": [
+    null,
+    null
+   ],
+   "gml_id": [
+    "BB_15062025-AAAA-00515-GeoAI02-03CA862",
+    "BK_14082025-AAAA-01272-GEOAIT01-8101379"
+   ],
+   "jarak_pusat_m": 0.055,
+   "iou": 0.969,
+   "tinggi": [
+    1.04,
+    3.967
+   ],
+   "luas_tapak": [
+    60.01,
+    60.06
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    1,
+    1
+   ],
+   "kategori": "antar kelurahan"
+  },
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    10947,
+    14418
+   ],
+   "slug": [
+    "berebas_pantai",
+    "berebas_tengah"
+   ],
+   "berkas": [
+    "Model 3D - Kelurahan Berebas Pantai.gml",
+    "Model 3D - Kelurahan Berebas Tengah.gml"
+   ],
+   "part": [
+    null,
+    null
+   ],
+   "gml_id": [
+    "BP_27052025-AAAA-00209-GeoAI01-B82148E",
+    "BT_27052025-AAAA-02691-GeoAI01-A072030"
+   ],
+   "jarak_pusat_m": 0.116,
+   "iou": 0.91,
+   "tinggi": [
+    5.939,
+    5.438
+   ],
+   "luas_tapak": [
+    271.62,
+    248.3
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    1,
+    null
+   ],
+   "kategori": "antar kelurahan"
+  },
+  {
+   "dasar": "footprint (pusat<=2 m, IoU>=0,5)",
+   "urut": [
+    27248,
+    29904
+   ],
+   "slug": [
+    "gunung_elai",
+    "gunung_elai"
+   ],
+   "berkas": [
+    "Model 3D - Kelurahan Gunung Elai - Part II.gml",
+    "Model 3D - Kelurahan Gunung Elai - Part III.gml"
+   ],
+   "part": [
+    "II",
+    "III"
+   ],
+   "gml_id": [
+    "GE_15062025-AAAA-01081-GeoAI02-E5C4D86",
+    "GE_15062025-AAAA-00262-GeoAI03-E4B758B"
+   ],
+   "jarak_pusat_m": 0.135,
+   "iou": 0.937,
+   "tinggi": [
+    6.445,
+    7.525
+   ],
+   "luas_tapak": [
+    99.85,
+    104.76
+   ],
+   "footprint_identik": false,
+   "urutan_permukaan_sama": false,
+   "jumlah_lantai": [
+    1,
+    1
+   ],
+   "kategori": "satu kelurahan, berkas/part berbeda"
+  },
+  {
+   "dasar": "gml_id sama + pusat<=2 m (IoU<0,5)",
+   "urut": [
+    967,
+    978
+   ],
+   "slug": [
+    "api_api",
+    "api_api"
+   ],
+   "berkas": [
+    "Model 3D - Kelurahan Api Api.gml",
+    "Model 3D - Kelurahan Api Api.gml"
+   ],
+   "part": [
+    null,
+    null
+   ],
+   "gml_id": [
+    "AA_13082025-AAAA-00193-GEOAIBTG01-6684057",
+    "AA_13082025-AAAA-00193-GEOAIBTG01-6684057"
+   ],
+   "jarak_pusat_m": 1.542,
+   "tinggi": [
+    6.936,
+    0.0
+   ],
+   "kategori": "berkas sama"
+  },
+  {
+   "dasar": "gml_id sama + pusat<=2 m (IoU<0,5)",
+   "urut": [
+    38167,
+    38218
+   ],
+   "slug": [
+    "loktuan",
+    "loktuan"
+   ],
+   "berkas": [
+    "Model 3D - Kelurahan Loktuan - Part I.gml",
+    "Model 3D - Kelurahan Loktuan - Part I.gml"
+   ],
+   "part": [
+    "I",
+    "I"
+   ],
+   "gml_id": [
+    "LK_12082025-AAAA-02913-GEOAIBTG01-8994618",
+    "LK_12082025-AAAA-02913-GEOAIBTG01-8994618"
+   ],
+   "jarak_pusat_m": 0.974,
+   "tinggi": [
+    4.929,
+    2.294
+   ],
+   "kategori": "berkas sama"
+  }
+ ],
+ "tanpa_footprint": 73,
+ "gml_id_ganda": {
+  "jumlah_gml_id": 103,
+  "bangunan_terlibat": 208
+ },
+ "posisi_di_dalam_kelurahan": {
+  "per_berkas": {
+   "GABUNGAN BONTANG BARU.gml": {
+    "di_dalam": 4126,
+    "total": 4147,
+    "persen": 99.49
+   },
+   "Model 3D - Kelurahan Api Api.gml": {
+    "di_dalam": 5142,
+    "total": 5142,
+    "persen": 100.0
+   },
+   "Model 3D - Kelurahan Belimbing - Part I.gml": {
+    "di_dalam": 832,
+    "total": 832,
+    "persen": 100.0
+   },
+   "Model 3D - Kelurahan Belimbing - Part II.gml": {
+    "di_dalam": 515,
+    "total": 515,
+    "persen": 100.0
+   },
+   "Model 3D - Kelurahan Belimbing - Part III.gml": {
+    "di_dalam": 3298,
+    "total": 3298,
+    "persen": 100.0
+   },
+   "Model 3D - Kelurahan Berebas Pantai.gml": {
+    "di_dalam": 2006,
+    "total": 2022,
+    "persen": 99.21
+   },
+   "Model 3D - Kelurahan Berebas Tengah.gml": {
+    "di_dalam": 3383,
+    "total": 3390,
+    "persen": 99.79
+   },
+   "Model 3D - Kelurahan Bontang Kuala.gml": {
+    "di_dalam": 2346,
+    "total": 2366,
+    "persen": 99.15
+   },
+   "Model 3D - Kelurahan Bontang Lestari - Part I.gml": {
+    "di_dalam": 212,
+    "total": 212,
+    "persen": 100.0
+   },
+   "Model 3D - Kelurahan Bontang Lestari - Part II.gml": {
+    "di_dalam": 262,
+    "total": 262,
+    "persen": 100.0
+   },
+   "Model 3D - Kelurahan Bontang Lestari - Part III.gml": {
+    "di_dalam": 5,
+    "total": 5,
+    "persen": 100.0
+   },
+   "Model 3D - Kelurahan Bontang Lestari - Part IV.gml": {
+    "di_dalam": 162,
+    "total": 162,
+    "persen": 100.0
+   },
+   "Model 3D - Kelurahan Bontang Lestari - Part V.gml": {
+    "di_dalam": 337,
+    "total": 342,
+    "persen": 98.54
+   },
+   "Model 3D - Kelurahan Bontang Lestari - Part VI.gml": {
+    "di_dalam": 290,
+    "total": 290,
+    "persen": 100.0
+   },
+   "Model 3D - Kelurahan Bontang Lestari - Part VII.gml": {
+    "di_dalam": 759,
+    "total": 774,
+    "persen": 98.06
+   },
+   "Model 3D - Kelurahan Bontang Lestari - Part VIII.gml": {
+    "di_dalam": 169,
+    "total": 172,
+    "persen": 98.26
+   },
+   "Model 3D - Kelurahan Guntung - Part I.gml": {
+    "di_dalam": 1724,
+    "total": 1725,
+    "persen": 99.94
+   },
+   "Model 3D - Kelurahan Guntung - Part II.gml": {
+    "di_dalam": 102,
+    "total": 108,
+    "persen": 94.44
+   },
+   "Model 3D - Kelurahan Guntung - Part III.gml": {
+    "di_dalam": 211,
+    "total": 226,
+    "persen": 93.36
+   },
+   "Model 3D - Kelurahan Gunung Elai - Part I.gml": {
+    "di_dalam": 1167,
+    "total": 1167,
+    "persen": 100.0
+   },
+   "Model 3D - Kelurahan Gunung Elai - Part II.gml": {
+    "di_dalam": 2571,
+    "total": 2571,
+    "persen": 100.0
+   },
+   "Model 3D - Kelurahan Gunung Elai - Part III.gml": {
+    "di_dalam": 730,
+    "total": 731,
+    "persen": 99.86
+   },
+   "Model 3D - Kelurahan Gunung Telihan.gml": {
+    "di_dalam": 3988,
+    "total": 3989,
+    "persen": 99.97
+   },
+   "Model 3D - Kelurahan Kanaan.gml": {
+    "di_dalam": 1837,
+    "total": 1837,
+    "persen": 100.0
+   },
+   "Model 3D - Kelurahan Loktuan - Part I.gml": {
+    "di_dalam": 4823,
+    "total": 4923,
+    "persen": 97.97
+   },
+   "Model 3D - Kelurahan Loktuan - Part II.gml": {
+    "di_dalam": 47,
+    "total": 55,
+    "persen": 85.45
+   },
+   "Model 3D - Kelurahan Loktuan - Part III.gml": {
+    "di_dalam": 26,
+    "total": 26,
+    "persen": 100.0
+   },
+   "Model 3D - Kelurahan Loktuan - Part IV.gml": {
+    "di_dalam": 6,
+    "total": 6,
+    "persen": 100.0
+   },
+   "Model 3D - Kelurahan Satimpo.gml": {
+    "di_dalam": 2501,
+    "total": 2502,
+    "persen": 99.96
+   },
+   "Model 3D - Kelurahan Tanjung Laut Indah.gml": {
+    "di_dalam": 3750,
+    "total": 3751,
+    "persen": 99.97
+   },
+   "Model 3D - Kelurahan Tanjung Laut.gml": {
+    "di_dalam": 4335,
+    "total": 4340,
+    "persen": 99.88
+   }
+  },
+  "per_kelurahan": {
+   "api_api": {
+    "di_dalam": 5142,
+    "total": 5142,
+    "persen": 100.0
+   },
+   "belimbing": {
+    "di_dalam": 4645,
+    "total": 4645,
+    "persen": 100.0
+   },
+   "berebas_pantai": {
+    "di_dalam": 2006,
+    "total": 2022,
+    "persen": 99.21
+   },
+   "berebas_tengah": {
+    "di_dalam": 3383,
+    "total": 3390,
+    "persen": 99.79
+   },
+   "bontang_baru": {
+    "di_dalam": 4126,
+    "total": 4147,
+    "persen": 99.49
+   },
+   "bontang_kuala": {
+    "di_dalam": 2346,
+    "total": 2366,
+    "persen": 99.15
+   },
+   "bontang_lestari": {
+    "di_dalam": 2196,
+    "total": 2219,
+    "persen": 98.96
+   },
+   "guntung": {
+    "di_dalam": 2037,
+    "total": 2059,
+    "persen": 98.93
+   },
+   "gunung_elai": {
+    "di_dalam": 4468,
+    "total": 4469,
+    "persen": 99.98
+   },
+   "gunung_telihan": {
+    "di_dalam": 3988,
+    "total": 3989,
+    "persen": 99.97
+   },
+   "kanaan": {
+    "di_dalam": 1837,
+    "total": 1837,
+    "persen": 100.0
+   },
+   "loktuan": {
+    "di_dalam": 4902,
+    "total": 5010,
+    "persen": 97.84
+   },
+   "satimpo": {
+    "di_dalam": 2501,
+    "total": 2502,
+    "persen": 99.96
+   },
+   "tanjung_laut": {
+    "di_dalam": 4335,
+    "total": 4340,
+    "persen": 99.88
+   },
+   "tanjung_laut_indah": {
+    "di_dalam": 3750,
+    "total": 3751,
+    "persen": 99.97
+   }
+  },
+  "total_persen": 99.56
+ },
+ "z_dasar": [
+  {
+   "berkas": "GABUNGAN BONTANG BARU.gml",
+   "bangunan": 4147,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 4147,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Api Api.gml",
+   "bangunan": 5142,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 5142,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Belimbing - Part I.gml",
+   "bangunan": 832,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 832,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Belimbing - Part II.gml",
+   "bangunan": 515,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 515,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Belimbing - Part III.gml",
+   "bangunan": 3298,
+   "flag_z_tidak_nol": 3154,
+   "z_sumber_min": -18.861,
+   "z_sumber_median": 5.377,
+   "z_sumber_maks": 32.619,
+   "zmin_tile_nol": 3298,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Berebas Pantai.gml",
+   "bangunan": 2022,
+   "flag_z_tidak_nol": 1899,
+   "z_sumber_min": -12.443,
+   "z_sumber_median": -4.22,
+   "z_sumber_maks": 0.0,
+   "zmin_tile_nol": 2022,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Berebas Tengah.gml",
+   "bangunan": 3390,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.0,
+   "z_sumber_median": 0.0,
+   "z_sumber_maks": 0.0,
+   "zmin_tile_nol": 3390,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Kuala.gml",
+   "bangunan": 2366,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 2366,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part I.gml",
+   "bangunan": 212,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 212,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part II.gml",
+   "bangunan": 262,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 262,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part III.gml",
+   "bangunan": 5,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 5,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part IV.gml",
+   "bangunan": 162,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 162,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part V.gml",
+   "bangunan": 342,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 342,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part VI.gml",
+   "bangunan": 290,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 290,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part VII.gml",
+   "bangunan": 774,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 774,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part VIII.gml",
+   "bangunan": 172,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 172,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Guntung - Part I.gml",
+   "bangunan": 1725,
+   "flag_z_tidak_nol": 1477,
+   "z_sumber_min": -7.2,
+   "z_sumber_median": -2.061,
+   "z_sumber_maks": 13.147,
+   "zmin_tile_nol": 1725,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Guntung - Part II.gml",
+   "bangunan": 108,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.0,
+   "z_sumber_median": 0.0,
+   "z_sumber_maks": 0.0,
+   "zmin_tile_nol": 108,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Guntung - Part III.gml",
+   "bangunan": 226,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 226,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Gunung Elai - Part I.gml",
+   "bangunan": 1167,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 1167,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Gunung Elai - Part II.gml",
+   "bangunan": 2571,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 2571,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Gunung Elai - Part III.gml",
+   "bangunan": 731,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 731,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Gunung Telihan.gml",
+   "bangunan": 3989,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 3989,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Kanaan.gml",
+   "bangunan": 1837,
+   "flag_z_tidak_nol": 1764,
+   "z_sumber_min": -6.793,
+   "z_sumber_median": 4.634,
+   "z_sumber_maks": 10.752,
+   "zmin_tile_nol": 1837,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Loktuan - Part I.gml",
+   "bangunan": 4923,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 4923,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Loktuan - Part II.gml",
+   "bangunan": 55,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 55,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Loktuan - Part III.gml",
+   "bangunan": 26,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 26,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Loktuan - Part IV.gml",
+   "bangunan": 6,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 6,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Satimpo.gml",
+   "bangunan": 2502,
+   "flag_z_tidak_nol": 2453,
+   "z_sumber_min": -23.595,
+   "z_sumber_median": -15.426,
+   "z_sumber_maks": 7.176,
+   "zmin_tile_nol": 2502,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Tanjung Laut Indah.gml",
+   "bangunan": 3751,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 3751,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Tanjung Laut.gml",
+   "bangunan": 4340,
+   "flag_z_tidak_nol": 0,
+   "z_sumber_min": 0.001,
+   "z_sumber_median": 0.001,
+   "z_sumber_maks": 0.001,
+   "zmin_tile_nol": 4340,
+   "zmin_tile_bukan_nol": 0,
+   "z_sumber_kosong": 0
+  }
+ ],
+ "berebas_tengah": {
+  "bangunan": 3390,
+  "lantai_null": 3390,
+  "lantai_nol": 0,
+  "tinggi_null": 0,
+  "tinggi_min": 0.0,
+  "tinggi_maks": 40.454
+ },
+ "epsg_terkoreksi": [
+  {
+   "berkas": "Model 3D - Kelurahan Satimpo.gml",
+   "bangunan": 2502,
+   "berflag": 2502
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Guntung - Part I.gml",
+   "bangunan": 1725,
+   "berflag": 1725
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Guntung - Part II.gml",
+   "bangunan": 108,
+   "berflag": 108
+  }
+ ],
+ "qc_per_kelurahan": {
+  "api_api": {
+   "footprint_diperbaiki": 7,
+   "footprint_kurang_2m2": 2,
+   "gml_id_bentrok": 30,
+   "tanpa_atap": 4,
+   "tanpa_footprint": 8,
+   "tinggi_kurang_0_1m": 4,
+   "tinggi_sumber_nol": 4
+  },
+  "belimbing": {
+   "footprint_diperbaiki": 8,
+   "footprint_kurang_2m2": 7,
+   "gml_id_bentrok": 22,
+   "tanpa_atap": 1,
+   "tanpa_footprint": 7,
+   "tinggi_kurang_0_1m": 1,
+   "tinggi_sumber_nol": 1,
+   "z_dasar_tidak_nol_di_sumber": 3154
+  },
+  "berebas_pantai": {
+   "footprint_diperbaiki": 4,
+   "footprint_kurang_2m2": 8,
+   "gml_id_bentrok": 26,
+   "tanpa_atap": 1,
+   "tanpa_footprint": 5,
+   "tinggi_kurang_0_1m": 5,
+   "z_dasar_tidak_nol_di_sumber": 1899
+  },
+  "berebas_tengah": {
+   "footprint_diperbaiki": 5,
+   "footprint_kurang_2m2": 28,
+   "tanpa_atap": 3,
+   "tanpa_footprint": 12,
+   "tinggi_kurang_0_1m": 4,
+   "tinggi_lebih_40m": 1
+  },
+  "bontang_baru": {
+   "footprint_diperbaiki": 4,
+   "footprint_kurang_2m2": 50,
+   "gml_id_bentrok": 20,
+   "tanpa_atap": 2,
+   "tanpa_footprint": 2,
+   "tinggi_kurang_0_1m": 6,
+   "tinggi_sumber_nol": 2
+  },
+  "bontang_kuala": {
+   "footprint_diperbaiki": 2,
+   "gml_id_bentrok": 4,
+   "tanpa_footprint": 2
+  },
+  "bontang_lestari": {
+   "footprint_diperbaiki": 1,
+   "footprint_kurang_2m2": 28,
+   "gml_id_bentrok": 6,
+   "tanpa_atap": 1,
+   "tinggi_kurang_0_1m": 4,
+   "tinggi_lebih_40m": 6
+  },
+  "guntung": {
+   "epsg_dikoreksi": 1833,
+   "footprint_diperbaiki": 1,
+   "gml_id_bentrok": 2,
+   "tinggi_lebih_40m": 1,
+   "z_dasar_tidak_nol_di_sumber": 1477
+  },
+  "gunung_elai": {
+   "footprint_diperbaiki": 14,
+   "footprint_kurang_2m2": 3,
+   "gml_id_bentrok": 4,
+   "tanpa_atap": 1,
+   "tanpa_footprint": 4,
+   "tinggi_kurang_0_1m": 6,
+   "tinggi_sumber_nol": 1
+  },
+  "gunung_telihan": {
+   "footprint_diperbaiki": 9,
+   "footprint_kurang_2m2": 18,
+   "gml_id_bentrok": 22,
+   "tanpa_atap": 7,
+   "tanpa_footprint": 5,
+   "tinggi_kurang_0_1m": 10,
+   "tinggi_sumber_nol": 7
+  },
+  "kanaan": {
+   "footprint_diperbaiki": 4,
+   "footprint_kurang_2m2": 18,
+   "gml_id_bentrok": 4,
+   "tanpa_atap": 2,
+   "tinggi_kurang_0_1m": 3,
+   "tinggi_sumber_nol": 2,
+   "z_dasar_tidak_nol_di_sumber": 1764
+  },
+  "loktuan": {
+   "footprint_diperbaiki": 3,
+   "footprint_kurang_2m2": 5,
+   "gml_id_bentrok": 38,
+   "tanpa_atap": 4,
+   "tanpa_footprint": 13,
+   "tinggi_kurang_0_1m": 5,
+   "tinggi_sumber_nol": 2
+  },
+  "satimpo": {
+   "epsg_dikoreksi": 2502,
+   "footprint_diperbaiki": 15,
+   "gml_id_bentrok": 8,
+   "tanpa_atap": 1,
+   "tanpa_footprint": 5,
+   "tinggi_kurang_0_1m": 1,
+   "tinggi_sumber_nol": 1,
+   "z_dasar_tidak_nol_di_sumber": 2453
+  },
+  "tanjung_laut": {
+   "footprint_diperbaiki": 5,
+   "footprint_kurang_2m2": 31,
+   "gml_id_bentrok": 16,
+   "tanpa_atap": 2,
+   "tanpa_footprint": 8,
+   "tinggi_kurang_0_1m": 7,
+   "tinggi_lebih_40m": 1,
+   "tinggi_sumber_nol": 2
+  },
+  "tanjung_laut_indah": {
+   "footprint_diperbaiki": 4,
+   "footprint_kurang_2m2": 7,
+   "gml_id_bentrok": 6,
+   "tanpa_footprint": 2,
+   "tinggi_kurang_0_1m": 1
+  }
+ },
+ "tinggi_kurang_0_1m": 57
+}

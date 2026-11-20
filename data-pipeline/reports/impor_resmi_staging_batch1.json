@@ -1,0 +1,316 @@
+{
+ "tahap": "staging",
+ "bangunan": 51888,
+ "per_slug": {
+  "api_api": 5142,
+  "belimbing": 4645,
+  "berebas_pantai": 2022,
+  "berebas_tengah": 3390,
+  "bontang_baru": 4147,
+  "bontang_kuala": 2366,
+  "bontang_lestari": 2219,
+  "guntung": 2059,
+  "gunung_elai": 4469,
+  "gunung_telihan": 3989,
+  "kanaan": 1837,
+  "loktuan": 5010,
+  "satimpo": 2502,
+  "tanjung_laut": 4340,
+  "tanjung_laut_indah": 3751
+ },
+ "per_berkas": [
+  {
+   "berkas": "Model 3D - Kelurahan Api Api.gml",
+   "part": null,
+   "versi": "2.0",
+   "bangunan": 5142,
+   "slug": "api_api",
+   "inventaris": 5142,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Belimbing - Part I.gml",
+   "part": "I",
+   "versi": "2.0",
+   "bangunan": 832,
+   "slug": "belimbing",
+   "inventaris": 832,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Belimbing - Part II.gml",
+   "part": "II",
+   "versi": "2.0",
+   "bangunan": 515,
+   "slug": "belimbing",
+   "inventaris": 515,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Belimbing - Part III.gml",
+   "part": "III",
+   "versi": "2.0",
+   "bangunan": 3298,
+   "slug": "belimbing",
+   "inventaris": 3298,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Berebas Pantai.gml",
+   "part": null,
+   "versi": "2.0",
+   "bangunan": 2022,
+   "slug": "berebas_pantai",
+   "inventaris": 2022,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Berebas Tengah.gml",
+   "part": null,
+   "versi": "3.0",
+   "bangunan": 3390,
+   "slug": "berebas_tengah",
+   "inventaris": 3390,
+   "selisih": 0
+  },
+  {
+   "berkas": "GABUNGAN BONTANG BARU.gml",
+   "part": null,
+   "versi": "2.0",
+   "bangunan": 4147,
+   "slug": "bontang_baru",
+   "inventaris": 4147,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Kuala.gml",
+   "part": null,
+   "versi": "2.0",
+   "bangunan": 2366,
+   "slug": "bontang_kuala",
+   "inventaris": 2366,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part I.gml",
+   "part": "I",
+   "versi": "2.0",
+   "bangunan": 212,
+   "slug": "bontang_lestari",
+   "inventaris": 212,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part II.gml",
+   "part": "II",
+   "versi": "2.0",
+   "bangunan": 262,
+   "slug": "bontang_lestari",
+   "inventaris": 262,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part III.gml",
+   "part": "III",
+   "versi": "2.0",
+   "bangunan": 5,
+   "slug": "bontang_lestari",
+   "inventaris": 5,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part IV.gml",
+   "part": "IV",
+   "versi": "2.0",
+   "bangunan": 162,
+   "slug": "bontang_lestari",
+   "inventaris": 162,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part V.gml",
+   "part": "V",
+   "versi": "2.0",
+   "bangunan": 342,
+   "slug": "bontang_lestari",
+   "inventaris": 342,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part VI.gml",
+   "part": "VI",
+   "versi": "2.0",
+   "bangunan": 290,
+   "slug": "bontang_lestari",
+   "inventaris": 290,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part VII.gml",
+   "part": "VII",
+   "versi": "2.0",
+   "bangunan": 774,
+   "slug": "bontang_lestari",
+   "inventaris": 774,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Bontang Lestari - Part VIII.gml",
+   "part": "VIII",
+   "versi": "2.0",
+   "bangunan": 172,
+   "slug": "bontang_lestari",
+   "inventaris": 172,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Guntung - Part I.gml",
+   "part": "I",
+   "versi": "2.0",
+   "bangunan": 1725,
+   "slug": "guntung",
+   "inventaris": 1725,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Guntung - Part II.gml",
+   "part": "II",
+   "versi": "2.0",
+   "bangunan": 108,
+   "slug": "guntung",
+   "inventaris": 108,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Guntung - Part III.gml",
+   "part": "III",
+   "versi": "2.0",
+   "bangunan": 226,
+   "slug": "guntung",
+   "inventaris": 226,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Gunung Elai - Part I.gml",
+   "part": "I",
+   "versi": "2.0",
+   "bangunan": 1167,
+   "slug": "gunung_elai",
+   "inventaris": 1167,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Gunung Elai - Part II.gml",
+   "part": "II",
+   "versi": "2.0",
+   "bangunan": 2571,
+   "slug": "gunung_elai",
+   "inventaris": 2571,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Gunung Elai - Part III.gml",
+   "part": "III",
+   "versi": "2.0",
+   "bangunan": 731,
+   "slug": "gunung_elai",
+   "inventaris": 731,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Gunung Telihan.gml",
+   "part": null,
+   "versi": "2.0",
+   "bangunan": 3989,
+   "slug": "gunung_telihan",
+   "inventaris": 3989,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Kanaan.gml",
+   "part": null,
+   "versi": "2.0",
+   "bangunan": 1837,
+   "slug": "kanaan",
+   "inventaris": 1837,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Loktuan - Part I.gml",
+   "part": "I",
+   "versi": "2.0",
+   "bangunan": 4923,
+   "slug": "loktuan",
+   "inventaris": 4923,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Loktuan - Part II.gml",
+   "part": "II",
+   "versi": "2.0",
+   "bangunan": 55,
+   "slug": "loktuan",
+   "inventaris": 55,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Loktuan - Part III.gml",
+   "part": "III",
+   "versi": "2.0",
+   "bangunan": 26,
+   "slug": "loktuan",
+   "inventaris": 26,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Loktuan - Part IV.gml",
+   "part": "IV",
+   "versi": "2.0",
+   "bangunan": 6,
+   "slug": "loktuan",
+   "inventaris": 6,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Satimpo.gml",
+   "part": null,
+   "versi": "2.0",
+   "bangunan": 2502,
+   "slug": "satimpo",
+   "inventaris": 2502,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Tanjung Laut.gml",
+   "part": null,
+   "versi": "2.0",
+   "bangunan": 4340,
+   "slug": "tanjung_laut",
+   "inventaris": 4340,
+   "selisih": 0
+  },
+  {
+   "berkas": "Model 3D - Kelurahan Tanjung Laut Indah.gml",
+   "part": null,
+   "versi": "2.0",
+   "bangunan": 3751,
+   "slug": "tanjung_laut_indah",
+   "inventaris": 3751,
+   "selisih": 0
+  }
+ ],
+ "qc_flag": {
+  "epsg_dikoreksi": 4335,
+  "footprint_diperbaiki": 86,
+  "footprint_kurang_2m2": 205,
+  "gml_id_bentrok": 208,
+  "tanpa_atap": 29,
+  "tanpa_footprint": 73,
+  "tinggi_kurang_0_1m": 57,
+  "tinggi_lebih_40m": 9,
+  "tinggi_sumber_nol": 22,
+  "z_dasar_tidak_nol_di_sumber": 10747
+ },
+ "selisih_inventaris": [],
+ "detik": 281.9
+}

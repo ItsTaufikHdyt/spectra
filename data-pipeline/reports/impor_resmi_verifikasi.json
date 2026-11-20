@@ -1,0 +1,992 @@
+{
+ "per_kelurahan": [
+  {
+   "kelurahan": "api_api",
+   "sumber_staging": 5142,
+   "duplikat_dikecualikan": 1,
+   "postgis": 5141,
+   "tinggi_kurang_0_1m": 4,
+   "diharapkan_di_tile": 5137,
+   "fitur_v2": 5137,
+   "fitur_lama": 5142,
+   "selisih_v2_lama": -5,
+   "segitiga_v2": 552799,
+   "segitiga_lama": 1113370
+  },
+  {
+   "kelurahan": "belimbing",
+   "sumber_staging": 4645,
+   "duplikat_dikecualikan": 0,
+   "postgis": 4645,
+   "tinggi_kurang_0_1m": 1,
+   "diharapkan_di_tile": 4644,
+   "fitur_v2": 4644,
+   "fitur_lama": 3296,
+   "selisih_v2_lama": 1348,
+   "segitiga_v2": 464575,
+   "segitiga_lama": 720792
+  },
+  {
+   "kelurahan": "berebas_pantai",
+   "sumber_staging": 2022,
+   "duplikat_dikecualikan": 2,
+   "postgis": 2020,
+   "tinggi_kurang_0_1m": 5,
+   "diharapkan_di_tile": 2015,
+   "fitur_v2": 2015,
+   "fitur_lama": 2024,
+   "selisih_v2_lama": -9,
+   "segitiga_v2": 193608,
+   "segitiga_lama": 422642
+  },
+  {
+   "kelurahan": "berebas_tengah",
+   "sumber_staging": 3390,
+   "duplikat_dikecualikan": 0,
+   "postgis": 3390,
+   "tinggi_kurang_0_1m": 4,
+   "diharapkan_di_tile": 3386,
+   "fitur_v2": 3386,
+   "fitur_lama": 3390,
+   "selisih_v2_lama": -4,
+   "segitiga_v2": 283870,
+   "segitiga_lama": 575946
+  },
+  {
+   "kelurahan": "bontang_baru",
+   "sumber_staging": 4147,
+   "duplikat_dikecualikan": 3,
+   "postgis": 4144,
+   "tinggi_kurang_0_1m": 6,
+   "diharapkan_di_tile": 4138,
+   "fitur_v2": 4138,
+   "fitur_lama": 4147,
+   "selisih_v2_lama": -9,
+   "segitiga_v2": 454352,
+   "segitiga_lama": 922356
+  },
+  {
+   "kelurahan": "bontang_kuala",
+   "sumber_staging": 2366,
+   "duplikat_dikecualikan": 0,
+   "postgis": 2366,
+   "tinggi_kurang_0_1m": 0,
+   "diharapkan_di_tile": 2366,
+   "fitur_v2": 2366,
+   "fitur_lama": 2366,
+   "selisih_v2_lama": 0,
+   "segitiga_v2": 199527,
+   "segitiga_lama": 402440
+  },
+  {
+   "kelurahan": "bontang_lestari",
+   "sumber_staging": 2219,
+   "duplikat_dikecualikan": 0,
+   "postgis": 2219,
+   "tinggi_kurang_0_1m": 4,
+   "diharapkan_di_tile": 2215,
+   "fitur_v2": 2215,
+   "fitur_lama": 774,
+   "selisih_v2_lama": 1441,
+   "segitiga_v2": 167121,
+   "segitiga_lama": 52836
+  },
+  {
+   "kelurahan": "guntung",
+   "sumber_staging": 2059,
+   "duplikat_dikecualikan": 8,
+   "postgis": 2051,
+   "tinggi_kurang_0_1m": 0,
+   "diharapkan_di_tile": 2051,
+   "fitur_v2": 2051,
+   "fitur_lama": 2057,
+   "selisih_v2_lama": -6,
+   "segitiga_v2": 146499,
+   "segitiga_lama": 296460
+  },
+  {
+   "kelurahan": "gunung_elai",
+   "sumber_staging": 4469,
+   "duplikat_dikecualikan": 1,
+   "postgis": 4468,
+   "tinggi_kurang_0_1m": 6,
+   "diharapkan_di_tile": 4462,
+   "fitur_v2": 4462,
+   "fitur_lama": 2571,
+   "selisih_v2_lama": 1891,
+   "segitiga_v2": 471277,
+   "segitiga_lama": 572478
+  },
+  {
+   "kelurahan": "gunung_telihan",
+   "sumber_staging": 3989,
+   "duplikat_dikecualikan": 0,
+   "postgis": 3989,
+   "tinggi_kurang_0_1m": 10,
+   "diharapkan_di_tile": 3979,
+   "fitur_v2": 3979,
+   "fitur_lama": 3989,
+   "selisih_v2_lama": -10,
+   "segitiga_v2": 351464,
+   "segitiga_lama": 709548
+  },
+  {
+   "kelurahan": "kanaan",
+   "sumber_staging": 1837,
+   "duplikat_dikecualikan": 0,
+   "postgis": 1837,
+   "tinggi_kurang_0_1m": 3,
+   "diharapkan_di_tile": 1834,
+   "fitur_v2": 1834,
+   "fitur_lama": 1834,
+   "selisih_v2_lama": 0,
+   "segitiga_v2": 128919,
+   "segitiga_lama": 257938
+  },
+  {
+   "kelurahan": "loktuan",
+   "sumber_staging": 5010,
+   "duplikat_dikecualikan": 0,
+   "postgis": 5010,
+   "tinggi_kurang_0_1m": 5,
+   "diharapkan_di_tile": 5005,
+   "fitur_v2": 5005,
+   "fitur_lama": 4923,
+   "selisih_v2_lama": 82,
+   "segitiga_v2": 478032,
+   "segitiga_lama": 963938
+  },
+  {
+   "kelurahan": "satimpo",
+   "sumber_staging": 2502,
+   "duplikat_dikecualikan": 0,
+   "postgis": 2502,
+   "tinggi_kurang_0_1m": 1,
+   "diharapkan_di_tile": 2501,
+   "fitur_v2": 2501,
+   "fitur_lama": 2504,
+   "selisih_v2_lama": -3,
+   "segitiga_v2": 391955,
+   "segitiga_lama": 807062
+  },
+  {
+   "kelurahan": "tanjung_laut",
+   "sumber_staging": 4340,
+   "duplikat_dikecualikan": 0,
+   "postgis": 4340,
+   "tinggi_kurang_0_1m": 7,
+   "diharapkan_di_tile": 4333,
+   "fitur_v2": 4333,
+   "fitur_lama": 4340,
+   "selisih_v2_lama": -7,
+   "segitiga_v2": 459486,
+   "segitiga_lama": 926086
+  },
+  {
+   "kelurahan": "tanjung_laut_indah",
+   "sumber_staging": 3751,
+   "duplikat_dikecualikan": 0,
+   "postgis": 3751,
+   "tinggi_kurang_0_1m": 1,
+   "diharapkan_di_tile": 3750,
+   "fitur_v2": 3750,
+   "fitur_lama": 3751,
+   "selisih_v2_lama": -1,
+   "segitiga_v2": 290059,
+   "segitiga_lama": 594320
+  }
+ ],
+ "total": {
+  "sumber_staging": 51888,
+  "duplikat_dikecualikan": 15,
+  "postgis": 51873,
+  "tinggi_kurang_0_1m": 57,
+  "diharapkan_di_tile": 51816,
+  "fitur_v2": 51816,
+  "fitur_lama": 47108,
+  "selisih_v2_lama": 4708,
+  "segitiga_v2": 5033543,
+  "segitiga_lama": 9338212
+ },
+ "kontrak_frontend": {
+  "api_api": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 19,
+   "maks_byte": 1193980,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {},
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 0,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 8,
+   "luas_tapak_nol": 0
+  },
+  "belimbing": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 15,
+   "maks_byte": 1216072,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {},
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 0,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 7,
+   "luas_tapak_nol": 0
+  },
+  "berebas_pantai": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 4,
+   "maks_byte": 1128076,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {},
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 0,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 5,
+   "luas_tapak_nol": 0
+  },
+  "berebas_tengah": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 7,
+   "maks_byte": 1304860,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {
+    "jumlah_lantai": 6
+   },
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 3384,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 12,
+   "luas_tapak_nol": 1
+  },
+  "bontang_baru": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 15,
+   "maks_byte": 1262144,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {},
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 0,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 2,
+   "luas_tapak_nol": 6
+  },
+  "bontang_kuala": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 3,
+   "maks_byte": 1158424,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {},
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 0,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 2,
+   "luas_tapak_nol": 0
+  },
+  "bontang_lestari": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 4,
+   "maks_byte": 782184,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {},
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 0,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 0,
+   "luas_tapak_nol": 0
+  },
+  "guntung": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 7,
+   "maks_byte": 930116,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {},
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 0,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 0,
+   "luas_tapak_nol": 0
+  },
+  "gunung_elai": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 14,
+   "maks_byte": 995284,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {},
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 0,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 4,
+   "luas_tapak_nol": 0
+  },
+  "gunung_telihan": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 7,
+   "maks_byte": 1319796,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {},
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 0,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 5,
+   "luas_tapak_nol": 8
+  },
+  "kanaan": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 6,
+   "maks_byte": 798240,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {},
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 0,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 0,
+   "luas_tapak_nol": 0
+  },
+  "loktuan": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 12,
+   "maks_byte": 1222692,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {},
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 0,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 13,
+   "luas_tapak_nol": 0
+  },
+  "satimpo": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 10,
+   "maks_byte": 1045336,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {},
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 0,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 5,
+   "luas_tapak_nol": 0
+  },
+  "tanjung_laut": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 12,
+   "maks_byte": 1136784,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {},
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 0,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 8,
+   "luas_tapak_nol": 0
+  },
+  "tanjung_laut_indah": {
+   "versi": "1.1",
+   "region": true,
+   "transform": true,
+   "refine": "REPLACE",
+   "glb": 4,
+   "maks_byte": 1332448,
+   "maks_<=3MB": true,
+   "ekstensi_di_semua_glb": true,
+   "properti_di_kelas": [
+    "gml_id",
+    "id",
+    "jumlah_lantai",
+    "luas_tapak",
+    "nama",
+    "tinggi"
+   ],
+   "enam_properti": true,
+   "tile_tanpa_properti": {},
+   "id_unik_dalam_kelurahan": true,
+   "id_sama_dengan_postgis": true,
+   "atribut_beda_dengan_postgis": 0,
+   "warna_baseColorFactor": [
+    0.69411767,
+    0.7294118,
+    0.7607843,
+    1
+   ],
+   "asset_extras": true,
+   "jumlah_lantai_null": 0,
+   "jumlah_lantai_nol": 0,
+   "luas_tapak_null": 2,
+   "luas_tapak_nol": 1
+  }
+ },
+ "id_unik_seluruh_kota": {
+  "total_fitur": 51816,
+  "unik": 51816,
+  "ganda": 0
+ },
+ "id_tile_sama_dengan_postgis_seluruh_kota": true,
+ "postgis_total": 51873,
+ "segitiga": {
+  "v2": 5033543,
+  "lama": 9338212,
+  "pasangan_satu_ke_satu": 46911,
+  "segitiga_lama_pada_pasangan": 9293658,
+  "segitiga_v2_pada_pasangan": 4572155,
+  "rasio_pada_pasangan": 2.033,
+  "per_kelurahan": {
+   "api_api": {
+    "pasangan": 5137,
+    "segitiga_lama": 1113224,
+    "segitiga_v2": 552799,
+    "rasio": 2.014
+   },
+   "belimbing": {
+    "pasangan": 3270,
+    "segitiga_lama": 716618,
+    "segitiga_v2": 357254,
+    "rasio": 2.006
+   },
+   "berebas_pantai": {
+    "pasangan": 2000,
+    "segitiga_lama": 420830,
+    "segitiga_v2": 192640,
+    "rasio": 2.185
+   },
+   "berebas_tengah": {
+    "pasangan": 3386,
+    "segitiga_lama": 575870,
+    "segitiga_v2": 283870,
+    "rasio": 2.029
+   },
+   "bontang_baru": {
+    "pasangan": 4138,
+    "segitiga_lama": 921984,
+    "segitiga_v2": 454352,
+    "rasio": 2.029
+   },
+   "bontang_kuala": {
+    "pasangan": 2366,
+    "segitiga_lama": 402440,
+    "segitiga_v2": 199527,
+    "rasio": 2.017
+   },
+   "bontang_lestari": {
+    "pasangan": 772,
+    "segitiga_lama": 50136,
+    "segitiga_v2": 24917,
+    "rasio": 2.012
+   },
+   "guntung": {
+    "pasangan": 2038,
+    "segitiga_lama": 294588,
+    "segitiga_v2": 145682,
+    "rasio": 2.022
+   },
+   "gunung_elai": {
+    "pasangan": 2569,
+    "segitiga_lama": 572406,
+    "segitiga_v2": 283013,
+    "rasio": 2.023
+   },
+   "gunung_telihan": {
+    "pasangan": 3979,
+    "segitiga_lama": 709416,
+    "segitiga_v2": 351464,
+    "rasio": 2.018
+   },
+   "kanaan": {
+    "pasangan": 1826,
+    "segitiga_lama": 257090,
+    "segitiga_v2": 128359,
+    "rasio": 2.003
+   },
+   "loktuan": {
+    "pasangan": 4918,
+    "segitiga_lama": 963822,
+    "segitiga_v2": 473214,
+    "rasio": 2.037
+   },
+   "satimpo": {
+    "pasangan": 2433,
+    "segitiga_lama": 776052,
+    "segitiga_v2": 376027,
+    "rasio": 2.064
+   },
+   "tanjung_laut": {
+    "pasangan": 4333,
+    "segitiga_lama": 925942,
+    "segitiga_v2": 459486,
+    "rasio": 2.015
+   },
+   "tanjung_laut_indah": {
+    "pasangan": 3746,
+    "segitiga_lama": 593240,
+    "segitiga_v2": 289551,
+    "rasio": 2.049
+   }
+  }
+ },
+ "qc_flag_kota": {
+  "z_dasar_tidak_nol_di_sumber": 10745,
+  "epsg_dikoreksi": 4335,
+  "gml_id_bentrok": 207,
+  "footprint_kurang_2m2": 205,
+  "footprint_diperbaiki": 86,
+  "tanpa_footprint": 73,
+  "tinggi_kurang_0_1m": 57,
+  "kelurahan_beda_dengan_sumber": 30,
+  "tanpa_atap": 29,
+  "footprint_mikro": 22,
+  "tinggi_sumber_nol": 22,
+  "tinggi_lebih_40m": 9,
+  "atribut_dari_duplikat": 2,
+  "duplikat_kepercayaan_rendah": 2
+ },
+ "qc_flag_per_kelurahan": {
+  "api_api": {
+   "gml_id_bentrok": 29,
+   "tanpa_footprint": 8,
+   "footprint_diperbaiki": 7,
+   "tinggi_sumber_nol": 4,
+   "tanpa_atap": 4,
+   "tinggi_kurang_0_1m": 4,
+   "footprint_kurang_2m2": 2,
+   "duplikat_kepercayaan_rendah": 1
+  },
+  "belimbing": {
+   "z_dasar_tidak_nol_di_sumber": 3154,
+   "gml_id_bentrok": 22,
+   "footprint_diperbaiki": 8,
+   "tanpa_footprint": 7,
+   "footprint_kurang_2m2": 7,
+   "tinggi_kurang_0_1m": 1,
+   "tinggi_sumber_nol": 1,
+   "tanpa_atap": 1,
+   "footprint_mikro": 1
+  },
+  "berebas_pantai": {
+   "z_dasar_tidak_nol_di_sumber": 1897,
+   "gml_id_bentrok": 26,
+   "kelurahan_beda_dengan_sumber": 10,
+   "footprint_kurang_2m2": 8,
+   "tanpa_footprint": 5,
+   "tinggi_kurang_0_1m": 5,
+   "footprint_diperbaiki": 4,
+   "tanpa_atap": 1
+  },
+  "berebas_tengah": {
+   "footprint_kurang_2m2": 28,
+   "tanpa_footprint": 12,
+   "footprint_diperbaiki": 5,
+   "tinggi_kurang_0_1m": 4,
+   "tanpa_atap": 3,
+   "atribut_dari_duplikat": 2,
+   "footprint_mikro": 1,
+   "kelurahan_beda_dengan_sumber": 1,
+   "tinggi_lebih_40m": 1
+  },
+  "bontang_baru": {
+   "footprint_kurang_2m2": 50,
+   "gml_id_bentrok": 20,
+   "kelurahan_beda_dengan_sumber": 11,
+   "footprint_mikro": 8,
+   "tinggi_kurang_0_1m": 6,
+   "footprint_diperbaiki": 4,
+   "tanpa_atap": 2,
+   "tanpa_footprint": 2,
+   "tinggi_sumber_nol": 2
+  },
+  "bontang_kuala": {
+   "gml_id_bentrok": 4,
+   "tanpa_footprint": 2,
+   "footprint_diperbaiki": 2
+  },
+  "bontang_lestari": {
+   "footprint_kurang_2m2": 28,
+   "tinggi_lebih_40m": 6,
+   "gml_id_bentrok": 6,
+   "tinggi_kurang_0_1m": 4,
+   "footprint_diperbaiki": 1,
+   "tanpa_atap": 1
+  },
+  "guntung": {
+   "epsg_dikoreksi": 1833,
+   "z_dasar_tidak_nol_di_sumber": 1477,
+   "kelurahan_beda_dengan_sumber": 7,
+   "gml_id_bentrok": 2,
+   "tinggi_lebih_40m": 1,
+   "footprint_diperbaiki": 1
+  },
+  "gunung_elai": {
+   "footprint_diperbaiki": 14,
+   "tinggi_kurang_0_1m": 6,
+   "tanpa_footprint": 4,
+   "gml_id_bentrok": 4,
+   "footprint_kurang_2m2": 3,
+   "duplikat_kepercayaan_rendah": 1,
+   "tanpa_atap": 1,
+   "tinggi_sumber_nol": 1
+  },
+  "gunung_telihan": {
+   "gml_id_bentrok": 22,
+   "footprint_kurang_2m2": 18,
+   "tinggi_kurang_0_1m": 10,
+   "footprint_diperbaiki": 9,
+   "footprint_mikro": 9,
+   "tanpa_atap": 7,
+   "tinggi_sumber_nol": 7,
+   "tanpa_footprint": 5
+  },
+  "kanaan": {
+   "z_dasar_tidak_nol_di_sumber": 1764,
+   "footprint_kurang_2m2": 18,
+   "footprint_diperbaiki": 4,
+   "gml_id_bentrok": 4,
+   "tinggi_kurang_0_1m": 3,
+   "tanpa_atap": 2,
+   "tinggi_sumber_nol": 2
+  },
+  "loktuan": {
+   "gml_id_bentrok": 38,
+   "tanpa_footprint": 13,
+   "footprint_kurang_2m2": 5,
+   "tinggi_kurang_0_1m": 5,
+   "tanpa_atap": 4,
+   "footprint_diperbaiki": 3,
+   "tinggi_sumber_nol": 2
+  },
+  "satimpo": {
+   "epsg_dikoreksi": 2502,
+   "z_dasar_tidak_nol_di_sumber": 2453,
+   "footprint_diperbaiki": 15,
+   "gml_id_bentrok": 8,
+   "tanpa_footprint": 5,
+   "tanpa_atap": 1,
+   "tinggi_kurang_0_1m": 1,
+   "tinggi_sumber_nol": 1
+  },
+  "tanjung_laut": {
+   "footprint_kurang_2m2": 31,
+   "gml_id_bentrok": 16,
+   "tanpa_footprint": 8,
+   "tinggi_kurang_0_1m": 7,
+   "footprint_diperbaiki": 5,
+   "footprint_mikro": 2,
+   "tinggi_sumber_nol": 2,
+   "tanpa_atap": 2,
+   "tinggi_lebih_40m": 1,
+   "kelurahan_beda_dengan_sumber": 1
+  },
+  "tanjung_laut_indah": {
+   "footprint_kurang_2m2": 7,
+   "gml_id_bentrok": 6,
+   "footprint_diperbaiki": 4,
+   "tanpa_footprint": 2,
+   "footprint_mikro": 1,
+   "tinggi_kurang_0_1m": 1
+  }
+ }
+}

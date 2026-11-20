@@ -1,0 +1,16 @@
+{
+ "ambang_m2": 0.01,
+ "staging.bangunan_impor": 22,
+ "core.bangunan": 22,
+ "core_total_berflag": 22,
+ "core_masuk_tile": 18,
+ "per_kelurahan": {
+  "belimbing": 1,
+  "berebas_tengah": 1,
+  "bontang_baru": 8,
+  "gunung_telihan": 9,
+  "tanjung_laut": 2,
+  "tanjung_laut_indah": 1
+ },
+ "luas_nol_tanpa_flag": 0
+}
