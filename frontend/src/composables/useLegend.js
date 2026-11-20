@@ -1,6 +1,7 @@
 import { computed } from 'vue';
 import { useMapStore } from '@/stores/mapStore';
-import { MAP_COLORS } from '@/utils/mapColors';
+import { getMapColors } from '@/utils/mapColors';
+import { useThemeStore } from '@/stores/themeStore';
 import { useSimulationStore } from '@/stores/simulationStore';
 import { getSimulation } from '@/simulations';
 import { useRemoteLayerStore } from '@/stores/remoteLayerStore';
@@ -14,12 +15,15 @@ import { useRemoteLayerStore } from '@/stores/remoteLayerStore';
  */
 export function useLegend() {
   const mapStore = useMapStore();
+  const themeStore = useThemeStore();
+  // Warna legenda = warna peta untuk tema aktif (satu sumber: utils/mapColors.js).
+  const colors = computed(() => getMapColors(themeStore.theme));
 
   const vectorSections = computed(() => {
     const out = [];
     const boundaries = [
-      mapStore.isKelurahanActive && { label: 'Batas kelurahan', color: MAP_COLORS.kelurahan, shape: 'line' },
-      mapStore.isRtActive && { label: 'Batas RT', color: MAP_COLORS.rt, shape: 'line-thin' }
+      mapStore.isKelurahanActive && { label: 'Batas kelurahan', color: colors.value.kelurahan, shape: 'line' },
+      mapStore.isRtActive && { label: 'Batas RT', color: colors.value.rt, shape: 'line-thin' }
     ].filter(Boolean);
     if (boundaries.length) out.push({ id: 'batas-wilayah', title: 'Batas wilayah', type: 'categorical', items: boundaries });
     if (mapStore.isSungaiActive) {
@@ -28,8 +32,8 @@ export function useLegend() {
         title: 'Hidrologi',
         type: 'categorical',
         items: [
-          { label: 'Sungai', color: MAP_COLORS.sungai, shape: 'line' },
-          { label: 'Drainase', color: MAP_COLORS.drainase, shape: 'line' }
+          { label: 'Sungai', color: colors.value.sungai, shape: 'line' },
+          { label: 'Drainase', color: colors.value.drainase, shape: 'line' }
         ]
       });
     }
@@ -45,9 +49,9 @@ export function useLegend() {
         title: 'Bangunan',
         type: 'categorical',
         items: [
-          { label: 'Bangunan 3D (LOD2)', color: MAP_COLORS.building, shape: 'fill' },
-          { label: 'Kelurahan, saat kamera jauh', color: MAP_COLORS.overview, shape: 'outline' },
-          { label: 'Titik terpilih', color: MAP_COLORS.selection, shape: 'dot' }
+          { label: 'Bangunan 3D (LOD2)', color: colors.value.building, shape: 'fill' },
+          { label: 'Kelurahan, saat kamera jauh', color: colors.value.overview, shape: 'outline' },
+          { label: 'Titik terpilih', color: colors.value.selection, shape: 'dot' }
         ]
       }
     ];

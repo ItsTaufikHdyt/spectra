@@ -33,6 +33,7 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useCesium } from '@/composables/useCesium';
 import { useLayers } from '@/composables/useLayers';
+import { releaseTheme, startTheme } from '@/composables/useTheme';
 import { use3DTiles } from '@/composables/use3DTiles';
 import { releaseSimulation } from '@/composables/useSimulation';
 import { useVectorLayers } from '@/composables/useVectorLayers';
@@ -46,7 +47,7 @@ const errorMessage = ref('');
 const containerEl = ref(null); // elemen DOM biasa, bukan objek Cesium
 
 const { initViewer, destroyViewer } = useCesium();
-const { initBasemaps } = useLayers();
+const { initBasemaps, releaseLayers } = useLayers();
 const { load3DTiles, unload3DTiles, setupTilePicking, zoomToBontangKuala } = use3DTiles();
 const simulationStore = useSimulationStore();
 const { startVectorLayers, releaseVectorLayers } = useVectorLayers();
@@ -58,6 +59,8 @@ let disposed = false;
 const teardown = () => {
   releasePerfDebug();
   releaseRenderQuality();
+  releaseTheme();
+  releaseLayers();
   releaseSimulation();
   simulationStore.reset();
   releaseVectorLayers();
@@ -73,6 +76,7 @@ const start = async () => {
     teardown(); // sisa percobaan sebelumnya (jika ada)
     containerEl.value?.replaceChildren(); // panel error/canvas parsial dari init yang gagal
     await initViewer(containerEl.value);
+    startTheme(); // warna globe/latar dan gaya bangunan mengikuti tema
     startRenderQuality(); // resolusi, anti-aliasing, efek sesuai Mode tampilan
   } catch (err) {
     console.error('[CesiumCanvas] Viewer gagal diinisialisasi:', err);

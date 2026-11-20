@@ -3,22 +3,23 @@ export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      // Token desain Digital Twin Bontang. Kontras teks diuji terhadap WCAG AA (>= 4,5:1)
-      // pada ink/panel/raised; jangan pakai `subtle` untuk teks di bawah 12 px.
+      // Token desain Digital Twin Bontang: nilai per tema (terang/gelap) ada di CSS variable `--bontang-*`
+      // (src/assets/main.css). Kontras teks diuji WCAG AA (>= 4,5:1); jangan pakai `subtle` untuk teks < 12 px.
       colors: {
         bontang: {
-          ink: '#0D1820', // latar aplikasi
-          panel: '#122230', // panel kiri/kanan, header
-          raised: '#19303F', // kartu, kontrol aktif
-          line: '#284556', // garis pemisah (dekoratif)
-          edge: '#557688', // batas kontrol interaktif (>= 3:1)
-          text: '#E4ECF0',
-          muted: '#9DB2BE',
-          subtle: '#869EAC',
-          accent: '#F0B43C', // amber "pelampung": satu-satunya aksen UI
-          'accent-ink': '#1A1203', // teks di atas aksen
-          danger: '#F08A7E',
-          ok: '#7FD1A8'
+          'ink': 'rgb(var(--bontang-ink) / <alpha-value>)',
+          'panel': 'rgb(var(--bontang-panel) / <alpha-value>)',
+          'raised': 'rgb(var(--bontang-raised) / <alpha-value>)',
+          'line': 'rgb(var(--bontang-line) / <alpha-value>)',
+          'edge': 'rgb(var(--bontang-edge) / <alpha-value>)',
+          'text': 'rgb(var(--bontang-text) / <alpha-value>)',
+          'muted': 'rgb(var(--bontang-muted) / <alpha-value>)',
+          'subtle': 'rgb(var(--bontang-subtle) / <alpha-value>)',
+          'accent': 'rgb(var(--bontang-accent) / <alpha-value>)',
+          'accent-ink': 'rgb(var(--bontang-accent-ink) / <alpha-value>)',
+          'danger': 'rgb(var(--bontang-danger) / <alpha-value>)',
+          'ok': 'rgb(var(--bontang-ok) / <alpha-value>)',
+          'warn': 'rgb(var(--bontang-warn) / <alpha-value>)'
         }
       },
       fontFamily: {

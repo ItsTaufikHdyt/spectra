@@ -2,7 +2,8 @@ import * as Cesium from 'cesium';
 import { effectScope, shallowRef, watch } from 'vue';
 import { requestRender, viewer } from './useCesium';
 import { useMapStore } from '@/stores/mapStore';
-import { MAP_COLORS } from '@/utils/mapColors';
+import { useThemeStore } from '@/stores/themeStore';
+import { getMapColors } from '@/utils/mapColors';
 
 /**
  * Layer vektor batas kelurahan, batas RT, dan sungai.
@@ -25,18 +26,22 @@ export const VECTOR_LAYERS = Object.freeze([
 /** Fitur bernama "Drainase …" digambar beda (kategori belum diputuskan; data tidak diubah). */
 export const isDrainase = (props) => String(props?.nama ?? '').startsWith('Drainase');
 
+// Warna mengikuti tema (utils/mapColors.js); `colors` = getMapColors(tema aktif).
 const STYLE = {
-  kelurahan: () => ({ color: MAP_COLORS.kelurahan, width: 2.5 }),
-  rt: () => ({ color: MAP_COLORS.rt, width: 1.25 }),
-  sungai: (props) =>
-    isDrainase(props) ? { color: MAP_COLORS.drainase, width: 2 } : { color: MAP_COLORS.sungai, width: 3 }
+  kelurahan: (_props, colors) => ({ color: colors.kelurahan, width: 2.5 }),
+  rt: (_props, colors) => ({ color: colors.rt, width: 1.25 }),
+  sungai: (props, colors) =>
+    isDrainase(props) ? { color: colors.drainase, width: 2 } : { color: colors.sungai, width: 3 }
 };
+
+const currentColors = () => getMapColors(useThemeStore().theme);
 
 // ---------------------------------------------------------------------------
 // State tingkat modul. Objek Cesium di Map biasa (BUKAN ref/reactive).
 // ---------------------------------------------------------------------------
 const sources = new Map(); // key -> CustomDataSource
 const loading = new Map(); // key -> Promise
+const materials = new Map(); // css -> ColorMaterialProperty (satu per warna -> batch ground polyline lebih sedikit)
 /** { [key]: pesan error } — hanya teks, aman di shallowRef. */
 const layerErrors = shallowRef({});
 let scope = null; // effectScope terpisah dari siklus hidup komponen
@@ -66,18 +71,18 @@ const linesOf = (geometry) => {
   }
 };
 
+const material = (css) => {
+  if (!materials.has(css)) {
+    materials.set(css, new Cesium.ColorMaterialProperty(Cesium.Color.fromCssColorString(css)));
+  }
+  return materials.get(css);
+};
+
 const buildSource = (key, geojson) => {
   const source = new Cesium.CustomDataSource(`vektor-${key}`);
-  const materials = new Map(); // satu material per warna -> batch ground polyline lebih sedikit
-  const material = (css) => {
-    if (!materials.has(css)) {
-      materials.set(css, new Cesium.ColorMaterialProperty(Cesium.Color.fromCssColorString(css)));
-    }
-    return materials.get(css);
-  };
-
+  const colors = currentColors();
   for (const feature of geojson?.features ?? []) {
-    const { color, width } = STYLE[key](feature.properties);
+    const { color, width } = STYLE[key](feature.properties, colors);
     for (const line of linesOf(feature.geometry)) {
       if (!Array.isArray(line) || line.length < 2) continue;
       source.entities.add({
@@ -93,6 +98,20 @@ const buildSource = (key, geojson) => {
     }
   }
   return source;
+};
+
+/** Terapkan warna tema aktif pada semua entity yang sudah dibuat (ganti tema tanpa memuat ulang data). */
+const restyleAll = () => {
+  const colors = currentColors();
+  const now = Cesium.JulianDate.now();
+  for (const [key, source] of sources) {
+    for (const entity of source.entities.values) {
+      const props = entity.properties?.getValue(now) ?? {};
+      const { color } = STYLE[key](props, colors);
+      if (entity.polyline) entity.polyline.material = material(color);
+    }
+  }
+  requestRender();
 };
 
 /** Muat satu layer sekali (lazy); pemanggilan berikutnya memakai hasil yang sama. */
@@ -156,6 +175,7 @@ export const releaseVectorLayers = () => {
   }
   sources.clear();
   loading.clear();
+  materials.clear();
   requestRender();
   layerErrors.value = {};
 };
@@ -166,6 +186,7 @@ if (import.meta.hot) {
 
 export function useVectorLayers() {
   const mapStore = useMapStore();
+  const themeStore = useThemeStore();
 
   /** Mulai sinkronisasi toggle -> layer. Aman dipanggil ulang. */
   const startVectorLayers = () => {
@@ -173,6 +194,7 @@ export function useVectorLayers() {
     // effectScope(true) = detached: watcher tidak ikut berhenti bersama komponen pemanggil.
     scope = effectScope(true);
     scope.run(() => {
+      watch(() => themeStore.theme, restyleAll);
       for (const layer of VECTOR_LAYERS) {
         watch(
           () => mapStore[layer.flag],

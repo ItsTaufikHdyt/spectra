@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Token tema. Bawaan = gelap (sebelum data-theme dipasang); skrip di index.html dan themeStore mengatur data-theme. */
+:root, html[data-theme="gelap"] {
+  --bontang-ink: 13 24 32;
+  --bontang-panel: 18 34 48;
+  --bontang-raised: 25 48 63;
+  --bontang-line: 40 69 86;
+  --bontang-edge: 95 129 148;
+  --bontang-text: 228 236 240;
+  --bontang-muted: 157 178 190;
+  --bontang-subtle: 134 158 172;
+  --bontang-accent: 106 168 255;
+  --bontang-accent-ink: 10 20 36;
+  --bontang-danger: 240 138 126;
+  --bontang-ok: 127 209 168;
+  --bontang-warn: 240 180 60;
+}
+html[data-theme="terang"] {
+  --bontang-ink: 234 239 242;
+  --bontang-panel: 255 255 255;
+  --bontang-raised: 243 246 248;
+  --bontang-line: 213 222 228;
+  --bontang-edge: 108 133 147;
+  --bontang-text: 13 24 32;
+  --bontang-muted: 68 96 111;
+  --bontang-subtle: 86 111 126;
+  --bontang-accent: 29 91 200;
+  --bontang-accent-ink: 255 255 255;
+  --bontang-danger: 180 35 24;
+  --bontang-ok: 27 107 69;
+  --bontang-warn: 143 94 0;
+}
+
 html, body, #app {
   width: 100%;
   height: 100%;
@@ -10,9 +42,9 @@ html, body, #app {
   overflow: hidden;
 }
 
-/* Fokus keyboard selalu terlihat, memakai satu-satunya warna aksen. */
+/* Fokus keyboard selalu terlihat, memakai warna aksen. */
 :focus-visible {
-  outline: 2px solid theme('colors.bontang.accent');
+  outline: 2px solid rgb(var(--bontang-accent));
   outline-offset: 2px;
 }
 
@@ -29,12 +61,15 @@ html, body, #app {
   bottom: 6px;
   padding: 0 6px;
   border-radius: 4px;
-  background: rgba(13, 24, 32, 0.72);
+  background: rgb(var(--bontang-panel) / 0.82);
 }
 .cesium-widget-credits {
   font-family: inherit;
   font-size: 11px;
-  color: theme('colors.bontang.muted');
+  color: rgb(var(--bontang-muted));
+}
+.cesium-widget-credits a {
+  color: rgb(var(--bontang-accent)) !important;
 }
 .cesium-credit-logoContainer {
   display: none !important; /* logo Cesium dekoratif; atribusi teks tetap tampil */

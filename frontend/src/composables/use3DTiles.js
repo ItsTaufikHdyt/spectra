@@ -8,7 +8,9 @@ import { useRemoteLayerStore } from '@/stores/remoteLayerStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { describeRemotePick } from './useRemoteLayers';
 import { parseContentUrl, pickFirst, readFeatureProperties, slugToName } from '@/utils/tileMeta';
-import { MAP_COLORS } from '@/utils/mapColors';
+import { useThemeStore } from '@/stores/themeStore';
+import { getMapColors } from '@/utils/mapColors';
+import { attachTileset, clearHighlight, detachTileset, highlightFeature } from './tilesetStyle';
 
 /** Master tileset 15 kelurahan (dibuat oleh data-pipeline/scripts/04_build_master.py). */
 export const MASTER_TILESET_URL = '/tiles/master-tileset.json';
@@ -43,8 +45,9 @@ export const TILESET_OPTIONS = Object.freeze({
 
 // Ikhtisar kelurahan (LOD kasar sisi klien) — lihat buildKelurahanOverview().
 const OVERVIEW_ID_PREFIX = 'ikhtisar-kelurahan:';
-const OVERVIEW_COLOR = Cesium.Color.fromCssColorString(MAP_COLORS.overview);
-const SELECTION_COLOR = Cesium.Color.fromCssColorString(MAP_COLORS.selection);
+// Warna mengikuti tema (utils/mapColors.js); sorotan fitur diatur oleh composables/tilesetStyle.js.
+const themeColors = () => getMapColors(useThemeStore().theme);
+const css = (hex) => Cesium.Color.fromCssColorString(hex);
 // Nominal tinggi layar untuk memperkirakan jarak hilangnya bangunan (piksel).
 const NOMINAL_SCREEN_HEIGHT = 1080;
 
@@ -69,25 +72,10 @@ let visibilityScope = null; // effectScope terpisah dari siklus hidup komponen
 let loadingPromise = null;
 let loadGeneration = 0; // membatalkan load yang masih berjalan saat release
 
-// Highlight untuk jalur picking per-feature (hanya bila tile punya property table).
-const highlighted = { feature: null, originalColor: new Cesium.Color() };
-
 // ---------------------------------------------------------------------------
 // Utilitas modul (tanpa ketergantungan pada store)
 // ---------------------------------------------------------------------------
 const isViewerAlive = () => !!viewer.value && !viewer.value.isDestroyed();
-
-const clearFeatureHighlight = () => {
-  const { feature, originalColor } = highlighted;
-  highlighted.feature = null;
-  if (!feature) return;
-  try {
-    feature.color = originalColor;
-  } catch {
-    // Tile sudah di-unload dari cache; tidak ada yang perlu dipulihkan.
-  }
-  requestRender();
-};
 
 const clearSelectionMarker = () => {
   if (selectionMarker && isViewerAlive()) {
@@ -97,7 +85,7 @@ const clearSelectionMarker = () => {
 };
 
 const clearSelectionVisuals = () => {
-  clearFeatureHighlight();
+  clearHighlight(); // sorotan fitur dikelola penyusun style tileset
   clearSelectionMarker();
   requestRender();
 };
@@ -112,8 +100,8 @@ const showSelectionMarker = (cartesian) => {
     position: cartesian,
     point: {
       pixelSize: 12,
-      color: SELECTION_COLOR,
-      outlineColor: Cesium.Color.fromCssColorString('#0D1820'),
+      color: css(themeColors().selection),
+      outlineColor: css(themeColors().markerOutline),
       outlineWidth: 2,
       disableDepthTestDistance: Number.POSITIVE_INFINITY
     }
@@ -204,6 +192,8 @@ const overviewCondition = (k, fovy, sse) =>
  */
 const buildKelurahanOverview = (v, list) => {
   const source = new Cesium.CustomDataSource('ikhtisar-kelurahan');
+  const colors = themeColors();
+  const overview = css(colors.overview);
   const fovy = cameraFovy(v);
   const sse = currentProfile().tilesetSSE;
 
@@ -220,17 +210,17 @@ const buildKelurahanOverview = (v, list) => {
       rectangle: {
         coordinates: rect,
         height: 0, // tinggi eksplisit: outline tidak didukung pada geometri clamp-to-ground
-        material: OVERVIEW_COLOR.withAlpha(0.05),
+        material: overview.withAlpha(0.05),
         outline: true,
-        outlineColor: OVERVIEW_COLOR.withAlpha(0.85),
+        outlineColor: overview.withAlpha(0.85),
         distanceDisplayCondition: showFar
       },
       position: Cesium.Cartesian3.fromRadians((w + e) / 2, (s + n) / 2, 0),
       label: {
         text: k.name,
         font: '600 13px "Public Sans", system-ui, sans-serif',
-        fillColor: Cesium.Color.WHITE,
-        outlineColor: Cesium.Color.fromCssColorString('#0D1820'),
+        fillColor: css(colors.labelFill),
+        outlineColor: css(colors.labelOutline),
         outlineWidth: 3,
         style: Cesium.LabelStyle.FILL_AND_OUTLINE,
         disableDepthTestDistance: Number.POSITIVE_INFINITY,
@@ -256,6 +246,20 @@ const refreshOverviewThresholds = (v, list) => {
   }
 };
 
+/** Terapkan warna tema aktif pada kotak ikhtisar yang sudah ada (ganti tema tanpa membangun ulang). */
+const restyleOverview = () => {
+  if (!overviewSource) return;
+  const colors = themeColors();
+  const overview = css(colors.overview);
+  for (const entity of overviewSource.entities.values) {
+    entity.rectangle.material = overview.withAlpha(0.05);
+    entity.rectangle.outlineColor = overview.withAlpha(0.85);
+    entity.label.fillColor = css(colors.labelFill);
+    entity.label.outlineColor = css(colors.labelOutline);
+  }
+  requestRender();
+};
+
 /** Slug kelurahan bila objek pick adalah entity ikhtisar; selain itu null. */
 const overviewSlugOf = (picked) => {
   const id = picked?.id?.id;
@@ -279,6 +283,7 @@ const releaseResources = () => {
   loadGeneration++; // batalkan load yang sedang berjalan
   teardownTilePicking();
   clearSelectionVisuals();
+  detachTileset(); // lepas referensi tileset di penyusun style sebelum tileset dihancurkan
 
   visibilityScope?.stop();
   visibilityScope = null;
@@ -313,6 +318,7 @@ export function use3DTiles() {
   const objectStore = useObjectStore();
   const remoteLayerStore = useRemoteLayerStore();
   const settingsStore = useSettingsStore();
+  const themeStore = useThemeStore();
 
   const startVisibilitySync = () => {
     if (visibilityScope) return;
@@ -327,6 +333,7 @@ export function use3DTiles() {
           if (!obj) clearSelectionVisuals();
         }
       );
+      watch(() => themeStore.theme, restyleOverview);
       watch(
         () => settingsStore.level,
         () => {
@@ -384,6 +391,7 @@ export function use3DTiles() {
         v.scene.primitives.add(tileset);
         tileset.show = mapStore.is3DTilesActive;
         tilesetRef.value = tileset;
+        attachTileset(tileset, themeStore.theme); // gaya warna bangunan: hanya lewat penyusun style
         startVisibilitySync();
 
         // Daftar kelurahan untuk navigasi; kegagalan di sini tidak boleh menggagalkan tileset.
@@ -472,10 +480,8 @@ export function use3DTiles() {
     });
 
     if (feature) {
-      // Highlight warna aksen pada fitur terpilih (jalur property table).
-      if (Cesium.defined(feature.color)) Cesium.Color.clone(feature.color, highlighted.originalColor);
-      highlighted.feature = feature;
-      feature.color = SELECTION_COLOR.withAlpha(0.85);
+      // Sorotan amber pada fitur terpilih (jalur property table), lewat penyusun style tileset.
+      highlightFeature(feature);
     } else {
       // Tanpa feature table, bangunan tidak bisa di-highlight per objek -> beri penanda titik.
       showSelectionMarker(cartesian);

@@ -5,17 +5,17 @@
       <h2 id="judul-peta-dasar" class="text-small font-semibold text-bontang-muted">Peta dasar</h2>
       <div role="group" aria-labelledby="judul-peta-dasar" class="grid grid-cols-2 gap-1 p-1 rounded-lg bg-bontang-ink border border-bontang-line">
         <button
-          v-for="b in BASEMAPS"
+          v-for="b in BASEMAP_CHOICES"
           :key="b.id"
           type="button"
-          :aria-pressed="mapStore.activeBasemap === b.id"
+          :aria-pressed="themeStore.basemapMode === b.id"
           class="px-2 py-1.5 rounded-md font-medium"
           :class="
-            mapStore.activeBasemap === b.id
+            themeStore.basemapMode === b.id
               ? 'bg-bontang-raised text-bontang-text ring-1 ring-inset ring-bontang-accent'
               : 'text-bontang-muted hover:text-bontang-text'
           "
-          @click="mapStore.setBasemap(b.id)"
+          @click="themeStore.setBasemapMode(b.id)"
         >
           {{ b.label }}
         </button>
@@ -105,6 +105,9 @@
 <script setup>
 import { ref } from 'vue';
 import { useMapStore } from '@/stores/mapStore';
+import { useThemeStore } from '@/stores/themeStore';
+import { BASEMAPS } from '@/config/basemaps';
+import { BASEMAP_AUTO } from '@/utils/theme';
 import { use3DTiles } from '@/composables/use3DTiles';
 import { useVectorLayers } from '@/composables/useVectorLayers';
 import { formatNumber } from '@/utils/format';
@@ -112,15 +115,13 @@ import SimulationPanel from '@/components/simulation/SimulationPanel.vue';
 import GeoportalPanel from '@/components/panels/GeoportalPanel.vue';
 import DisplaySettings from '@/components/panels/DisplaySettings.vue';
 
-const BASEMAPS = [
-  { id: 'arcgis', label: 'Citra satelit' },
-  { id: 'osm', label: 'OpenStreetMap' }
-];
+// 'Otomatis' mengikuti tema; pilihan manual tersimpan dan tidak tertimpa saat tema berganti.
+const BASEMAP_CHOICES = [{ id: BASEMAP_AUTO, label: 'Otomatis' }, ...BASEMAPS.map(({ id, label }) => ({ id, label }))];
 
 // Toggle layer; `flag` = nama state di mapStore.
 const LAYER_ROWS = [
   { id: 'bangunan', flag: 'is3DTilesActive', label: 'Bangunan 3D', note: 'LOD2, 15 kelurahan. Dari jauh tampil sebagai kotak kelurahan.' },
-  { id: 'kelurahan', flag: 'isKelurahanActive', label: 'Batas kelurahan', note: 'Garis putih tebal.' },
+  { id: 'kelurahan', flag: 'isKelurahanActive', label: 'Batas kelurahan', note: 'Garis tebal.' },
   { id: 'rt', flag: 'isRtActive', label: 'Batas RT', note: 'Termasuk RT di pulau. Dimuat saat dinyalakan.' },
   { id: 'sungai', flag: 'isSungaiActive', label: 'Sungai dan drainase', note: 'Sungai biru; drainase hijau toska.' }
 ];
@@ -130,6 +131,7 @@ const UPCOMING_LAYERS = [
   { label: 'Orthophoto', note: 'Foto udara resolusi 5 cm.' }
 ];
 
+const themeStore = useThemeStore();
 const mapStore = useMapStore();
 const { tilesetRef, kelurahanList, loadError, zoomToKota, flyToKelurahan } = use3DTiles();
 const { layerErrors } = useVectorLayers();

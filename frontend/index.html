@@ -10,6 +10,17 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap"
     />
+    <script>
+      // Pasang tema sebelum render pertama (tanpa kilatan). Logika sama dengan src/utils/theme.js.
+      (function () {
+        var t = 'sistem';
+        try { t = localStorage.getItem('spectra.theme') || 'sistem'; } catch (e) {}
+        var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = t === 'terang' || t === 'gelap' ? t : dark ? 'gelap' : 'terang';
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme === 'terang' ? 'light' : 'dark';
+      })();
+    </script>
     <title>Digital Twin Kota Bontang</title>
   </head>
   <body class="bg-bontang-ink text-bontang-text font-sans antialiased overflow-hidden">

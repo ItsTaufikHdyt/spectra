@@ -25,6 +25,7 @@
         <span>{{ statusText }}</span>
       </p>
       <p class="hidden lg:block text-caption text-bontang-subtle">Terrain dan atribut bangunan belum tersedia</p>
+      <ThemeToggle />
       <button
         type="button"
         class="p-2 rounded-md text-bontang-muted hover:text-bontang-text hover:bg-bontang-raised"
@@ -46,6 +47,7 @@
 import { computed } from 'vue';
 import { use3DTiles } from '@/composables/use3DTiles';
 import { formatNumber } from '@/utils/format';
+import ThemeToggle from '@/components/layout/ThemeToggle.vue';
 
 defineProps({
   leftOpen: { type: Boolean, required: true },
