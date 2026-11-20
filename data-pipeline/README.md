@@ -1,10 +1,33 @@
-# data-pipeline — pipeline bangunan (uji coba)
+# data-pipeline — pipeline bangunan
 
 CityGML (`raw/citygml/`, read-only) → PostGIS dev → CityJSONSeq → `tyler` → 3D Tiles (`processed/3dtiles_v2/`).
-Status: **uji coba satu kelurahan (Bontang Lestari)**. Registri ID yang diterbitkan **bukan resmi** (status `uji_coba`),
-tidak diekspor ke `config/`, dan basis data dev boleh di-reset kapan saja. Lihat ADR-001..006 di `docs/adr/`.
+Status: **impor resmi seluruh 15 kelurahan selesai (2026-11-20)**: 51.873 bangunan ber-ID resmi `BTG-BLD-000001`..`BTG-BLD-051873`.
+Registri: `config/registri_id.csv` (+ `.sha256`). **ID resmi tidak boleh diterbitkan ulang atau diedit.** Lihat ADR-001..007 di `docs/adr/`.
+Bagian 1–6 di bawah menjelaskan tiap langkah; bagian **Impor penuh (resmi)** merangkum urutannya. `scripts/citygml/muat.py` adalah jalur uji coba
+satu kelurahan (registri berstatus `uji_coba`), bukan untuk registri resmi.
 
 Semua perintah dari root repo.
+
+## Impor penuh (resmi) — urutan
+Semua perintah dari root repo, dengan `PY=data-pipeline/.venv/bin/python`. **Langkah `terbit` hanya SATU KALI** (sudah dijalankan 2026-11-20); jangan diulang.
+1. **Persiapan:** simpan baseline hash `raw/citygml` ke `reports/hash_baseline_raw_citygml.txt` (`find … -name '*.gml' | sort | xargs sha256sum`);
+   `data-pipeline/docker/db.sh naik`; (database baru: `db.sh reset --ya`); `$PY data-pipeline/db/migrate.py` (migrasi 0001–0005); periksa
+   `config/citygml_sources.yaml` (31 berkas; koreksi EPSG 32748→32650 hanya untuk Guntung Part I/II dan Satimpo, dengan `alasan_koreksi`).
+2. **Staging (belum ada ID):** `$PY data-pipeline/scripts/citygml/impor_resmi.py staging` (±5 menit) lalu `... analisis` (jumlah per berkas vs inventaris,
+   duplikat dalam batch, posisi vs `batas-kelurahan.norm.geojson`, Z dasar, Berebas Tengah). Laporan di `reports/impor_resmi_*`.
+3. **Keputusan:** tulis/ubah `config/keputusan_duplikat.yaml` (ADR-007) lalu `... keputusan` (menerapkan keputusan + mengisi `kelurahan_administratif`).
+4. **Terbit ID resmi (SATU KALI):** buat cadangan dulu (`db.sh dump data-pipeline/backups/<nama>.dump`), lalu
+   `$PY data-pipeline/scripts/citygml/impor_resmi.py terbit --batch <N> --ya-terbitkan-id-resmi`. Menolak bila registri tidak kosong.
+5. **Registri dan stabilitas:** `... ekspor-registri` (→ `config/registri_id.csv` + `.sha256`); `... stabilitas` (impor kedua, HANYA BACA; harus 0 ID baru dan registri tidak berubah).
+6. **Ekspor dan validasi (per kelurahan):** `$PY data-pipeline/scripts/citygml/ekspor.py --slug <slug> [--validasi]`
+   (validasi skema CityJSON; ±50 detik per 2.000 bangunan, bisa paralel per berkas dengan `validasi_cityjson.py`).
+7. **Tile:** `$PY data-pipeline/scripts/citygml/buat_tile.py --slug <slug>` (warna dari `config/citygml_sources.yaml`, `#B1BAC2`); master:
+   `python3 data-pipeline/scripts/04_build_master.py --v2 <slug> … (semua slug) --master-out data-pipeline/processed/3dtiles_v2/master-tileset.json`.
+8. **Verifikasi:** `node data-pipeline/scripts/citygml/verifikasi_tile.cjs <folder> <json>` per kelurahan, `node data-pipeline/scripts/citygml/fitur_glb.cjs` (segitiga per fitur, tile lama dan v2),
+   lalu `$PY data-pipeline/scripts/citygml/laporan_verifikasi.py` → `reports/impor_resmi_verifikasi.{md,json}`.
+9. **Uji tampil dan sinkron ke frontend:** bagian 6 di bawah; `node data-pipeline/scripts/citygml/uji_impor_resmi.cjs klik|fps`
+   (hasil: `reports/uji_tampil_impor_resmi/README.md`).
+Catatan perilaku tyler: `jumlah_lantai`/`luas_tapak` kosong disimpan sebagai `noData` (bukan 0); kolom properti dihilangkan dari tile yang tidak punya satu nilai pun.
 
 ## 1. Basis data PostGIS dev
 Kontainer sendiri (`spectra-postgis-dev`, image `geonode/postgis:15-3.5-latest`, volume `spectra_pgdata_dev`,
@@ -77,6 +100,18 @@ Hash berkas yang tidak boleh berubah disimpan di `reports/hash_baseline_*.txt` (
 `sha256sum -c` dari root repo (untuk `3dtiles_lama` dan `public_tiles`: dari dalam folder masing-masing). Catatan: baseline
 pertama dibuat 2026-11-20 setelah baseline awal di `/tmp` hilang; untuk tahap berikutnya buat baseline **sebelum** mulai bekerja.
 
+## Cadangan dan pemulihan database (`backups/`, di-ignore git)
+Cadangan: `data-pipeline/docker/db.sh dump data-pipeline/backups/<nama>.dump` (`pg_dump -Fc` di dalam kontainer). Cadangan impor resmi:
+`backups/spectra_dev_pra_terbit_batch1.dump` (staging sebelum ID terbit) dan `backups/spectra_dev_pasca_terbit_batch1.dump` (51.873 ID resmi).
+Pemulihan **ke database kosong** (uji 2026-11-20: 51.873 registri, 51.873 bangunan, 51.888 staging pulih utuh):
+```
+data-pipeline/docker/db.sh naik
+data-pipeline/docker/db.sh reset --ya                 # HANYA bila ingin mengosongkan database dev (menghapus data!)
+data-pipeline/docker/db.sh restore data-pipeline/backups/spectra_dev_pasca_terbit_batch1.dump
+```
+Bila `restore` ke database yang sudah berisi skema, kosongkan dulu (`reset --ya`) agar tidak bentrok; `restore` memakai `pg_restore --no-owner`.
+Registri ID juga ada di `config/registri_id.csv` (+ `.sha256`, di-commit) sebagai jaring pengaman bila basis data hilang.
+
 ## Uji
 `data-pipeline/.venv/bin/python data-pipeline/scripts/citygml/test_citygml.py` dan `test_registri.py` (tanpa jaringan/DB).
 
@@ -87,6 +122,27 @@ pertama dibuat 2026-11-20 setelah baseline awal di `/tmp` hilang; untuk tahap be
   kemungkinan **cerobong**, bukan gedung; jumlah lantainya tidak bermakna. Jangan dipakai untuk statistik hunian tanpa penyaringan.
 - Bangunan Berebas Tengah (CityGML 3.0) tidak punya `jumlah_lantai`; tile lama dan uji coba ini belum menguji berkas itu.
 - ID `BTG-BLD-xxxxxx` pada basis data dev berstatus `uji_coba` dan **bukan** ID resmi.
+
+## Flag QC (`qc_flag` di `core.bangunan`)
+Dipasang oleh pipeline (parser/pembersihan `citygml/bangunan.py`, `impor_resmi.py keputusan`); bukan perubahan manual. Jumlah pada impor resmi (51.873 bangunan) di `reports/impor_resmi_verifikasi.md`.
+
+| Flag | Arti |
+|---|---|
+| `epsg_dikoreksi` | Label EPSG berkas (32748) dikoreksi ke 32650 lewat konfigurasi eksplisit |
+| `tanpa_geometri` | Bangunan tanpa poligon |
+| `z_dasar_tidak_nol_di_sumber` | Z dasar sumber (Zmin) \|z\| > 5 cm; dinormalkan ke 0, nilai asli di `z_dasar_sumber` |
+| `tanpa_footprint` | Tidak ada permukaan lantai; `luas_tapak` NULL, pusat dari bounding box (aturan footprint kosong ADR-003) |
+| `footprint_kurang_2m2` | Luas footprint < 2 m² (hanya ditandai) |
+| `footprint_mikro` | Luas footprint **mentah** < 0,01 m² (serpihan; `luas_tapak` terbulatkan 0,00 atau 0,01). Ambang `AMBANG_TAPAK_MIKRO` di `citygml/bangunan.py`; data lama diberi flag lewat `impor_resmi.py qc-ulang` (hanya `qc_flag`; ID, registri, geometri, tile tidak berubah). Impor resmi: 22 bangunan (18 masuk tile) |
+| `footprint_diperbaiki` | Footprint tidak valid diperbaiki (`make_valid`) |
+| `tinggi_kurang_0_1m` | Tinggi < 0,1 m: tidak masuk tile |
+| `tinggi_lebih_40m` | Tinggi > 40 m (perlu ditinjau; mis. cerobong) |
+| `tanpa_atap` | Tidak ada permukaan atap |
+| `tinggi_sumber_nol` / `tinggi_sumber_beda` | `measuredHeight` sumber 0 / beda > 5 cm dari tinggi hitung |
+| `gml_id_bentrok` | `gml_id` sama dengan bangunan lain dalam batch kelurahan yang sama (bukan kunci) |
+| `kelurahan_beda_dengan_sumber` | `kelurahan_administratif` ≠ `slug` sumber (ADR-007) |
+| `atribut_dari_duplikat` | `jumlah_lantai` diisi dari salinan duplikat yang dikecualikan (ADR-007) |
+| `duplikat_kepercayaan_rendah` | Dipertahankan atas keputusan duplikat berkepercayaan rendah (ADR-007) |
 
 ## Catatan
 - Validasi skema memakai `jsonschema` + skema lokal (`schemas/cityjson-2.0/`), bukan `cjio validate`: `cjvalpy` tidak punya wheel Linux
