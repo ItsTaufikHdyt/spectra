@@ -1,9 +1,8 @@
 <template>
-  <div class="p-4 space-y-6 text-body">
+  <div class="space-y-3 text-body">
     <!-- Peta dasar -->
-    <section aria-labelledby="judul-peta-dasar" class="space-y-2">
-      <h2 id="judul-peta-dasar" class="text-small font-semibold text-bontang-muted">Peta dasar</h2>
-      <div role="group" aria-labelledby="judul-peta-dasar" class="grid grid-cols-2 gap-1 p-1 rounded-lg bg-bontang-ink border border-bontang-line">
+    <UiCard title="Peta dasar">
+      <div role="group" aria-label="Peta dasar" class="grid grid-cols-2 gap-1 p-1 rounded-lg bg-bontang-ink border border-bontang-line">
         <button
           v-for="b in BASEMAP_CHOICES"
           :key="b.id"
@@ -20,14 +19,13 @@
           {{ b.label }}
         </button>
       </div>
-    </section>
+    </UiCard>
 
     <!-- Mode tampilan: Hemat / Seimbang / Kualitas -->
-    <DisplaySettings />
+    <UiCard title="Mode tampilan" collapsible><DisplaySettings /></UiCard>
 
     <!-- Lapisan -->
-    <section aria-labelledby="judul-lapisan" class="space-y-2">
-      <h2 id="judul-lapisan" class="text-small font-semibold text-bontang-muted">Lapisan</h2>
+    <UiCard title="Lapisan">
       <ul class="rounded-lg border border-bontang-line divide-y divide-bontang-line">
         <li v-for="row in LAYER_ROWS" :key="row.id" class="flex items-start justify-between gap-3 p-3">
           <div>
@@ -60,19 +58,13 @@
           <span class="shrink-0 px-2 py-0.5 rounded-full border border-bontang-line text-caption text-bontang-muted">Segera hadir</span>
         </li>
       </ul>
-    </section>
+    </UiCard>
 
     <!-- Layer dari geoportal (WFS/CSW lewat backend) -->
-    <GeoportalPanel />
+    <UiCard title="Data geoportal" collapsible><GeoportalPanel /></UiCard>
 
     <!-- Navigasi -->
-    <section aria-labelledby="judul-navigasi" class="space-y-2">
-      <div class="flex items-baseline justify-between">
-        <h2 id="judul-navigasi" class="text-small font-semibold text-bontang-muted">Navigasi</h2>
-        <span v-if="kelurahanList.length" class="text-caption text-bontang-subtle tabular-nums">
-          {{ formatNumber(kelurahanList.length) }} kelurahan
-        </span>
-      </div>
+    <UiCard :title="`Navigasi${kelurahanList.length ? ' · ' + formatNumber(kelurahanList.length) + ' kelurahan' : ''}`" collapsible :start-open="false">
       <button
         type="button"
         :disabled="!tilesetRef"
@@ -95,10 +87,10 @@
         </li>
       </ul>
       <p v-else-if="!loadError" class="text-small text-bontang-muted">Daftar kelurahan muncul setelah model 3D dimuat.</p>
-    </section>
+    </UiCard>
 
     <!-- Simulasi: daftar dari registry src/simulations/ -->
-    <SimulationPanel />
+    <UiCard title="Simulasi" collapsible><SimulationPanel /></UiCard>
   </div>
 </template>
 
@@ -113,6 +105,7 @@ import { useVectorLayers } from '@/composables/useVectorLayers';
 import { formatNumber } from '@/utils/format';
 import SimulationPanel from '@/components/simulation/SimulationPanel.vue';
 import GeoportalPanel from '@/components/panels/GeoportalPanel.vue';
+import UiCard from '@/components/ui/UiCard.vue';
 import DisplaySettings from '@/components/panels/DisplaySettings.vue';
 
 // 'Otomatis' mengikuti tema; pilihan manual tersimpan dan tidak tertimpa saat tema berganti.

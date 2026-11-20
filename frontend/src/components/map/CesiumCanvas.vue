@@ -34,6 +34,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useCesium } from '@/composables/useCesium';
 import { useLayers } from '@/composables/useLayers';
 import { releaseTheme, startTheme } from '@/composables/useTheme';
+import { releaseMapControls, startMapControls } from '@/composables/useMapControls';
 import { use3DTiles } from '@/composables/use3DTiles';
 import { releaseSimulation } from '@/composables/useSimulation';
 import { useVectorLayers } from '@/composables/useVectorLayers';
@@ -59,6 +60,7 @@ let disposed = false;
 const teardown = () => {
   releasePerfDebug();
   releaseRenderQuality();
+  releaseMapControls();
   releaseTheme();
   releaseLayers();
   releaseSimulation();
@@ -76,6 +78,7 @@ const start = async () => {
     teardown(); // sisa percobaan sebelumnya (jika ada)
     containerEl.value?.replaceChildren(); // panel error/canvas parsial dari init yang gagal
     await initViewer(containerEl.value);
+    startMapControls(); // kompas, skala, koordinat kursor
     startTheme(); // warna globe/latar dan gaya bangunan mengikuti tema
     startRenderQuality(); // resolusi, anti-aliasing, efek sesuai Mode tampilan
   } catch (err) {

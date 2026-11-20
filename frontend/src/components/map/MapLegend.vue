@@ -1,19 +1,6 @@
 <template>
-  <div v-if="sections.length" class="w-60 rounded-lg border border-bontang-line bg-bontang-panel/95 text-small shadow-lg">
-    <button
-      type="button"
-      class="w-full flex items-center justify-between px-3 py-2 font-semibold"
-      :aria-expanded="open"
-      aria-controls="isi-legenda"
-      @click="open = !open"
-    >
-      Legenda
-      <svg viewBox="0 0 20 20" class="w-4 h-4 text-bontang-muted motion-safe:transition-transform" :class="open ? '' : 'rotate-180'" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <path d="M5 12.5l5-5 5 5" />
-      </svg>
-    </button>
-
-    <div v-show="open" id="isi-legenda" class="px-3 pb-3 space-y-3 max-h-[40vh] overflow-y-auto">
+  <UiCard v-if="sections.length" title="Legenda" collapsible>
+    <div class="space-y-3 max-h-[40vh] overflow-y-auto text-small">
       <section v-for="s in sections" :key="s.id" class="space-y-1.5">
         <h3 class="text-caption font-semibold text-bontang-muted">{{ s.title }}</h3>
 
@@ -33,15 +20,14 @@
         </div>
       </section>
     </div>
-  </div>
+  </UiCard>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import UiCard from '@/components/ui/UiCard.vue';
 import { useLegend } from '@/composables/useLegend';
 import { formatNumber } from '@/utils/format';
 
-const open = ref(true);
 const { sections } = useLegend();
 
 const swatchClass = (shape) =>

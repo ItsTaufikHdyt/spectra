@@ -1,7 +1,5 @@
 <template>
-  <section aria-labelledby="judul-simulasi" class="space-y-2">
-    <h2 id="judul-simulasi" class="text-small font-semibold text-bontang-muted">Simulasi</h2>
-
+  <div class="space-y-2">
     <ul class="rounded-lg border border-bontang-line divide-y divide-bontang-line">
       <!-- Simulasi terdaftar (registry) -->
       <li v-for="sim in SIMULATIONS" :key="sim.id" class="p-3 space-y-2">
@@ -51,7 +49,7 @@
         <span class="shrink-0 px-2 py-0.5 rounded-full border border-bontang-line text-caption text-bontang-muted">Segera hadir</span>
       </li>
     </ul>
-  </section>
+  </div>
 </template>
 
 <script setup>

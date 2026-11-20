@@ -1,10 +1,8 @@
 <template>
-  <section aria-labelledby="judul-mode-tampilan" class="space-y-2">
-    <h2 id="judul-mode-tampilan" class="text-small font-semibold text-bontang-muted">Mode tampilan</h2>
-
+  <div class="space-y-2">
     <div
       role="group"
-      aria-labelledby="judul-mode-tampilan"
+      aria-label="Mode tampilan"
       class="grid grid-cols-3 gap-1 p-1 rounded-lg bg-bontang-ink border border-bontang-line"
     >
       <button
@@ -42,7 +40,7 @@
         </svg>
       </button>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup>

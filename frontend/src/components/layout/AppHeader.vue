@@ -1,45 +1,49 @@
 <template>
-  <header class="h-[52px] flex items-center gap-3 px-3 border-b border-bontang-line bg-bontang-panel">
+  <header class="flex items-center gap-3 px-4 h-14 shrink-0">
     <button
       type="button"
-      class="p-2 rounded-md text-bontang-muted hover:text-bontang-text hover:bg-bontang-raised"
+      class="hdr-btn"
       :aria-expanded="leftOpen"
       aria-controls="panel-kiri"
       :aria-label="leftOpen ? 'Sembunyikan panel layer' : 'Tampilkan panel layer'"
+      :title="leftOpen ? 'Sembunyikan panel layer' : 'Tampilkan panel layer'"
       @click="$emit('toggle-left')"
     >
-      <svg viewBox="0 0 20 20" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <rect x="2.5" y="3.5" width="15" height="13" rx="2" />
-        <path d="M7.5 3.5v13" />
-      </svg>
+      <UiIcon name="panel-left" />
     </button>
 
-    <div class="min-w-0 flex items-baseline gap-3">
-      <h1 class="text-display font-bold tracking-tight whitespace-nowrap">Digital Twin Bontang</h1>
-      <p class="hidden md:block text-small text-bontang-muted truncate">Kota Bontang, Kalimantan Timur</p>
+    <!-- Identitas spectra -->
+    <div class="flex items-center gap-2 shrink-0" aria-hidden="true">
+      <svg viewBox="0 0 24 24" class="w-6 h-6 text-bontang-accent" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round">
+        <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z" />
+        <path d="M4 7.5l8 4.5 8-4.5M12 12v9" />
+      </svg>
+      <span class="hidden sm:inline text-title font-bold tracking-tight">spectra</span>
     </div>
 
-    <div class="ml-auto flex items-center gap-2">
-      <p class="flex items-center gap-2 px-2.5 py-1 rounded-full bg-bontang-ink border border-bontang-line text-small" role="status">
-        <span class="w-2 h-2 rounded-full" :class="statusDotClass" aria-hidden="true"></span>
-        <span>{{ statusText }}</span>
+    <!-- Judul aplikasi + status: di tengah, menggantikan pil navigasi pada referensi -->
+    <div class="flex-1 min-w-0 flex flex-col items-center text-center leading-tight">
+      <h1 class="text-title md:text-display font-bold tracking-tight truncate max-w-full">Digital Twin Kota Bontang</h1>
+      <p class="flex items-center gap-1.5 text-caption text-bontang-muted" role="status">
+        <span class="w-1.5 h-1.5 rounded-full" :class="statusDotClass" aria-hidden="true"></span>
+        <span class="truncate">{{ statusText }}</span>
       </p>
-      <p class="hidden lg:block text-caption text-bontang-subtle">Terrain dan atribut bangunan belum tersedia</p>
-      <ThemeToggle />
-      <button
-        type="button"
-        class="p-2 rounded-md text-bontang-muted hover:text-bontang-text hover:bg-bontang-raised"
-        :aria-expanded="rightOpen"
-        aria-controls="panel-kanan"
-        :aria-label="rightOpen ? 'Sembunyikan panel informasi' : 'Tampilkan panel informasi'"
-        @click="$emit('toggle-right')"
-      >
-        <svg viewBox="0 0 20 20" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-          <rect x="2.5" y="3.5" width="15" height="13" rx="2" />
-          <path d="M12.5 3.5v13" />
-        </svg>
-      </button>
     </div>
+
+    <div class="hidden md:block flex-1 max-w-[260px]"><KelurahanSearch /></div>
+    <ThemeToggle />
+
+    <!-- < 768 px rail disembunyikan: tombol panel kanan pindah ke header -->
+    <button
+      type="button"
+      class="hdr-btn md:hidden"
+      :aria-expanded="rightOpen"
+      aria-controls="panel-kanan"
+      :aria-label="rightOpen ? 'Sembunyikan panel informasi' : 'Tampilkan panel informasi'"
+      @click="$emit('toggle-right')"
+    >
+      <UiIcon name="panel-right" />
+    </button>
   </header>
 </template>
 
@@ -48,6 +52,8 @@ import { computed } from 'vue';
 import { use3DTiles } from '@/composables/use3DTiles';
 import { formatNumber } from '@/utils/format';
 import ThemeToggle from '@/components/layout/ThemeToggle.vue';
+import KelurahanSearch from '@/components/layout/KelurahanSearch.vue';
+import UiIcon from '@/components/ui/UiIcon.vue';
 
 defineProps({
   leftOpen: { type: Boolean, required: true },
@@ -61,7 +67,6 @@ const status = computed(() => {
   if (loadError.value) return 'error';
   return kelurahanList.value.length ? 'ready' : 'loading';
 });
-
 const statusText = computed(
   () =>
     ({
@@ -70,13 +75,19 @@ const statusText = computed(
       loading: 'Memuat model 3D…'
     })[status.value]
 );
-
 const statusDotClass = computed(
-  () =>
-    ({
-      error: 'bg-bontang-danger',
-      ready: 'bg-bontang-ok',
-      loading: 'bg-bontang-muted motion-safe:animate-pulse'
-    })[status.value]
+  () => ({ error: 'bg-bontang-danger', ready: 'bg-bontang-ok', loading: 'bg-bontang-muted motion-safe:animate-pulse' })[status.value]
 );
 </script>
+
+<style scoped>
+.hdr-btn {
+  padding: 8px;
+  border-radius: 12px;
+  color: rgb(var(--bontang-muted));
+}
+.hdr-btn:hover {
+  color: rgb(var(--bontang-text));
+  background: rgb(var(--bontang-raised));
+}
+</style>

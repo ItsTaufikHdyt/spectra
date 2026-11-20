@@ -1,7 +1,5 @@
 <template>
-  <section aria-labelledby="judul-geoportal" class="space-y-3">
-    <h2 id="judul-geoportal" class="text-small font-semibold text-bontang-muted">Data geoportal</h2>
-
+  <div class="space-y-3">
     <!-- 1. Periksa link WFS / CSW -->
     <form class="space-y-1.5" @submit.prevent="periksa">
       <label for="url-geoportal" class="block text-small text-bontang-muted">Link WFS atau CSW</label>
@@ -109,7 +107,7 @@
         Belum ada layer geoportal. Tempel link WFS atau CSW di atas, lalu pilih layer yang ingin ditampilkan.
       </p>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup>
