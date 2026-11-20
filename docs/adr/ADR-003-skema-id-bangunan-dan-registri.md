@@ -2,7 +2,7 @@
 
 - **Status:** Diterima
 - **Tanggal:** 2026-11-19
-- **Terkait:** ADR-001 (PostGIS), ADR-004 (CityGML), ADR-006 (simulasi merujuk ID bangunan)
+- **Terkait:** ADR-001 (PostGIS), ADR-004 (CityGML), ADR-006 (simulasi merujuk ID bangunan); ADR-007 (duplikat dalam batch pada impor pertama dan kelurahan administratif)
 
 > Skema ID, tabel `core.registri_id`, dan ekspor CSV **direncanakan**; belum ada yang dibuat.
 
