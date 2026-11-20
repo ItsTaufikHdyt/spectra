@@ -7,7 +7,7 @@ import { useObjectStore } from '@/stores/objectStore';
 import { useRemoteLayerStore } from '@/stores/remoteLayerStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { describeRemotePick } from './useRemoteLayers';
-import { parseContentUrl, pickFirst, slugToName } from '@/utils/tileMeta';
+import { parseContentUrl, pickFirst, readFeatureProperties, slugToName } from '@/utils/tileMeta';
 import { MAP_COLORS } from '@/utils/mapColors';
 
 /** Master tileset 15 kelurahan (dibuat oleh data-pipeline/scripts/04_build_master.py). */
@@ -131,19 +131,6 @@ const getClickPosition = (scene, windowPosition) => {
     // Lanjut ke fallback.
   }
   return scene.camera.pickEllipsoid(windowPosition, scene.globe.ellipsoid) ?? null;
-};
-
-/** Baca seluruh properti feature secara dinamis; aman bila tidak ada property table. */
-const readFeatureProperties = (feature) => {
-  const props = {};
-  try {
-    for (const name of feature.getPropertyIds()) {
-      props[name] = feature.getProperty(name);
-    }
-  } catch {
-    // Konten tanpa batch/property table.
-  }
-  return props;
 };
 
 /** Lokasi titik klik (derajat + tinggi elipsoid) dari posisi dunia, atau null. */

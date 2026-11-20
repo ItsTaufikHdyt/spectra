@@ -53,3 +53,24 @@ export function pickFirst(props, candidates) {
   }
   return undefined;
 }
+
+/**
+ * Baca seluruh properti feature 3D Tiles secara dinamis; aman bila tidak ada property table.
+ * Properti bernilai undefined/null dilewati: Cesium mengembalikan undefined untuk nilai `noData`
+ * (mis. jumlah_lantai atau luas_tapak kosong), dan tile tanpa kolom itu sama sekali tidak
+ * punya properti tersebut; keduanya harus tampil sama (baris tidak muncul). Angka 0 dan '' tetap disimpan.
+ * @param {{ getPropertyIds: () => string[], getProperty: (id: string) => unknown }} feature
+ * @returns {Record<string, unknown>}
+ */
+export function readFeatureProperties(feature) {
+  const props = {};
+  try {
+    for (const name of feature.getPropertyIds()) {
+      const value = feature.getProperty(name);
+      if (value !== undefined && value !== null) props[name] = value;
+    }
+  } catch {
+    // Konten tanpa batch/property table.
+  }
+  return props;
+}
