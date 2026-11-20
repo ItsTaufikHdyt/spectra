@@ -166,6 +166,7 @@ Tujuan (ADR-004): satu jalur data bangunan, CityGML → PostGIS → 3D Tiles.
 | 34 | **Keputusan duplikat berkepercayaan rendah** (Gunung Elai Part III; Api Api `BTG-BLD-000046`): dapat ditinjau ulang; salinan yang dikecualikan masih ada di staging. Perubahan setelah ID terbit memakai mekanisme ADR-003. | Rendah | `config/keputusan_duplikat.yaml` |
 | 35 | **tyler menghilangkan kolom properti** dari tile yang tidak punya satu nilai pun (mis. `jumlah_lantai` di 6 dari 7 tile Berebas Tengah) dan memakai `noData` bila tile punya sebagian nilai. Konsumen atribut (backend/frontend) harus menangani kolom hilang dan `noData`. | Rendah | tile v2 |
 | 36 | `frontend/public/tiles/` adalah salinan dev dari `processed/3dtiles/` (ter-ignore git; hash di `reports/hash_baseline_public_tiles_v2.txt`). Cadangan tile lama dihapus bersama tile lama (2026-11-20). Hutang #9 tetap berlaku. | Selesai | `frontend/public/tiles/` |
+| 37 | **Ketentuan pemakaian basemap Esri belum diverifikasi** (layanan Canvas Light/Dark Gray yang dipilih untuk tema terang/gelap **dan citra satelit World_Imagery yang sudah dipakai**) dan harus diperiksa sebelum dipakai publik; metadata Light Gray menyebut "mature support, no longer updated". Alternatif: CARTO Positron/Dark Matter dengan kunci API gratis dari `frontend/.env.local` (`VITE_CARTO_KEY`). Sumber basemap lewat konfigurasi `frontend/src/config/basemaps.js` (redesign UI v2, `docs/desain/spesifikasi-redesign.md` §6). | Sedang | `frontend/src/config/basemaps.js` |
 
 ---
 

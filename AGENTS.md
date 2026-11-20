@@ -155,7 +155,7 @@ Skrip yang ada: `04_build_master.py` (stdlib), serta skrip GeoJSON dan sumber da
 - **Siklus hidup resource Cesium:** `ScreenSpaceEventHandler`, entity, tileset, dan viewer WAJIB dilepas
   saat unmount (`unload3DTiles()` lalu `destroyViewer()` di `onBeforeUnmount`). `watch` yang hidup di
   tingkat modul harus memakai `effectScope(true)` agar tidak ikut berhenti bersama komponen pemanggil.
-- **Picking:** gunakan hanya `LEFT_CLICK` (tanpa `MOUSE_MOVE`/hover). `scene.pick()` mengembalikan
+- **Picking:** `scene.pick`/`drillPick` hanya pada `LEFT_CLICK`; **dilarang pada pergerakan mouse** (tanpa `MOUSE_MOVE`/hover picking). Pengecualian yang diizinkan: koordinat kursor lewat `pointermove` DOM biasa + `camera.pickEllipsoid` yang di-throttle (±100 ms atau per `requestAnimationFrame`), hanya memperbarui teks DOM dan **tanpa `requestRender()`**. `scene.pick()` mengembalikan
   `Cesium3DTileFeature` **hanya jika tile punya property table**; untuk `.glb` tanpa
   `EXT_structural_metadata` (kondisi data saat ini) hasilnya objek biasa `{content, primitive: tileset}`.
   Jangan hanya mengandalkan `instanceof Cesium3DTileFeature`.
