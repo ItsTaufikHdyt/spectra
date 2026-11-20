@@ -1,0 +1,72 @@
+{
+  "url": "http://localhost:3000",
+  "viewport": "1400x850",
+  "renderer": "ANGLE (AMD, AMD Radeon Graphics (radeonsi renoir ACO), OpenGL ES 3.2)",
+  "gpu_idle": 14.5,
+  "pengukuran": [
+    {
+      "tema": "terang",
+      "mode": "hemat",
+      "canvas": "1006x780",
+      "diam": {
+        "fps": 0,
+        "gpu_rata": 2.4,
+        "gpu_maks": 3
+      },
+      "putar": {
+        "fps": 29.9,
+        "gpu_rata": 21.8,
+        "gpu_maks": 28
+      },
+      "galat": 0
+    },
+    {
+      "tema": "terang",
+      "mode": "seimbang",
+      "canvas": "1006x780",
+      "diam": {
+        "fps": 0,
+        "gpu_rata": 2.3,
+        "gpu_maks": 3
+      },
+      "putar": {
+        "fps": 57.7,
+        "gpu_rata": 71.7,
+        "gpu_maks": 88
+      },
+      "galat": 0
+    },
+    {
+      "tema": "gelap",
+      "mode": "hemat",
+      "canvas": "1006x780",
+      "diam": {
+        "fps": 0,
+        "gpu_rata": 2.5,
+        "gpu_maks": 3
+      },
+      "putar": {
+        "fps": 30,
+        "gpu_rata": 21.8,
+        "gpu_maks": 28
+      },
+      "galat": 0
+    },
+    {
+      "tema": "gelap",
+      "mode": "seimbang",
+      "canvas": "1006x780",
+      "diam": {
+        "fps": 0,
+        "gpu_rata": 2.5,
+        "gpu_maks": 3
+      },
+      "putar": {
+        "fps": 57.3,
+        "gpu_rata": 72.3,
+        "gpu_maks": 88
+      },
+      "galat": 0
+    }
+  ]
+}

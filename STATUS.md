@@ -1,6 +1,6 @@
 # STATUS PROYEK — Digital Twin Kota Bontang (`spectra`)
 
-> **Terakhir diperbarui:** 2026-11-20 (impor resmi)
+> **Terakhir diperbarui:** 2026-11-20 (impor resmi; redesign UI v2)
 > **Fase:** Scale-Up Skala Kota — impor resmi seluruh CityGML selesai: **51.873 bangunan ber-ID resmi `BTG-BLD-xxxxxx`** di PostGIS dev, tile untuk 15 kelurahan (51.816 fitur dengan enam atribut) teruji di Chromium headless (SwiftShader dan GPU AMD). **Hanya ada satu jalur data bangunan: CityGML → PostGIS → 3D Tiles** (`processed/3dtiles/`); jalur lama CityJSON sudah diarsipkan di luar repo dan tile lamanya dihapus (2026-11-20). Belum dipakai: backend (atribut bangunan), terrain, simulasi.
 > Dokumen ini adalah sumber kebenaran status implementasi. Perbarui setiap kali ada perubahan berarti.
 
@@ -167,6 +167,7 @@ Tujuan (ADR-004): satu jalur data bangunan, CityGML → PostGIS → 3D Tiles.
 | 35 | **tyler menghilangkan kolom properti** dari tile yang tidak punya satu nilai pun (mis. `jumlah_lantai` di 6 dari 7 tile Berebas Tengah) dan memakai `noData` bila tile punya sebagian nilai. Konsumen atribut (backend/frontend) harus menangani kolom hilang dan `noData`. | Rendah | tile v2 |
 | 36 | `frontend/public/tiles/` adalah salinan dev dari `processed/3dtiles/` (ter-ignore git; hash di `reports/hash_baseline_public_tiles_v2.txt`). Cadangan tile lama dihapus bersama tile lama (2026-11-20). Hutang #9 tetap berlaku. | Selesai | `frontend/public/tiles/` |
 | 37 | **Ketentuan pemakaian basemap Esri belum diverifikasi** (layanan Canvas Light/Dark Gray yang dipilih untuk tema terang/gelap **dan citra satelit World_Imagery yang sudah dipakai**) dan harus diperiksa sebelum dipakai publik; metadata Light Gray menyebut "mature support, no longer updated". Alternatif: CARTO Positron/Dark Matter dengan kunci API gratis dari `frontend/.env.local` (`VITE_CARTO_KEY`). Sumber basemap lewat konfigurasi `frontend/src/config/basemaps.js` (redesign UI v2, `docs/desain/spesifikasi-redesign.md` §6). | Sedang | `frontend/src/config/basemaps.js` |
+| 38 | **Redesign UI v2 selesai (2026-11-20, branch `feat/redesign-ui-v2`):** tema terang/gelap/sistem, basemap per tema, tata letak baru (header, panel kartu, peta bersudut, rail, legenda). Bukti: `frontend/tests/browser/` (`npm run test:browser`, 16 + 52 uji), `ukur_performa.cjs` (Seimbang memutar 57,5 fps / GPU 72% vs sebelum 58,0 / 67,3% pada kanvas 26% lebih besar; Hemat 30 fps / 21,8% vs 29,9 / 20,8%; diam 0 fps), screenshot `docs/desain/tahap3/`, `tahap4/`. **Batasan tersisa:** kontras persentil ke-10 bangunan tema gelap di kawasan padat ±1,3 (sisi bangunan di bayangan di atas basemap gelap; pencahayaan tidak memperbaikinya, §16 spesifikasi); mode 2D sungguhan tidak ada (toggle "Atas" hanya pitch kamera); uji manual tema gelap di layar sentuh belum dilakukan; ketentuan Esri (#37). | Rendah | `docs/desain/spesifikasi-redesign.md` §14–§16 |
 
 ---
 

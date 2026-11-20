@@ -1,0 +1,2 @@
+{"keterangan":"UI sebelum redesign (commit e54a37c), sesi dan perintah sama (ukur_performa.cjs, TEMA=-), ulangan kedua karena run pertama terkontaminasi beban lain. Canvas 784x798, GPU AMD radeonsi renoir.",
+ "pengukuran":[{"mode":"hemat","diam":{"fps":0,"gpu_rata":2.2},"putar":{"fps":29.9,"gpu_rata":20.8}},{"mode":"seimbang","diam":{"fps":0,"gpu_rata":2.8},"putar":{"fps":58.0,"gpu_rata":67.3}}]}

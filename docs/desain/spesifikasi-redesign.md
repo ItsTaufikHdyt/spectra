@@ -228,3 +228,19 @@ Bukti tangkapan layar ada di `docs/desain/uji-tema/`.
 ## 15. Tahap 3: penyimpangan dari rencana §10 (2026-11-20)
 
 Komponen digabung agar lebih ringkas: `map/MapOverlay.vue` memuat toggle 3D/Atas, kontrol peta, skala, dan koordinat; `composables/useMapControls.js` memuat kontrol dan pembacaan kamera (kompas, skala, koordinat); `ui/UiCard.vue` + `ui/UiIcon.vue` menggantikan `UiSegmented/UiSwitch/UiChip/UiIconButton/BasemapCard/View3DCard/LayersCard/NavigationCard` (kartu dibuat langsung di `LayerControl.vue`). `layout/AppRail.vue` kini berisi satu tombol (panel informasi + legenda); `BrandMark` berupa SVG inline di `AppHeader.vue`. Tangkapan layar: `docs/desain/tahap3/`.
+
+## 16. Hasil Tahap 4 (2026-11-20)
+
+**Performa** (`frontend/tests/browser/ukur_performa.cjs`; Loktuan 700 m, pitch −35°, tile v2, Chromium GPU AMD radeonsi; sebelum = UI di `main`, sesi dan skrip sama; data di `docs/desain/tahap4/performa_*.json`):
+
+| Mode | Kondisi | Sebelum (kanvas 784×798) | Sesudah terang / gelap (kanvas 1006×780) |
+|---|---|---|---|
+| Hemat | memutar | 29,9 fps / GPU 20,8% | 29,9 / 21,8% — 30,0 / 21,8% |
+| Seimbang | memutar | 58,0 fps / GPU 67,3% | 57,7 / 71,7% — 57,3 / 72,3% |
+| Keduanya | diam | 0 fps / ±2% | 0 fps / ±2,4% |
+
+fps tidak turun. Beban GPU Seimbang naik ±5 poin karena kanvas 26% lebih luas (panel kanan tertutup); per megapiksel justru lebih rendah (107,6 → 91,8 %/MP). Tema terang dan gelap sama. Wadah bersudut dan overlay tidak menambah beban yang terukur. Batasan: GPU tidak linear terhadap piksel, dan tidak dilakukan uji pembeda (radius 0) karena angka sudah dalam toleransi.
+
+**Kontras tema gelap, kawasan padat** (`ukur_kontras.cjs`; tampilan Loktuan, selisih piksel dengan/tanpa tileset): dasar median 2,27, p10 1,32. Intensitas cahaya matahari ×3: median 2,50, p10 1,33; ×6: median 3,01, p10 1,35 (atap makin putih dan bayangan rata). `lightColor` tidak berefek dan faktor IBL dibatasi ≤ 1 oleh Cesium. **Putusan: tidak diubah**; p10 rendah berasal dari sisi bangunan di bayangan di atas dasar gelap, dan memperbaikinya lewat cahaya hanya meratakan bentuk 3D. Dicatat sebagai batasan (STATUS #38). Angka ini memakai tampilan dan ambang berbeda dari Tahap 2 (4,5/1,8), jadi tidak dapat dibandingkan langsung; yang sebanding hanyalah antar kandidat. Gambar: `docs/desain/tahap4/kontras_gelap_*`.
+
+**Uji otomatis:** `npm run test:browser` (`uji_tema.cjs` 16 uji, `uji_tata_letak.cjs` 52 uji: klik dan sorotan termasuk setelah ganti tema, panel/laci 1440/1024/390, pencarian, 3D/Atas, zoom, kompas, geoportal saat backend 500 dipalsukan). Pembandingan sorotan memakai selisih piksel (ambang sorotan > 150 px; kembali ke dasar: gaya tileset sama dengan tema + selisih < 1.200 px, karena derau LOD tile dan basemap ±5–410 px). **Header 390 px:** nama spectra tetap tampil, judul "Digital Twin Kota Bontang" disembunyikan secara visual (tetap `h1` untuk pembaca layar) di bawah 640 px. Screenshot gelap 1024/390: `docs/desain/tahap3/`.
