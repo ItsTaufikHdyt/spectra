@@ -7,6 +7,7 @@ Bagian 1–6 di bawah menjelaskan tiap langkah; bagian **Impor penuh (resmi)** m
 satu kelurahan (registri berstatus `uji_coba`), bukan untuk registri resmi.
 
 Semua perintah dari root repo.
+**Folder data (`raw/`, `processed/`, `backups/`, `frontend/public/tiles|geojson/`) tidak ada di repo**; tiap folder punya README panduan, dan ringkasannya ada di `README.md` root (tabel "Data yang tidak ada di repo").
 
 ## Impor penuh (resmi) — urutan
 Semua perintah dari root repo, dengan `PY=data-pipeline/.venv/bin/python`. **Langkah `terbit` hanya SATU KALI** (sudah dijalankan 2026-11-20); jangan diulang.
