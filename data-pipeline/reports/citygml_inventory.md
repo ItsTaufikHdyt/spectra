@@ -255,7 +255,7 @@ Cakupan tinggi dan lantai per kelurahan: 100% di 14 kelurahan CityGML 2.0 dan 0%
 | venv `data-pipeline/.venv` | python 3.14.4, shapely 2.2.0, pyproj 3.8.0, pyogrio 0.13.0, geopandas 1.2.0, numpy 2.5.4, pandas 3.1.0, lxml TIDAK ADA, fiona TIDAK ADA, cjio TIDAK ADA di venv |
 | java | openjdk 25.0.2 (/opt/android-studio/jbr/bin/java; JBR Android Studio, bukan JDK sistem) |
 | citygml-tools | TIDAK ADA |
-| cjio | v0.10.1 (/home/itstaufikhdyt/.local/bin/cjio; hanya membaca CityJSON) |
+| cjio | v0.10.1 (~/.local/bin/cjio; hanya membaca CityJSON) |
 | tyler_biner | TIDAK ADA di PATH; cargo/rustc juga tidak ada |
 | tyler_docker | image 3dgi/tyler:latest (349 MB, dibuat 2026-07-27), tyler 1.0.0-alpha1 |
 | gdal | GDAL 3.12.2 (ogr2ogr, ogrinfo); driver GML dan GMLAS, tanpa driver CityGML khusus |
