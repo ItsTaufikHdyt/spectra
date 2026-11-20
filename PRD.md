@@ -33,7 +33,7 @@ keputusan arsitektur di `docs/adr/` (ADR-001 s.d. ADR-006). Hal yang belum diimp
 | `data-pipeline/` | 🟢 **Impor resmi selesai (dev)** | CityGML (`raw/citygml/`, 31 berkas, 51.888 bangunan) → PostGIS → CityJSONSeq → tyler → `processed/3dtiles/` (15 kelurahan, 51.816 fitur). Registri ID resmi di `config/registri_id.csv`. Jalur lama CityJSON diarsipkan di luar repo. Skrip QC/normalisasi GeoJSON dan adapter sumber data (GeoJSON lokal, WFS, CSW) tetap ada. Lihat `STATUS.md`. |
 | `backend/` | 🟡 **FastAPI kecil** | Layer geoportal (inspect WFS/CSW, kelola layer, cache); 20 tes pytest; pencegahan SSRF. **Belum ada** autentikasi, akses PostGIS, dan endpoint atribut bangunan (direncanakan, ADR-005). |
 | PostGIS / basis data | ⚪ **Direncanakan** | Sumber kebenaran data bangunan (ADR-001); belum ada kontainer, migrasi, maupun skema. |
-| Git / Versioning | 🟡 **Lokal** | Branch `master` + `feat/perbaikan-dan-redesign-ui`; **belum ada remote** (tidak ada cadangan di luar mesin ini). Data besar (`raw/`, `processed/`, `public/tiles/`) di-ignore. |
+| Git / Versioning | 🟡 **Lokal** | Branch `main` + `feat/perbaikan-dan-redesign-ui`; **belum ada remote** (tidak ada cadangan di luar mesin ini). Data besar (`raw/`, `processed/`, `public/tiles/`) di-ignore. |
 | Docker / Orkestrasi | 🔴 **Belum ada** | `docker-compose.yml` (PostGIS dev, tyler) direncanakan. Image lokal `3dgi/tyler` dan `geonode/postgis` sudah ada di mesin pengembangan. |
 
 ### 2.2. Keputusan Arsitektur (diterima 2026-11-19; implementasi direncanakan)
