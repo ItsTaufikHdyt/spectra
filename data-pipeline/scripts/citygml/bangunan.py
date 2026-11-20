@@ -13,6 +13,7 @@ LABEL_SUMBER = {"GroundSurface": "G", "RoofSurface": "R", "WallSurface": "W"}
 AMBANG_Z_DASAR = 0.05      # |Z dasar sumber| > 5 cm = tidak nol (dasar normal sumber 0,001 m)
 AMBANG_TINGGI_MIN = 0.1    # m: di bawah ini tidak masuk tile
 AMBANG_TAPAK_MIN = 2.0     # m2
+AMBANG_TAPAK_MIKRO = 0.01  # m2: footprint lebih kecil = serpihan (luas_tapak terbulatkan ke 0,00); flag footprint_mikro
 AMBANG_TINGGI_BEDA = 0.05  # m: selisih tinggi hitung vs measuredHeight sumber
 AMBANG_TINGGI_BESAR = 40.0 # m
 
@@ -98,6 +99,8 @@ def bersihkan(
         hasil.luas_tapak = round(hasil.footprint.area, 2)
         if hasil.luas_tapak < AMBANG_TAPAK_MIN:
             hasil.qc_flag.append("footprint_kurang_2m2")
+        if hasil.footprint.area < AMBANG_TAPAK_MIKRO:  # luas mentah (luas_tapak sudah dibulatkan 2 desimal)
+            hasil.qc_flag.append("footprint_mikro")
         if tidak_valid:
             hasil.qc_flag.append("footprint_diperbaiki")
     if hasil.tinggi < AMBANG_TINGGI_MIN:

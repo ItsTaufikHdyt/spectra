@@ -82,7 +82,7 @@ def main(argv=None) -> int:
         "transform": {"scale": [SKALA, SKALA, SKALA], "translate": [round(tx, 3), round(ty, 3), 0.0]},
         "metadata": {"referenceSystem": "https://www.opengis.net/def/crs/EPSG/0/32650",
                      "geographicalExtent": [round(v, 3) for v in ext],
-                     "title": f"Bangunan {a.slug} (uji coba pipeline CityGML -> PostGIS)"},
+                     "title": f"Bangunan {a.slug} (CityGML -> PostGIS -> CityJSONSeq)"},
         "CityObjects": {}, "vertices": [],
     }
     with open(tujuan, "w", encoding="utf-8") as f:

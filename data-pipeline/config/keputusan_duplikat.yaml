@@ -1,0 +1,68 @@
+# Keputusan duplikat dalam batch impor resmi (ADR-007). Diputuskan pemilik proyek 2026-11-20 atas usulan reports/impor_resmi_duplikat_batch1.md.
+# Dipakai impor_resmi.py (keputusan, terbit, stabilitas) agar impor ulang menerapkan keputusan yang SAMA. Kunci bangunan = slug + sumber_file
+# + gml_id + pusat footprint (m, EPSG:32650, 3 desimal; pusat bounding box bila tanpa footprint). JANGAN diubah setelah ID resmi terbit.
+
+# Salinan yang dikecualikan: TIDAK diberi ID/tidak masuk core.bangunan, tetapi tetap disimpan di staging.bangunan_impor dengan rujukan ke yang dipertahankan.
+kecualikan:
+  - dikecualikan: {slug: api_api, sumber_file: "Model 3D - Kelurahan Api Api.gml", gml_id: "AA_13082025-AAAA-00047-GEOAIBTG01-0765762", pusat: [554713.126, 14557.738]}
+    dipertahankan: {slug: api_api, sumber_file: "Model 3D - Kelurahan Api Api.gml", gml_id: "AA_13082025-AAAA-00047-GEOAIBTG01-0765762", pusat: [554713.116, 14558.046]}
+    alasan: "gml_id sama dan footprint hampir identik (IoU 0,979) dalam satu berkas; dipertahankan yang lebih tinggi; kepercayaan rendah"
+  - dikecualikan: {slug: bontang_baru, sumber_file: "GABUNGAN BONTANG BARU.gml", gml_id: "BB_15062025-AAAA-00507-GeoAI02-91C74BD", pusat: [555444.478, 16080.296]}
+    dipertahankan: {slug: bontang_kuala, sumber_file: "Model 3D - Kelurahan Bontang Kuala.gml", gml_id: "BK_14082025-AAAA-01327-GEOAIT01-7580705", pusat: [555444.542, 16080.301]}
+    alasan: "Salinan ganda antar kelurahan; dipertahankan salinan yang berada di dalam batas kelurahan foldernya (bontang_kuala)"
+  - dikecualikan: {slug: bontang_baru, sumber_file: "GABUNGAN BONTANG BARU.gml", gml_id: "BB_15062025-AAAA-00508-GeoAI02-BEFDAD1", pusat: [555441.063, 16072.79]}
+    dipertahankan: {slug: bontang_kuala, sumber_file: "Model 3D - Kelurahan Bontang Kuala.gml", gml_id: "BK_14082025-AAAA-01104-GEOAIT01-8499682", pusat: [555441.012, 16072.796]}
+    alasan: "Salinan ganda antar kelurahan; dipertahankan salinan yang berada di dalam batas kelurahan foldernya (bontang_kuala)"
+  - dikecualikan: {slug: guntung, sumber_file: "Model 3D - Kelurahan Guntung - Part III.gml", gml_id: "LK_14082025-AAAA-00198-GeoAI09-57C305F", pusat: [551708.376, 11899.146]}
+    dipertahankan: {slug: satimpo, sumber_file: "Model 3D - Kelurahan Satimpo.gml", gml_id: "ST_14062025-AAAA-00292-GeoAI02-91DC09F", pusat: [551708.363, 11899.319]}
+    alasan: "Salinan ganda antar kelurahan; dipertahankan salinan yang berada di dalam batas kelurahan foldernya (satimpo)"
+  - dikecualikan: {slug: guntung, sumber_file: "Model 3D - Kelurahan Guntung - Part III.gml", gml_id: "LK_14082025-AAAA-00199-GeoAI09-252DBFA", pusat: [551707.605, 11878.464]}
+    dipertahankan: {slug: satimpo, sumber_file: "Model 3D - Kelurahan Satimpo.gml", gml_id: "ST_14062025-AAAA-00293-GeoAI02-3E2D131", pusat: [551707.598, 11878.597]}
+    alasan: "Salinan ganda antar kelurahan; dipertahankan salinan yang berada di dalam batas kelurahan foldernya (satimpo)"
+  - dikecualikan: {slug: guntung, sumber_file: "Model 3D - Kelurahan Guntung - Part III.gml", gml_id: "LK_14082025-AAAA-00201-GeoAI09-18D0483", pusat: [551717.801, 11851.199]}
+    dipertahankan: {slug: satimpo, sumber_file: "Model 3D - Kelurahan Satimpo.gml", gml_id: "ST_14062025-AAAA-00294-GeoAI02-889139B", pusat: [551717.925, 11851.299]}
+    alasan: "Salinan ganda antar kelurahan; dipertahankan salinan yang berada di dalam batas kelurahan foldernya (satimpo)"
+  - dikecualikan: {slug: guntung, sumber_file: "Model 3D - Kelurahan Guntung - Part III.gml", gml_id: "LK_14082025-AAAA-00206-GeoAI09-F9F25CD", pusat: [551931.201, 11859.591]}
+    dipertahankan: {slug: satimpo, sumber_file: "Model 3D - Kelurahan Satimpo.gml", gml_id: "ST_14062025-AAAA-00220-GeoAI02-E2364A5", pusat: [551931.334, 11859.088]}
+    alasan: "Salinan ganda antar kelurahan; dipertahankan salinan yang berada di dalam batas kelurahan foldernya (satimpo)"
+  - dikecualikan: {slug: guntung, sumber_file: "Model 3D - Kelurahan Guntung - Part III.gml", gml_id: "LK_14082025-AAAA-00207-GeoAI09-A1F0419", pusat: [551837.118, 11842.775]}
+    dipertahankan: {slug: satimpo, sumber_file: "Model 3D - Kelurahan Satimpo.gml", gml_id: "ST_14062025-AAAA-00290-GeoAI02-68EBAA4", pusat: [551836.821, 11842.807]}
+    alasan: "Salinan ganda antar kelurahan; dipertahankan salinan yang berada di dalam batas kelurahan foldernya (satimpo)"
+  - dikecualikan: {slug: guntung, sumber_file: "Model 3D - Kelurahan Guntung - Part III.gml", gml_id: "LK_14082025-AAAA-00208-GeoAI09-C1F09E3", pusat: [551991.921, 11836.616]}
+    dipertahankan: {slug: satimpo, sumber_file: "Model 3D - Kelurahan Satimpo.gml", gml_id: "ST_14062025-AAAA-00289-GeoAI02-5A828DB", pusat: [551991.768, 11836.592]}
+    alasan: "Salinan ganda antar kelurahan; dipertahankan salinan yang berada di dalam batas kelurahan foldernya (satimpo)"
+  - dikecualikan: {slug: guntung, sumber_file: "Model 3D - Kelurahan Guntung - Part III.gml", gml_id: "LK_14082025-AAAA-00210-GeoAI09-F1C2551", pusat: [551916.62, 11808.328]}
+    dipertahankan: {slug: satimpo, sumber_file: "Model 3D - Kelurahan Satimpo.gml", gml_id: "ST_14062025-AAAA-00219-GeoAI02-D8C7D3B", pusat: [551916.377, 11808.41]}
+    alasan: "Salinan ganda antar kelurahan; dipertahankan salinan yang berada di dalam batas kelurahan foldernya (satimpo)"
+  - dikecualikan: {slug: guntung, sumber_file: "Model 3D - Kelurahan Guntung - Part III.gml", gml_id: "LK_14082025-AAAA-00212-GeoAI09-E8ABE9E", pusat: [551997.537, 11756.491]}
+    dipertahankan: {slug: satimpo, sumber_file: "Model 3D - Kelurahan Satimpo.gml", gml_id: "ST_14062025-AAAA-00287-GeoAI02-F707A56", pusat: [551997.536, 11756.358]}
+    alasan: "Salinan ganda antar kelurahan; dipertahankan salinan yang berada di dalam batas kelurahan foldernya (satimpo)"
+  - dikecualikan: {slug: berebas_pantai, sumber_file: "Model 3D - Kelurahan Berebas Pantai.gml", gml_id: "BP_27052025-AAAA-00168-GeoAI01-9E58453", pusat: [553411.984, 12366.012]}
+    dipertahankan: {slug: berebas_tengah, sumber_file: "Model 3D - Kelurahan Berebas Tengah.gml", gml_id: "BT_27052025-AAAA-02717-GeoAI01-511877C", pusat: [553411.934, 12364.285]}
+    alasan: "Salinan ganda antar kelurahan; dipertahankan salinan yang berada di dalam batas kelurahan foldernya (berebas_tengah)"
+  - dikecualikan: {slug: bontang_baru, sumber_file: "GABUNGAN BONTANG BARU.gml", gml_id: "BB_15062025-AAAA-00515-GeoAI02-03CA862", pusat: [555396.058, 16046.504]}
+    dipertahankan: {slug: bontang_kuala, sumber_file: "Model 3D - Kelurahan Bontang Kuala.gml", gml_id: "BK_14082025-AAAA-01272-GEOAIT01-8101379", pusat: [555396.072, 16046.451]}
+    alasan: "Salinan ganda antar kelurahan; dipertahankan salinan yang berada di dalam batas kelurahan foldernya (bontang_kuala)"
+  - dikecualikan: {slug: berebas_pantai, sumber_file: "Model 3D - Kelurahan Berebas Pantai.gml", gml_id: "BP_27052025-AAAA-00209-GeoAI01-B82148E", pusat: [553382.904, 12430.099]}
+    dipertahankan: {slug: berebas_tengah, sumber_file: "Model 3D - Kelurahan Berebas Tengah.gml", gml_id: "BT_27052025-AAAA-02691-GeoAI01-A072030", pusat: [553382.966, 12430.197]}
+    alasan: "Salinan ganda antar kelurahan; dipertahankan salinan yang berada di dalam batas kelurahan foldernya (berebas_tengah)"
+  - dikecualikan: {slug: gunung_elai, sumber_file: "Model 3D - Kelurahan Gunung Elai - Part II.gml", gml_id: "GE_15062025-AAAA-01081-GeoAI02-E5C4D86", pusat: [554071.973, 16025.411]}
+    dipertahankan: {slug: gunung_elai, sumber_file: "Model 3D - Kelurahan Gunung Elai - Part III.gml", gml_id: "GE_15062025-AAAA-00262-GeoAI03-E4B758B", pusat: [554071.988, 16025.278]}
+    alasan: "Duplikat Gunung Elai Part II/III dengan geometri berbeda; dipertahankan Part III (lebih baru dan lebih tinggi); kepercayaan rendah"
+
+# Flag pada bangunan yang dipertahankan.
+tandai:
+  - {bangunan: {slug: api_api, sumber_file: "Model 3D - Kelurahan Api Api.gml", gml_id: "AA_13082025-AAAA-00047-GEOAIBTG01-0765762", pusat: [554713.116, 14558.046]}, flag: duplikat_kepercayaan_rendah}
+  - {bangunan: {slug: berebas_tengah, sumber_file: "Model 3D - Kelurahan Berebas Tengah.gml", gml_id: "BT_27052025-AAAA-02717-GeoAI01-511877C", pusat: [553411.934, 12364.285]}, flag: atribut_dari_duplikat}
+  - {bangunan: {slug: berebas_tengah, sumber_file: "Model 3D - Kelurahan Berebas Tengah.gml", gml_id: "BT_27052025-AAAA-02691-GeoAI01-A072030", pusat: [553382.966, 12430.197]}, flag: atribut_dari_duplikat}
+  - {bangunan: {slug: gunung_elai, sumber_file: "Model 3D - Kelurahan Gunung Elai - Part III.gml", gml_id: "GE_15062025-AAAA-00262-GeoAI03-E4B758B", pusat: [554071.988, 16025.278]}, flag: duplikat_kepercayaan_rendah}
+
+# Atribut diisi dari salinan yang dikecualikan (hanya bila atribut bangunan yang dipertahankan kosong) + flag atribut_dari_duplikat.
+atribut_dari_duplikat:
+  - {tujuan: {slug: berebas_tengah, sumber_file: "Model 3D - Kelurahan Berebas Tengah.gml", gml_id: "BT_27052025-AAAA-02717-GeoAI01-511877C", pusat: [553411.934, 12364.285]}, sumber: {slug: berebas_pantai, sumber_file: "Model 3D - Kelurahan Berebas Pantai.gml", gml_id: "BP_27052025-AAAA-00168-GeoAI01-9E58453", pusat: [553411.984, 12366.012]}, atribut: ['jumlah_lantai']}
+  - {tujuan: {slug: berebas_tengah, sumber_file: "Model 3D - Kelurahan Berebas Tengah.gml", gml_id: "BT_27052025-AAAA-02691-GeoAI01-A072030", pusat: [553382.966, 12430.197]}, sumber: {slug: berebas_pantai, sumber_file: "Model 3D - Kelurahan Berebas Pantai.gml", gml_id: "BP_27052025-AAAA-00209-GeoAI01-B82148E", pusat: [553382.904, 12430.099]}, atribut: ['jumlah_lantai']}
+
+# gml_id bentrok pada objek berbeda: KEDUANYA dipertahankan (hanya dicatat; tidak ada tindakan).
+pertahankan_keduanya:
+  - [{slug: api_api, sumber_file: "Model 3D - Kelurahan Api Api.gml", gml_id: "AA_13082025-AAAA-00193-GEOAIBTG01-6684057", pusat: [554642.962, 14496.303]}, {slug: api_api, sumber_file: "Model 3D - Kelurahan Api Api.gml", gml_id: "AA_13082025-AAAA-00193-GEOAIBTG01-6684057", pusat: [554643.534, 14497.735]}]
+  - [{slug: loktuan, sumber_file: "Model 3D - Kelurahan Loktuan - Part I.gml", gml_id: "LK_12082025-AAAA-02913-GEOAIBTG01-8994618", pusat: [553340.198, 18823.16]}, {slug: loktuan, sumber_file: "Model 3D - Kelurahan Loktuan - Part I.gml", gml_id: "LK_12082025-AAAA-02913-GEOAIBTG01-8994618", pusat: [553341.135, 18822.893]}]

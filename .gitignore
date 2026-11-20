@@ -18,6 +18,10 @@ data-pipeline/processed/*
 !data-pipeline/processed/.gitkeep
 # Tangkapan layar uji tampil (log JSON dan README folder tetap dilacak)
 data-pipeline/reports/uji_tampil_bontang_lestari/*.png
+data-pipeline/reports/uji_tampil_impor_resmi/*.png
+# Cadangan database (pg_dump) — berisi data; JANGAN di-commit
+data-pipeline/backups/*
+!data-pipeline/backups/.gitkeep
 
 # --- Aset 3D salinan untuk dev (sumber kebenaran: data-pipeline/processed/) ---
 frontend/public/tiles/*

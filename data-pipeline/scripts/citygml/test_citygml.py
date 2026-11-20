@@ -103,6 +103,14 @@ def uji_bersihkan_kotak_berelevasi_absolut():
             assert (cx - 5) * nx + (cy - 5) * ny > 0
 
 
+def uji_footprint_mikro():
+    def flag(lebar):
+        return set(bersihkan(mentah(kotak(lebar=lebar)), slug="uji", sumber_file="x.gml", sumber_part=None, epsg_sumber=32650, epsg_dipakai=32650).qc_flag)
+    assert {"footprint_mikro", "footprint_kurang_2m2"} <= flag(0.05)          # 0,0025 m2 < 0,01 m2
+    assert "footprint_mikro" not in flag(0.2) and "footprint_kurang_2m2" in flag(0.2)  # 0,04 m2: kecil tetapi bukan serpihan
+    assert not ({"footprint_mikro", "footprint_kurang_2m2"} & flag(10.0))
+
+
 def uji_bersihkan_atap_pelana_dan_flag():
     lantai = [(0, 0, 0), (10, 0, 0), (10, 10, 0), (0, 10, 0)]
     atap1 = [(0, 0, 3), (10, 0, 3), (10, 5, 5.7), (0, 5, 5.7)]
