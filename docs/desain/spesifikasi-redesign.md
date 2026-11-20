@@ -224,3 +224,7 @@ Bukti tangkapan layar ada di `docs/desain/uji-tema/`.
 **Ditinjau di Tahap 4:** pada tema gelap, kontras bangunan terhadap basemap di kawasan padat bernilai median 4,5 tetapi **persentil ke-10 hanya 1,8** (sisi bangunan yang membelakangi cahaya). Tidak diubah di Tahap 2; opsi yang akan dinilai: warna dasar bangunan tema gelap (saat ini tanpa gaya, warna tile `#B1BAC2`) atau pencahayaan. Putusan memakai tangkapan layar pembanding.
 
 **Skrip uji ulang:** `frontend/tests/browser/` (lihat README di sana).
+
+## 15. Tahap 3: penyimpangan dari rencana §10 (2026-11-20)
+
+Komponen digabung agar lebih ringkas: `map/MapOverlay.vue` memuat toggle 3D/Atas, kontrol peta, skala, dan koordinat; `composables/useMapControls.js` memuat kontrol dan pembacaan kamera (kompas, skala, koordinat); `ui/UiCard.vue` + `ui/UiIcon.vue` menggantikan `UiSegmented/UiSwitch/UiChip/UiIconButton/BasemapCard/View3DCard/LayersCard/NavigationCard` (kartu dibuat langsung di `LayerControl.vue`). `layout/AppRail.vue` kini berisi satu tombol (panel informasi + legenda); `BrandMark` berupa SVG inline di `AppHeader.vue`. Tangkapan layar: `docs/desain/tahap3/`.
