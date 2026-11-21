@@ -42,7 +42,7 @@ spectra/
 | `npm run build` | Build produksi ke `dist/`. **Jalankan untuk verifikasi.** |
 | `npm run preview` | Pratinjau hasil build. |
 
-Tes frontend: `npm test` (`node --test`, 19 tes untuk helper murni, kontrak simulasi, mode tampilan, deteksi GPU). Linter belum ada.
+Tes frontend: `npm test` (`node --test`, 39 tes untuk helper murni, kontrak simulasi, mode tampilan, deteksi GPU, tema, koordinat, waktu WITA). Uji browser: `npm run test:browser` (lihat `frontend/tests/browser/README.md`). Linter belum ada.
 Verifikasi utama = `npm run build` + `npm test` + cek akses HTTP aset.
 
 ### Data Pipeline
@@ -88,7 +88,9 @@ Skrip yang ada: `04_build_master.py` (stdlib), serta skrip GeoJSON dan sumber da
 |---------------------------|--------|
 | `python3 -m venv backend/.venv && backend/.venv/bin/pip install -r backend/requirements.txt` | Pasang dependensi (ikut memasang `data-pipeline/requirements.txt`). |
 | `backend/.venv/bin/uvicorn app.main:app --app-dir backend --port 8100` | Jalankan API di `http://127.0.0.1:8100/api` (satu worker). Vite mem-proxy `/api` ke sini. |
-| `backend/.venv/bin/pytest backend -q` | Tes backend (tanpa jaringan). |
+| `backend/.venv/bin/pytest backend -q` | Tes backend (tanpa jaringan; sumber terkini diuji dengan fixture di `backend/tests/fixtures/`). |
+
+**Kondisi Terkini (`/api/terkini/{gempa,cuaca?kelurahan=<slug>,hotspot,laut,status}`, `backend/app/terkini.py`).** Sumber: BMKG (gempa, prakiraan cuaca per kelurahan lewat kode adm4 di `backend/config/wilayah_bontang.yaml`), NASA FIRMS (hotspot VIIRS), Open-Meteo Marine. Aturan: browser TIDAK memanggil sumber ini langsung; hanya GET, https:443, host di `backend/config/allowed_hosts_terkini`, timeout 10 dtk, redirect tidak diikuti. Cache memori dengan TTL (gempa 2 mnt, cuaca 60 mnt, hotspot 30 mnt, laut 60 mnt); gagal -> cache terakhir `stale=true`, tanpa cache -> `tersedia=false`; **tidak boleh ada angka karangan**. Keluaran dinormalisasi (tiap respons: `sumber`, `atribusi`, `url_sumber`, `diambil_pada`, `stale`); waktu ditampilkan WITA (frontend `utils/terkini.js`). **`FIRMS_MAP_KEY`** hanya dari `backend/.env` (ter-ignore; contoh `backend/.env.example`); jangan dicetak, di-log, atau disalin ke berkas lain; URL FIRMS tidak pernah ikut di pesan galat. Frontend: `terkiniStore` + `useTerkini` (polling mengikuti TTL, berhenti saat tab tersembunyi, **tanpa `requestRender()`**), kartu di `components/terkini/`, tab "Kondisi terkini" di `PanelKanan.vue`.
 
 ---
 

@@ -20,6 +20,8 @@ cd frontend && npm install && npm run dev                                   # ht
 python3 -m venv backend/.venv && backend/.venv/bin/pip install -r backend/requirements.txt
 backend/.venv/bin/uvicorn app.main:app --app-dir backend --port 8100        # API; Vite mem-proxy /api
 cd frontend && npm test && npm run build ; backend/.venv/bin/pytest backend -q
+# Kondisi Terkini (panel kanan): hotspot butuh kunci NASA FIRMS gratis (https://firms.modaps.eosdis.nasa.gov/api/map_key/).
+#   cp backend/.env.example backend/.env   lalu isi FIRMS_MAP_KEY (ter-ignore git). Tanpa kunci, hanya kartu Hotspot yang nonaktif.
 ```
 Frontend memuat 3D Tiles dari `frontend/public/tiles/` (data, tidak ada di repo): tanpa data itu peta tampil tetapi tanpa bangunan. Cara mengisinya ada di tabel di bawah.
 Konfigurasi basis data pipeline: salin `data-pipeline/.env.example` ke `data-pipeline/.env` (di-ignore git) dan isi sandi acak; **jangan commit `.env`**.

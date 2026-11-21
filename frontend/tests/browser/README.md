@@ -25,3 +25,6 @@ Pengukuran (bukan lulus/gagal): `ukur_performa.cjs` (FPS/GPU, env `TEMA`, `MODE`
 
 ## Belum tercakup
 Uji sorotan bangunan dan warna campuran (klik bangunan, ganti tema, batalkan) serta kontras bangunan terhadap basemap diukur manual di Tahap 2 (bukti: `docs/desain/uji-tema/`); skrip otomatisnya belum ada. Mengandalkan label tombol UI (`Tema terang/gelap/mengikuti perangkat`, `Citra satelit`); ubah skrip bila label berubah.
+
+## Kondisi Terkini
+`uji_terkini.cjs` (22 uji: kedua tema, data asli, backend mati, `stale`, FIRMS belum dikonfigurasi, tanpa request langsung ke host luar, kontras teks, GPU diam) **tidak ikut `test:browser`**: butuh backend dengan kode terbaru di balik proxy `/api`, internet di sisi backend, dan `FIRMS_MAP_KEY`. Jalankan: `APP_URL=http://localhost:3001 SHOT_DIR=docs/desain/terkini node frontend/tests/browser/uji_terkini.cjs`.
