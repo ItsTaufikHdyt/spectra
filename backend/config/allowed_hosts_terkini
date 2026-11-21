@@ -1,0 +1,6 @@
+# Host sumber "Kondisi Terkini" yang boleh diakses backend (satu host per baris; https:443, hanya GET).
+# Terpisah dari allowed_hosts (geoportal) agar pengguna tidak bisa menambahkan sumber ini sebagai layer.
+data.bmkg.go.id
+api.bmkg.go.id
+marine-api.open-meteo.com
+firms.modaps.eosdis.nasa.gov

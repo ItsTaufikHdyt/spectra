@@ -1,0 +1,39 @@
+# Konfigurasi wilayah untuk "Kondisi Terkini" (backend/app/terkini.py).
+# Diverifikasi 2026-11-22.
+
+pusat_bontang: {lat: 0.1143, lon: 117.4771}   # tengah kotak batas 15 kelurahan (jarak gempa dihitung dari sini)
+
+# Kode adm4 (kode wilayah Kemendagri) diambil dari atribut `kdpumdes` pada
+# data-pipeline/processed/geojson/batas-kelurahan.norm.geojson (data batas resmi geoportal Pemkot).
+# VERIFIKASI: tiap kode dipanggil ke https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=<kode>; semua 15 mengembalikan
+# data dan nama desa/kecamatan sama dengan nama kelurahan di data batas (selisih ejaan: "Lok Tuan", "Berbas", "Api-api").
+kelurahan:
+  - {slug: bontang_kuala, nama: "Bontang Kuala", adm4: "64.74.01.1001"}
+  - {slug: bontang_baru, nama: "Bontang Baru", adm4: "64.74.01.1002"}
+  - {slug: loktuan, nama: "Loktuan", adm4: "64.74.01.1003"}
+  - {slug: guntung, nama: "Guntung", adm4: "64.74.01.1004"}
+  - {slug: gunung_elai, nama: "Gunung Elai", adm4: "64.74.01.1005"}
+  - {slug: api_api, nama: "Api Api", adm4: "64.74.01.1006"}
+  - {slug: tanjung_laut, nama: "Tanjung Laut", adm4: "64.74.02.1001"}
+  - {slug: berebas_tengah, nama: "Berebas Tengah", adm4: "64.74.02.1002"}
+  - {slug: berebas_pantai, nama: "Berebas Pantai", adm4: "64.74.02.1003"}
+  - {slug: satimpo, nama: "Satimpo", adm4: "64.74.02.1004"}
+  - {slug: bontang_lestari, nama: "Bontang Lestari", adm4: "64.74.02.1005"}
+  - {slug: tanjung_laut_indah, nama: "Tanjung Laut Indah", adm4: "64.74.02.1006"}
+  - {slug: belimbing, nama: "Belimbing", adm4: "64.74.03.1001"}
+  - {slug: gunung_telihan, nama: "Gunung Telihan", adm4: "64.74.03.1002"}
+  - {slug: kanaan, nama: "Kanaan", adm4: "64.74.03.1003"}
+
+# Titik laut Open-Meteo Marine (hasil Tahap 0). Open-Meteo memilih sel laut terdekat (resolusi ±0,08°, ±9 km); titik
+# darat pun dikembalikan sebagai sel laut terdekat. Koordinat di bawah adalah SEL YANG DIKEMBALIKAN API (lat/lon respons),
+# ±13 km di timur pantai Bontang (Selat Makassar), bukan perairan dangkal tepat di pantai. Semua nilai tidak null (48/48 jam).
+laut:
+  - {id: utara,   nama: "Laut utara (depan Lok Tuan)",       lat: 0.20833588, lon: 117.625015}
+  - {id: tengah,  nama: "Laut tengah (depan Bontang Kuala)", lat: 0.125,      lon: 117.625015}
+  - {id: selatan, nama: "Laut selatan (depan Tanjung Laut)", lat: 0.041664124, lon: 117.625015}
+
+# Bbox FIRMS = kotak batas 15 kelurahan (117.3883, 0.0225, 117.5659, 0.2060) + buffer 20 km. Urutan: west,south,east,north.
+firms:
+  bbox: "117.2087,-0.1572,117.7455,0.3857"
+  sumber: [VIIRS_SNPP_NRT, VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT]
+  hari: 3

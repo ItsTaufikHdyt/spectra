@@ -4,6 +4,7 @@ main.py — API backend spectra untuk layer geoportal (WFS/CSW), semua di bawah 
 Jalankan (dari root repo, satu worker; lihat registry.py):
     backend/.venv/bin/uvicorn app.main:app --app-dir backend --port 8100
 
+Kondisi terkini (gempa, cuaca, hotspot, laut) ada di terkini.py (/api/terkini/*).
 Browser TIDAK memanggil WFS/CSW langsung; frontend memanggil endpoint ini (proxy Vite /api).
 Tidak ada operasi tulis ke geoportal: "hapus" hanya menghapus entri registry dan cache lokal.
 """
@@ -22,6 +23,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, Field
 
 from . import geoportal
+from .terkini import router as terkini_router
 from .geoportal import GeoportalError, explain
 from .registry import LayerTidakAda, Registry, new_id
 
@@ -29,7 +31,16 @@ DP = Path(__file__).resolve().parents[2] / "data-pipeline"
 USER_LAYERS = Path(os.environ.get("SPECTRA_USER_LAYERS_DIR", DP / "processed" / "user_layers"))
 PALETTE = ["#F97316", "#A78BFA", "#F472B6", "#34D399", "#60A5FA", "#E879F9"]
 
+# Rahasia (mis. FIRMS_MAP_KEY) dari backend/.env (ter-ignore git); nilainya tidak pernah dicetak.
+_ENV = Path(__file__).resolve().parents[1] / ".env"
+if _ENV.is_file():
+    for _baris in _ENV.read_text(encoding="utf-8").splitlines():
+        if "=" in _baris and not _baris.lstrip().startswith("#"):
+            _k, _v = _baris.split("=", 1)
+            os.environ.setdefault(_k.strip(), _v.strip().strip("\"'"))
+
 app = FastAPI(title="spectra backend", docs_url="/api/docs", redoc_url=None, openapi_url="/api/openapi.json")
+app.include_router(terkini_router)
 registry = Registry(USER_LAYERS)
 
 
