@@ -24,13 +24,10 @@
         <aside
           v-show="rightOpen"
           id="panel-kanan"
-          aria-label="Informasi objek dan legenda"
+          aria-label="Informasi objek, legenda, dan kondisi terkini"
           class="absolute inset-y-0 right-3 z-30 w-[320px] max-w-[92vw] overflow-y-auto rounded-2xl border border-bontang-line bg-bontang-ink p-2 shadow-2xl space-y-3 md:right-20 xl:static xl:z-auto xl:shrink-0 xl:border-0 xl:bg-transparent xl:p-0 xl:shadow-none"
         >
-          <MapLegend />
-          <div class="rounded-2xl border border-bontang-line bg-bontang-panel">
-            <ObjectInfoPanel />
-          </div>
+          <PanelKanan :open="rightOpen" />
         </aside>
       </Transition>
 
@@ -44,10 +41,9 @@ import { nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import AppHeader from '@/components/layout/AppHeader.vue';
 import AppRail from '@/components/layout/AppRail.vue';
 import CesiumCanvas from '@/components/map/CesiumCanvas.vue';
-import MapLegend from '@/components/map/MapLegend.vue';
 import MapOverlay from '@/components/map/MapOverlay.vue';
 import LayerControl from '@/components/panels/LayerControl.vue';
-import ObjectInfoPanel from '@/components/panels/ObjectInfoPanel.vue';
+import PanelKanan from '@/components/panels/PanelKanan.vue';
 import { useObjectStore } from '@/stores/objectStore';
 
 // Breakpoint `xl` Tailwind (1280 px): di atasnya panel kiri ikut alur layout.

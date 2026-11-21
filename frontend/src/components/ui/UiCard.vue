@@ -10,10 +10,10 @@
         :aria-controls="`${id}-isi`"
         @click="open = !open"
       >
-        {{ title }}
+        <span class="flex items-center gap-2"><slot name="ikon" />{{ title }}</span>
         <UiIcon name="chevron" class="text-bontang-muted motion-safe:transition-transform" :class="open ? '' : 'rotate-180'" />
       </button>
-      <span v-else :id="id" class="block px-4 pt-3 text-body font-semibold">{{ title }}</span>
+      <span v-else :id="id" class="flex items-center gap-2 px-4 pt-3 text-body font-semibold"><slot name="ikon" />{{ title }}</span>
     </h2>
     <div v-show="open" :id="`${id}-isi`" class="px-4 pb-4" :class="collapsible ? '' : 'pt-2'">
       <slot />
